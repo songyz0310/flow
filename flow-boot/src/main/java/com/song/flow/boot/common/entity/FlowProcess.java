@@ -6,13 +6,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "flow_process")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class FlowProcess {
 
 	@Id
-	@GeneratedValue
 	@Column(name = "process_id")
+	@GeneratedValue(generator = "jpa-uuid")
 	private String processId;
 
 	@Column(name = "process_key")
@@ -24,7 +27,7 @@ public class FlowProcess {
 	@Column(name = "file_path")
 	private String filePath;
 
-	@Column(name = "create_time")
+	@Column(name = "create_time", updatable = false)
 	private String createTime;
 
 	@Column(name = "update_time")

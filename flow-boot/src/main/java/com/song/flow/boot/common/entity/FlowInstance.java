@@ -2,32 +2,40 @@ package com.song.flow.boot.common.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import com.song.flow.boot.common.enums.EntityType;
+
 @Entity
 @Table(name = "flow_instance")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class FlowInstance {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "jpa-uuid")
 	@Column(name = "instance_id")
 	private String instanceId;
 
-	@Column(name = "process_id")
+	@Column(name = "process_id", updatable = false)
 	private String processId;
 
-	@Column(name = "entity_type")
-	private Integer entityType;
+	@Column(name = "entity_type", updatable = false)
+	@Enumerated(EnumType.ORDINAL)
+	private EntityType entityType;
 
-	@Column(name = "entity_id")
+	@Column(name = "entity_id", updatable = false)
 	private String entityId;
 
 	@Column(name = "status")
 	private String status;
 
-	@Column(name = "create_time")
+	@Column(name = "create_time", updatable = false)
 	private String createTime;
 
 	@Column(name = "update_time")
@@ -52,11 +60,11 @@ public class FlowInstance {
 		this.processId = processId;
 	}
 
-	public Integer getEntityType() {
+	public EntityType getEntityType() {
 		return entityType;
 	}
 
-	public void setEntityType(Integer entityType) {
+	public void setEntityType(EntityType entityType) {
 		this.entityType = entityType;
 	}
 

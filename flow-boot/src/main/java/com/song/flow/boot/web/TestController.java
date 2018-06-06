@@ -1,45 +1,53 @@
 package com.song.flow.boot.web;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.song.flow.boot.common.Response;
+import com.song.flow.boot.common.entity.FlowInstance;
 import com.song.flow.boot.common.entity.FlowProcess;
-import com.song.flow.boot.repository.ProcessRepository;
+import com.song.flow.boot.common.enums.EntityType;
+import com.song.flow.boot.repository.FlowInstanceRepository;
+import com.song.flow.boot.repository.FlowProcessRepository;
 
 @RestController
 @RequestMapping("/flow/test")
 public class TestController {
 
 	@Autowired
-	private ProcessRepository processRepository;
+	private FlowProcessRepository flowProcessRepository;
+	@Autowired
+	private FlowInstanceRepository flowInstanceRepository;
 
-	@GetMapping("/insert")
-	public Response insert(@RequestBody FlowProcess flowProcess) {
-		flowProcess.setProcessId(UUID.randomUUID().toString());
-		processRepository.save(flowProcess);
+	@PostMapping("/insert")
+	public Response insert(@RequestBody FlowProcess flowProcess, FlowInstance flowInstance) {
+		flowProcessRepository.save(flowProcess);
+		flowInstance = new FlowInstance();
+		flowInstance.setEntityType(EntityType.TICKET);
+		
+		flowInstanceRepository.save(flowInstance);
 		return Response.okResponse(flowProcess);
 	}
 
 	@GetMapping("/query/{id}")
 	public Response query(@PathVariable String id) {
-		return Response.okResponse(processRepository.findById(id));
+		return Response.okResponse(flowProcessRepository.findById(id));
 	}
 
 	@GetMapping("/query/list")
 	public Response queryList() {
-		return Response.okResponse(processRepository.findAll());
+//		return Response.okResponse(flowProcessRepository.findAll());
+		return Response.okResponse(flowInstanceRepository.findAll());
 	}
 
 	@GetMapping("/clear")
 	public Response clear() {
-		processRepository.deleteAll();
+		flowProcessRepository.deleteAll();
 		return Response.okResponse(null);
 	}
 
