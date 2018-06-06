@@ -77,7 +77,7 @@ public class ProcessController {
 	public Response queryList() {
 		return Response.okResponse(iProcessService.queryList());
 	}
-	
+
 	@GetMapping("/clear")
 	public Response clear() {
 		iProcessService.clear();
