@@ -3,7 +3,6 @@ package com.song.flow.boot.common.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,8 +11,8 @@ import javax.persistence.Table;
 public class FlowInstance {
 
 	@Id
+	@GeneratedValue
 	@Column(name = "instance_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String instanceId;
 
 	@Column(name = "process_id")
