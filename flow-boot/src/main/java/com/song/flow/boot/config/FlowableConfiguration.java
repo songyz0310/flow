@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class WorkflowConfiguration {
+public class FlowableConfiguration {
 
 	@Autowired
 	private ProcessEngine processEngine;
@@ -59,5 +59,11 @@ public class WorkflowConfiguration {
 	public DynamicBpmnService getDynamicBpmnService() {
 		return processEngine.getDynamicBpmnService();
 	}
+
+	// @Bean
+	// public LocalContainerEntityManagerFactoryBean
+	// getLocalContainerEntityManagerFactoryBean() {
+	// return processEngine.getDynamicBpmnService();
+	// }
 
 }

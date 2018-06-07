@@ -68,14 +68,24 @@ public class ProcessController {
 		}
 	}
 
-	@GetMapping("/query/{id}")
-	public Response query(@PathVariable String id) {
-		return Response.okResponse(iProcessService.queryById(id));
+	@GetMapping("/query/definition/{processDefinitionId}")
+	public Response queryDefinition(@PathVariable String processDefinitionId) {
+		return Response.okResponse(iProcessService.queryDefinitionById(processDefinitionId));
 	}
 
-	@GetMapping("/query/list")
-	public Response queryList() {
-		return Response.okResponse(iProcessService.queryList());
+	@GetMapping("/query/definition/list")
+	public Response queryDefinitionList() {
+		return Response.okResponse(iProcessService.queryDefinitionList());
+	}
+
+	@GetMapping("/query/deployment/{deploymentId}")
+	public Response queryDeployment(@PathVariable String deploymentId) {
+		return Response.okResponse(iProcessService.queryDeploymentById(deploymentId));
+	}
+
+	@GetMapping("/query/deployment/list")
+	public Response queryDeploymentList() {
+		return Response.okResponse(iProcessService.queryDeploymentList());
 	}
 
 	@GetMapping("/clear")

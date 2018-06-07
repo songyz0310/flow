@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.song.flow.boot.common.form.FileForm;
+import com.song.flow.boot.common.form.MyForm;
 import com.song.flow.boot.common.view.FormDefinitionView;
 
 @Service
@@ -26,13 +26,14 @@ public class IFormServiceImpl implements IFormService {
 	private FormRepositoryService formRepositoryService;
 
 	@Transactional
-	public void deploy(FileForm form) {
+	public void deploy(MyForm form) {
 		switch (form.getType()) {
 		case JSON:
 			try (InputStream inputStream = form.getFile()) {
 				formRepositoryService.createDeployment()//
-						.name(form.getName())//
+						.parentDeploymentId(form.getParentDeploymentId())//
 						.addInputStream(form.getKey(), inputStream)//
+						.name(form.getName())//
 						.deploy();
 			} catch (Exception e) {
 				logger.error("表单部署Json异常，exception:{}", e);
@@ -46,8 +47,8 @@ public class IFormServiceImpl implements IFormService {
 
 	}
 
-	public FormDefinitionView queryById(String id) {
-		FormDefinition fd = formRepositoryService.createFormDefinitionQuery().formId(id).singleResult();
+	public FormDefinitionView queryById(String formId) {
+		FormDefinition fd = formRepositoryService.createFormDefinitionQuery().formId(formId).singleResult();
 		if (Objects.isNull(fd)) {
 			return null;
 		}

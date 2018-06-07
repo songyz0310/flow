@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.zip.ZipInputStream;
 
 import org.flowable.engine.RepositoryService;
+import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.song.flow.boot.common.form.FileForm;
+import com.song.flow.boot.common.view.DeploymentView;
 import com.song.flow.boot.common.view.ProcessDefinitionView;
 
 @Service
@@ -56,10 +58,17 @@ public class IProcessServiceImpl implements IProcessService {
 		}
 	}
 
-	public List<ProcessDefinitionView> queryById(String id) {
-		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery()//
-				.processDefinitionId(id)//
-				.list();
+	public ProcessDefinitionView queryDefinitionById(String processDefinitionId) {
+		ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()//
+				.processDefinitionId(processDefinitionId)//
+				.singleResult();
+		ProcessDefinitionView vo = new ProcessDefinitionView();
+		BeanUtils.copyProperties(pd, vo);
+		return vo;
+	}
+
+	public List<ProcessDefinitionView> queryDefinitionList() {
+		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
 		List<ProcessDefinitionView> data = new LinkedList<>();
 		list.forEach(pd -> {
 			ProcessDefinitionView vo = new ProcessDefinitionView();
@@ -70,11 +79,20 @@ public class IProcessServiceImpl implements IProcessService {
 		return data;
 	}
 
-	public List<ProcessDefinitionView> queryList() {
-		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-		List<ProcessDefinitionView> data = new LinkedList<>();
+	public DeploymentView queryDeploymentById(String deploymentId) {
+		Deployment deployment = repositoryService.createDeploymentQuery()//
+				.deploymentId(deploymentId)//
+				.singleResult();
+		DeploymentView vo = new DeploymentView();
+		BeanUtils.copyProperties(deployment, vo);
+		return vo;
+	}
+
+	public List<DeploymentView> queryDeploymentList() {
+		List<Deployment> list = repositoryService.createDeploymentQuery().list();
+		List<DeploymentView> data = new LinkedList<>();
 		list.forEach(pd -> {
-			ProcessDefinitionView vo = new ProcessDefinitionView();
+			DeploymentView vo = new DeploymentView();
 			BeanUtils.copyProperties(pd, vo);
 			data.add(vo);
 		});
