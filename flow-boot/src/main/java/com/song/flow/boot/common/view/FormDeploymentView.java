@@ -2,6 +2,8 @@ package com.song.flow.boot.common.view;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 表单部署
  * 
@@ -9,8 +11,10 @@ import java.util.Date;
  *
  */
 public class FormDeploymentView {
+	
 	private String id;
 	private String name;
+	@JsonFormat(timezone = "Asia/Shanghai", pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date deploymentTime;
 	private String category;
 	private String tenantId;

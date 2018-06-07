@@ -3,6 +3,8 @@ package com.song.flow.boot.common.view;
 import java.util.Date;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class TaskView {
 
 	private String id;
@@ -19,8 +21,10 @@ public class TaskView {
 	private String subScopeId;
 	private String scopeType;
 	private String scopeDefinitionId;
+	@JsonFormat(timezone = "Asia/Shanghai", pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	private String taskDefinitionKey;
+	@JsonFormat(timezone = "Asia/Shanghai", pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dueDate;
 	private String category;
 	private String parentTaskId;
