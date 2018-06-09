@@ -24,7 +24,7 @@ public class ITaskServiceImpl implements ITaskService {
 	private TaskService taskService;
 	@Autowired
 	private FormService formService;
-	
+
 	public TaskView queryById(String taskId) {
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		TaskView vo = new TaskView();
@@ -43,7 +43,7 @@ public class ITaskServiceImpl implements ITaskService {
 		list.clear();
 		return data;
 	}
-	
+
 	public FormInfoView queryFormInfo(String taskId) {
 		FormInfo formInfo = taskService.getTaskFormModel(taskId);
 		FormModel formModel = formInfo.getFormModel();
@@ -56,12 +56,18 @@ public class ITaskServiceImpl implements ITaskService {
 	}
 
 	public Object queryForm(String taskId) {
-		TaskFormData taskFormData = formService.getTaskFormData(taskId);//内置表单（直接在流程中定义）
+		TaskFormData taskFormData = formService.getTaskFormData(taskId);// 内置表单（直接在流程中定义）
 		System.out.println(taskFormData);
-		Object renderedTaskForm = formService.getRenderedTaskForm(taskId);//这个方法是返回一个纯文本的（外置表单（一个.form结尾的文件，），可以是一个div标签）
+		Object renderedTaskForm = formService.getRenderedTaskForm(taskId);// 这个方法是返回一个纯文本的（外置表单（一个.form结尾的文件，），可以是一个div标签）
 		System.out.println(renderedTaskForm);
 		return renderedTaskForm;
 	}
-	
+
+	public void completeTask(String taskId) {
+		taskService.complete(taskId);
+		String processDefinitionId = "";
+//		taskService.createTaskQuery().processInstanceId(processInstanceId)
+
+	}
 
 }
