@@ -1,5 +1,7 @@
 package com.song.flow.boot.common.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,10 +10,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * 流程
+ * 
+ * @author songyz
+ *
+ */
 @Entity
 @Table(name = "flow_process")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class FlowProcess {
+public class FlowProcess extends BaseEntityType {
 
 	@Id
 	@Column(name = "process_id")
@@ -28,10 +36,10 @@ public class FlowProcess {
 	private String filePath;
 
 	@Column(name = "create_time", updatable = false)
-	private String createTime;
+	private Date createTime;
 
 	@Column(name = "update_time")
-	private String updateTime;
+	private Date updateTime;
 
 	public String getProcessId() {
 		return processId;
@@ -65,19 +73,19 @@ public class FlowProcess {
 		this.filePath = filePath;
 	}
 
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
-	public String getUpdateTime() {
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(String updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

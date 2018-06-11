@@ -1,21 +1,25 @@
 package com.song.flow.boot.common.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.song.flow.boot.common.enums.EntityType;
-
+/**
+ * 流程实例
+ * 
+ * @author songyz
+ *
+ */
 @Entity
 @Table(name = "flow_instance")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class FlowInstance {
+public class FlowInstance extends BaseEntityType {
 
 	@Id
 	@GeneratedValue(generator = "jpa-uuid")
@@ -25,24 +29,17 @@ public class FlowInstance {
 	@Column(name = "process_id", updatable = false)
 	private String processId;
 
-	@Column(name = "entity_type", updatable = false)
-	@Enumerated(EnumType.ORDINAL)
-	private EntityType entityType;
-
-	@Column(name = "entity_id", updatable = false)
-	private String entityId;
-
 	@Column(name = "status")
 	private String status;
 
 	@Column(name = "create_time", updatable = false)
-	private String createTime;
+	private Date createTime;
 
 	@Column(name = "update_time")
-	private String updateTime;
+	private Date updateTime;
 
-	@Column(name = "step_key")
-	private String stepKey;
+	@Column(name = "step_id")
+	private String stepId;
 
 	public String getInstanceId() {
 		return instanceId;
@@ -60,22 +57,6 @@ public class FlowInstance {
 		this.processId = processId;
 	}
 
-	public EntityType getEntityType() {
-		return entityType;
-	}
-
-	public void setEntityType(EntityType entityType) {
-		this.entityType = entityType;
-	}
-
-	public String getEntityId() {
-		return entityId;
-	}
-
-	public void setEntityId(String entityId) {
-		this.entityId = entityId;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -84,28 +65,28 @@ public class FlowInstance {
 		this.status = status;
 	}
 
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
-	public String getUpdateTime() {
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(String updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
-	public String getStepKey() {
-		return stepKey;
+	public String getStepId() {
+		return stepId;
 	}
 
-	public void setStepKey(String stepKey) {
-		this.stepKey = stepKey;
+	public void setStepId(String stepId) {
+		this.stepId = stepId;
 	}
 
 }

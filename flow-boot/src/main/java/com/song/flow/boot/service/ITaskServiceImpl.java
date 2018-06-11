@@ -65,8 +65,8 @@ public class ITaskServiceImpl implements ITaskService {
 
 	public void completeTask(String taskId) {
 		taskService.complete(taskId);
-		String processDefinitionId = "";
-//		taskService.createTaskQuery().processInstanceId(processInstanceId)
+		// String processDefinitionId = "";
+		// taskService.createTaskQuery().processInstanceId(processInstanceId)
 
 	}
 
