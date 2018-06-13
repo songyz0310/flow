@@ -1,4 +1,5 @@
-flow-boot/.classpath
-flow-boot/.project
-flow-boot/.settings/
 *.gitignore
+*.classpath
+*.project
+flow-boot/.settings/
+flow-boot/*/.settings/

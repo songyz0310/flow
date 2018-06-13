@@ -6,89 +6,39 @@
 	<groupId>com.song</groupId>
 	<artifactId>flow-boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>flow-boot</name>
-	<url>http://maven.apache.org</url>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
-		<relativePath />
-	</parent>
+	<modules>
+		<module>flow-boot-process</module>
+		<module>flow-boot-ticket</module>
+		<module>flow-boot-common</module>
+		<module>flow-boot-api</module>
+	</modules>
 
 	<properties>
 
-		<!-- Plugin的属性定义 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 
+		<flowable.version>6.3.0</flowable.version>
+		<springboot.version>2.0.0.RELEASE</springboot.version>
+
+
 	</properties>
 
-	<dependencies>
-
-		<dependency>
-			<groupId>org.flowable</groupId>
-			<artifactId>flowable-spring-boot-starter</artifactId>
-			<version>6.3.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
-
-
-
-
-	</dependencies>
-
-
-	<build>
-		<plugins>
-			<plugin>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<fork>true</fork>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${springboot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 </project>
