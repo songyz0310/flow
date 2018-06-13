@@ -1,4 +1,4 @@
-package org.flow.boot.ticket.controller;
+package org.flow.boot.ticket.web;
 
 import java.util.Objects;
 

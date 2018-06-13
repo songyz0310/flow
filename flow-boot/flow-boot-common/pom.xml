@@ -10,19 +10,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>flow-boot-common</artifactId>
-	<name>flow-boot-common</name>
-	<url>http://maven.apache.org</url>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-
 	</dependencies>
-
 </project>

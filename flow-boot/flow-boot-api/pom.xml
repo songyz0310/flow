@@ -10,17 +10,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>flow-boot-api</artifactId>
-	<name>flow-boot-api</name>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>com.song</groupId>
 			<artifactId>flow-boot-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-
 	</dependencies>
-
 </project>

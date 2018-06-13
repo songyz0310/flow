@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%c][%M][%L]---- %m%n
+			</pattern>
+		</encoder>
+	</appender>
+	<!-- project default level -->
+	<logger name="com.flow.boot.eureka" level="info" />
+	<root level="info">
+		<appender-ref ref="console" />
+	</root>
+</configuration>

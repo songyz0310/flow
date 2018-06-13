@@ -1,4 +1,4 @@
-package org.flow.boot.process.controller;
+package org.flow.boot.process.web;
 
 import org.flow.boot.common.Response;
 import org.flow.boot.common.enums.EntityType;
@@ -35,7 +35,7 @@ public class TestController {
 
 	@GetMapping("/query/{id}")
 	public Response query(@PathVariable String id) {
-		return Response.okResponse(flowProcessRepository.findById(id));
+		return Response.okResponse(flowProcessRepository.getOne(id));
 	}
 
 	@GetMapping("/query/list")
