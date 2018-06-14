@@ -4,9 +4,12 @@ public enum ErrorCode {
 
 	UNKNOWN(-1, "未知异常"), //
 	SUCCESS(0, "成功"), //
+	
+	BASE_REQUEST_400(1001, "缺少必要基础参数"), //
 
 	// 基础异常
-	PARAM_MISS(1001, "缺少必要基础参数"), //
+	PARAM_MISS(2001, "缺少必要基础参数"), //
+	
 	;
 
 	// 系统未知异常

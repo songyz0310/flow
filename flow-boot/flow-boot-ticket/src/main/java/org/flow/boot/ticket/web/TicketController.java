@@ -28,14 +28,11 @@ public class TicketController {
 		if (Objects.isNull(ticket) || ticket.paramIsMiss()) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 		}
+		logger.error("======================");
 
-		try {
-			ticketService.openTicket(ticket);
-			return Response.okResponse("成功");
-		} catch (Exception e) {
-			logger.error("流程部署Xml接口异常，exception:{}", e);
-			return Response.errorResponse(ErrorCode.UNKNOWN);
-		}
+		ticketService.openTicket(ticket);
+		return Response.okResponse("成功");
+
 	}
 
 }
