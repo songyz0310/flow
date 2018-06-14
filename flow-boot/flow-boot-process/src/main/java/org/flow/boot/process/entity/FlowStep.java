@@ -35,10 +35,13 @@ public class FlowStep {
 
 	@Column(name = "step_rank")
 	private int stepRank;
-	
+
 	@Column(name = "step_type")
 	@Enumerated(EnumType.STRING)
 	private StepType stepType;
+
+	@Column(name = "page_id")
+	private String pageId;
 
 	public String getStepId() {
 		return stepId;
@@ -78,6 +81,14 @@ public class FlowStep {
 
 	public void setStepRank(int stepRank) {
 		this.stepRank = stepRank;
+	}
+
+	public String getPageId() {
+		return pageId;
+	}
+
+	public void setPageId(String pageId) {
+		this.pageId = pageId;
 	}
 
 }

@@ -4,10 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.flow.boot.common.enums.EntityType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -19,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "flow_process")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class FlowProcess extends BaseEntityType {
+public class FlowProcess {
 
 	@Id
 	@Column(name = "process_id")
@@ -34,6 +37,10 @@ public class FlowProcess extends BaseEntityType {
 
 	@Column(name = "file_path")
 	private String filePath;
+
+	@Column(name = "entity_type", updatable = false)
+	@Enumerated(EnumType.STRING)
+	protected EntityType entityType;
 
 	@Column(name = "create_time", updatable = false)
 	private Date createTime;
@@ -87,6 +94,14 @@ public class FlowProcess extends BaseEntityType {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public EntityType getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(EntityType entityType) {
+		this.entityType = entityType;
 	}
 
 }

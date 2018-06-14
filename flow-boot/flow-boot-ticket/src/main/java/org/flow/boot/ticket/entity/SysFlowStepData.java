@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "sys_flow_step_data")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class SysFlowStepData {
+public class SysFlowStepData extends BaseEntityType {
 
 	@Id
 	@Column(name = "data_id")
@@ -35,11 +35,11 @@ public class SysFlowStepData {
 	@Column(name = "step_name", updatable = false)
 	private String stepName;
 
-	@Column(name = "spc_id", updatable = false)
-	private String spcId;
+	@Column(name = "fpc_id", updatable = false)
+	private String fpcId;
 
-	@Column(name = "spc_name", updatable = false)
-	private String spcName;
+	@Column(name = "fpc_name", updatable = false)
+	private String fpcName;
 
 	@Column(name = "create_time", updatable = false)
 	private Date createTime;
@@ -75,20 +75,20 @@ public class SysFlowStepData {
 		this.stepName = stepName;
 	}
 
-	public String getSpcId() {
-		return spcId;
+	public String getFpcId() {
+		return fpcId;
 	}
 
-	public void setSpcId(String spcId) {
-		this.spcId = spcId;
+	public void setFpcId(String fpcId) {
+		this.fpcId = fpcId;
 	}
 
-	public String getSpcName() {
-		return spcName;
+	public String getFpcName() {
+		return fpcName;
 	}
 
-	public void setSpcName(String spcName) {
-		this.spcName = spcName;
+	public void setFpcName(String fpcName) {
+		this.fpcName = fpcName;
 	}
 
 	public Date getCreateTime() {

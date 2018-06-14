@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 public class TicketServiceImpl implements TicketService {
 
 	public void openTicket(TicketForm ticket) {
+
 		throw new RuntimeException("我错了");
 	}
 

@@ -28,7 +28,7 @@ public class TicketController {
 		if (Objects.isNull(ticket) || ticket.paramIsMiss()) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 		}
-		logger.error("======================");
+		logger.info("======================");
 
 		ticketService.openTicket(ticket);
 		return Response.okResponse("成功");

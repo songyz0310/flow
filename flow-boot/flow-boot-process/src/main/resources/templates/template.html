@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>#{pageName}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body class="container-fluid">
+	<form id="form" action="/tickets/" class="form-horizontal">
+		<input type="hidden" name="entityType" /> 
+		<input type="hidden" name="entityId" />
+		<input type="hidden" name="stepId" />
+		<input type="hidden" name="status" />
+		#{source}
+	</form>
+	<button type="button" class="btn btn-primary btn-lg btn-block">#{pageName}</button>
+</body>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</html>

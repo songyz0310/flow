@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>#{actionName}</title>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+
+	<form id="form" action="/tickets/${bill.repairCode}/#{itsmAction}"
+		atturl="${ctx}/mvs-itsm/flow/attachment/${bill.repairCode}">
+		<input type="hidden" name="ticketid" value="${bill.repairId}" /> <input
+			type="hidden" name="repairCode" value="${bill.repairCode}" /> <input
+			type="hidden" name="stepconfigid" value="${stepConfigId}" /> <input
+			type="hidden" name="status" value="#{status}" /> #{source}
+	</form>
+
+
+
+</body>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</html>

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.flow.boot.common.enums.EntityType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -21,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "flow_instance")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class FlowInstance extends BaseEntityType {
+public class FlowInstance {
 
 	public static enum Status {
 		STARTED, // 启动
@@ -36,6 +37,13 @@ public class FlowInstance extends BaseEntityType {
 
 	@Column(name = "process_id", updatable = false)
 	private String processId;
+
+	@Column(name = "entity_type", updatable = false)
+	@Enumerated(EnumType.STRING)
+	protected EntityType entityType;
+
+	@Column(name = "entity_id", updatable = false)
+	protected String entityId;
 
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
@@ -96,6 +104,22 @@ public class FlowInstance extends BaseEntityType {
 
 	public void setStepId(String stepId) {
 		this.stepId = stepId;
+	}
+
+	public EntityType getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(EntityType entityType) {
+		this.entityType = entityType;
+	}
+
+	public String getEntityId() {
+		return entityId;
+	}
+
+	public void setEntityId(String entityId) {
+		this.entityId = entityId;
 	}
 
 }

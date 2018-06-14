@@ -15,9 +15,9 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table(name = "flow_step_page_config")
+@Table(name = "flow_page_config")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class FlowStepPageConfig {
+public class FlowPageConfig {
 
 	@Id
 	@Column(name = "config_id")
@@ -30,8 +30,11 @@ public class FlowStepPageConfig {
 	@Column(name = "rank")
 	private int rank;
 
-	@Column(name = "step_id", updatable = false)
-	private String stepId;
+	@Column(name = "page_id", updatable = false)
+	private String pageId;
+
+	@Column(name = "item_id", updatable = false)
+	private String itemId;
 
 	public String getConfigId() {
 		return configId;
@@ -57,12 +60,20 @@ public class FlowStepPageConfig {
 		this.rank = rank;
 	}
 
-	public String getStepId() {
-		return stepId;
+	public String getPageId() {
+		return pageId;
 	}
 
-	public void setStepId(String stepId) {
-		this.stepId = stepId;
+	public void setPageId(String pageId) {
+		this.pageId = pageId;
+	}
+
+	public String getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
 	}
 
 }

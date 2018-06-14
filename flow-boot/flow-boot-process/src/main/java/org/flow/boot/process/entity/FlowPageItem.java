@@ -15,9 +15,9 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table(name = "flow_step_page_item")
+@Table(name = "flow_page_item")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class FlowStepPageItem {
+public class FlowPageItem {
 
 	@Id
 	@Column(name = "item_id")
