@@ -2,8 +2,8 @@ package org.flow.boot.process.service;
 
 import java.util.List;
 
+import org.flow.boot.common.vo.process.FormDefinitionView;
 import org.flow.boot.process.form.MyForm;
-import org.flow.boot.process.view.FormDefinitionView;
 
 public interface IFormService {
 

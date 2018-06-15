@@ -17,17 +17,23 @@ public class TaskController {
 	private ITaskService iTaskService;
 
 	@GetMapping("/query/{taskId}")
-	public Response query(@PathVariable String taskId) {
+	public Response<?> query(@PathVariable String taskId) {
 		return Response.okResponse(iTaskService.queryById(taskId));
 	}
 
 	@GetMapping("/query/list")
-	public Response queryList() {
+	public Response<?> queryList() {
 		return Response.okResponse(iTaskService.queryList());
 	}
 
+	@GetMapping("/complete/{taskId}")
+	public Response<?> complete(@PathVariable String taskId) {
+		iTaskService.completeTask(taskId);
+		return Response.okResponse();
+	}
+
 	@GetMapping("/formmodel/{taskId}")
-	public Response queryFormModel(@PathVariable String taskId) {
+	public Response<?> queryFormModel(@PathVariable String taskId) {
 		return Response.okResponse(iTaskService.queryFormInfo(taskId));
 	}
 
@@ -35,7 +41,5 @@ public class TaskController {
 	public Object queryForm(@PathVariable String taskId) {
 		return iTaskService.queryForm(taskId);
 	}
-	
-	
 
 }

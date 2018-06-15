@@ -3,9 +3,9 @@ package org.flow.boot.process.service;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.flow.boot.process.view.FormInfoView;
-import org.flow.boot.process.view.FormModelView;
-import org.flow.boot.process.view.TaskView;
+import org.flow.boot.common.vo.process.FormInfoView;
+import org.flow.boot.common.vo.process.FormModelView;
+import org.flow.boot.common.vo.process.TaskView;
 import org.flowable.engine.FormService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.form.TaskFormData;

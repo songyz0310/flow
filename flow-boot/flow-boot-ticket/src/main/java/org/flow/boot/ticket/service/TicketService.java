@@ -6,4 +6,8 @@ public interface TicketService {
 
 	void openTicket(TicketForm ticket);
 
+	String ticketFlow(String ticketId);
+
+	void completeStep(String ticketId);
+
 }

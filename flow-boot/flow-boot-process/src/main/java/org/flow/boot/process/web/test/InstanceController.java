@@ -16,7 +16,7 @@ public class InstanceController {
 	private IRuntimeService iRuntimeService;
 
 	@GetMapping("/start/{processDefinitionId}")
-	public Response query(@PathVariable String processDefinitionId) {
+	public Response<?> query(@PathVariable String processDefinitionId) {
 		return Response.okResponse(iRuntimeService.startFlowInstanceById(processDefinitionId));
 	}
 }

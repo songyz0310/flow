@@ -1,47 +1,23 @@
-package org.flow.boot.process.entity;
+package org.flow.boot.common.vo.process;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.flow.boot.common.enums.EntityType;
 
-/**
- * 流程
- * 
- * @author songyz
- *
- */
-@Entity
-@Table(name = "flow_process")
-public class FlowProcess {
+public class FlowProcessVO {
 
-	@Id
-	@Column(name = "process_id")
 	private String processId;
 
-	@Column(name = "process_key")
 	private String processKey;
 
-	@Column(name = "process_name")
 	private String processName;
 
-	@Column(name = "file_path")
 	private String filePath;
 
-	@Column(name = "entity_type", updatable = false)
-	@Enumerated(EnumType.STRING)
 	protected EntityType entityType;
 
-	@Column(name = "create_time", updatable = false)
 	private Date createTime;
 
-	@Column(name = "update_time")
 	private Date updateTime;
 
 	public String getProcessId() {
@@ -76,6 +52,14 @@ public class FlowProcess {
 		this.filePath = filePath;
 	}
 
+	public EntityType getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(EntityType entityType) {
+		this.entityType = entityType;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -90,14 +74,6 @@ public class FlowProcess {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
-	}
-
-	public EntityType getEntityType() {
-		return entityType;
-	}
-
-	public void setEntityType(EntityType entityType) {
-		this.entityType = entityType;
 	}
 
 }

@@ -1,9 +1,7 @@
-package org.flow.boot.process.view;
+package org.flow.boot.common.vo.process;
 
 import java.util.Date;
 import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class TaskView {
 
@@ -21,10 +19,8 @@ public class TaskView {
 	private String subScopeId;
 	private String scopeType;
 	private String scopeDefinitionId;
-	@JsonFormat(timezone = "Asia/Shanghai", pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	private String taskDefinitionKey;
-	@JsonFormat(timezone = "Asia/Shanghai", pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dueDate;
 	private String category;
 	private String parentTaskId;

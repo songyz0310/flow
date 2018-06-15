@@ -1,14 +1,11 @@
-package org.flow.boot.process.view;
+package org.flow.boot.common.vo.process;
 
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DeploymentView {
 
 	private String id;
 	private String name;
-	@JsonFormat(timezone = "Asia/Shanghai", pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date deploymentTime;
 	private String category;
 	private String key;

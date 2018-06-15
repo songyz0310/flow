@@ -1,7 +1,5 @@
 package org.flow.boot.process.web;
 
-import org.apache.commons.lang3.StringUtils;
-import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.process.repository.FlowPageRepository;
 import org.flow.boot.process.service.FlowPageService;
@@ -20,17 +18,19 @@ public class FlowPageController {
 	private FlowPageService flowPageService;
 
 	@GetMapping("list")
-	public Response queryList() {
+	public Response<?> queryList() {
 		return Response.okResponse(flowPageRepository.findAll());
 	}
 
-	@GetMapping("init")
-	public Response initPage(String pageId) {
-		if (StringUtils.isAnyEmpty(pageId)) {
-			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
+	@GetMapping("initPage")
+	public Response<?> initPage() {
+		flowPageService.initPage();
+		return Response.okResponse();
+	}
 
-		flowPageService.createPage(pageId);
+	@GetMapping("initData")
+	public Response<?> initData() {
+		flowPageService.initData();
 		return Response.okResponse();
 	}
 

@@ -1,4 +1,4 @@
-package org.flow.boot.process.view;
+package org.flow.boot.common.vo.process;
 
 /**
  * 表单定义

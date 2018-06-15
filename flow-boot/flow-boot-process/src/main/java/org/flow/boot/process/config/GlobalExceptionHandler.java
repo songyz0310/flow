@@ -31,8 +31,7 @@ public class GlobalExceptionHandler {
 	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	@ExceptionHandler(RuntimeException.class)
-	public Response deployForm(HttpServletRequest req, Exception ex) {
-
+	public Response<?> error(HttpServletRequest req, Exception ex) {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 
 	}
@@ -42,14 +41,14 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(BindException.class)
-	public Response handleBindException(BindException e) {
+	public Response<?> handleBindException(BindException e) {
 		log.error("参数绑定失败", e);
 		BindingResult bindingResult = e.getBindingResult();
 		FieldError error = bindingResult.getFieldError();
 		String field = error.getField();
 		log.error(field);
 		String code = error.getDefaultMessage();
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(code);
 		return result;
 	}
@@ -59,12 +58,12 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ConstraintViolationException.class)
-	public Response handleServiceException(ConstraintViolationException e) {
+	public Response<?> handleServiceException(ConstraintViolationException e) {
 		log.error("参数验证失败", e);
 		Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
 		ConstraintViolation<?> violation = violations.iterator().next();
 		String message = violation.getMessage();
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(message);
 		return result;
 	}
@@ -74,9 +73,9 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ValidationException.class)
-	public Response handleValidationException(ValidationException e) {
+	public Response<?> handleValidationException(ValidationException e) {
 		log.error("参数验证失败", e);
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(e.getMessage());
 		return result;
 	}
@@ -86,20 +85,21 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NoHandlerFoundException.class)
-	public Response handleHttpRequestMethodNotSupportedException(NoHandlerFoundException e) {
+	public Response<?> handleHttpRequestMethodNotSupportedException(NoHandlerFoundException e) {
 		log.error("没找到", e);
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(e.getMessage());
 		return result;
 	}
+
 	/**
 	 * 405 - Method Not Allowed
 	 */
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public Response handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+	public Response<?> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
 		log.error("不支持当前请求方法", e);
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(e.getMessage());
 		return result;
 	}
@@ -109,9 +109,9 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-	public Response handleHttpMediaTypeNotSupportedException(Exception e) {
+	public Response<?> handleHttpMediaTypeNotSupportedException(Exception e) {
 		log.error("不支持当前媒体类型", e);
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(e.getMessage());
 		return result;
 	}
@@ -121,9 +121,9 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(ServiceException.class)
-	public Response handleServiceException(ServiceException e) {
+	public Response<?> handleServiceException(ServiceException e) {
 		log.error("业务逻辑异常", e);
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(e.getMessage());
 		return result;
 	}
@@ -133,9 +133,9 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
-	public Response handleException(Exception e) {
+	public Response<?> handleException(Exception e) {
 		log.error("通用异常", e);
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(e.getMessage());
 		return result;
 	}
@@ -145,9 +145,9 @@ public class GlobalExceptionHandler {
 	 */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public Response handleException(DataIntegrityViolationException e) {
+	public Response<?> handleException(DataIntegrityViolationException e) {
 		log.error("操作数据库出现异常:", e);
-		Response result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
+		Response<?> result = Response.errorResponse(ErrorCode.BASE_REQUEST_400);
 		result.setMessage(e.getMessage());
 		return result;
 	}

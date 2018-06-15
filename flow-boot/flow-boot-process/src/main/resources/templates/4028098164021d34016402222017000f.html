@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>完成</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+</head>
+<body class="container-fluid">
+	<form id="form" action="/tickets/" class="form-horizontal">
+		<input type="hidden" name="entityType" /> <input type="hidden"
+			name="entityId" /> <input type="hidden" name="stepId" /> <input
+			type="hidden" name="status" />
+		<div class="form-group">
+			<label class="col-sm-2 control-label">最终联系人</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_4028098164021d340164022220190015_"
+					placeholder="请填写最终联系人"
+					data-itemid="4028098164021d34016402222014000d"
+					data-fpcid="4028098164021d340164022220190015" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">联系电话</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_4028098164021d340164022220190016_" placeholder="请填写联系电话"
+					data-itemid="4028098164021d34016402222014000d"
+					data-fpcid="4028098164021d340164022220190016" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">故障描述</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_4028098164021d340164022220190017_" placeholder="请填写故障描述"
+					data-itemid="4028098164021d34016402222014000d"
+					data-fpcid="4028098164021d340164022220190017" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">现场确认</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_4028098164021d340164022220190018_" placeholder="请填写现场确认"
+					data-itemid="4028098164021d34016402222014000d"
+					data-fpcid="4028098164021d340164022220190018" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">解决方案</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_4028098164021d3401640222201a0019_" placeholder="请填写解决方案"
+					data-itemid="4028098164021d34016402222014000d"
+					data-fpcid="4028098164021d3401640222201a0019" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+	</form>
+	<button type="button" class="btn btn-primary btn-lg btn-block">完成</button>
+</body>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</html>

@@ -30,7 +30,7 @@ public class ProcessController {
 	private IProcessService iProcessService;
 
 	@PostMapping(value = "/deploy/zip", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public Response deployZip(@RequestParam(required = false) MultipartFile file, String name, String key) {
+	public Response<?> deployZip(@RequestParam(required = false) MultipartFile file, String name, String key) {
 		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key)) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 		}
@@ -49,7 +49,7 @@ public class ProcessController {
 	}
 
 	@PostMapping(value = "/deploy/xml", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public Response deployXml(@RequestParam(required = false) MultipartFile file, String name, String key) {
+	public Response<?> deployXml(@RequestParam(required = false) MultipartFile file, String name, String key) {
 		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key)) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 		}
@@ -68,27 +68,27 @@ public class ProcessController {
 	}
 
 	@GetMapping("/query/definition/{processDefinitionId}")
-	public Response queryDefinition(@PathVariable String processDefinitionId) {
+	public Response<?> queryDefinition(@PathVariable String processDefinitionId) {
 		return Response.okResponse(iProcessService.queryDefinitionById(processDefinitionId));
 	}
 
 	@GetMapping("/query/definition/list")
-	public Response queryDefinitionList() {
+	public Response<?> queryDefinitionList() {
 		return Response.okResponse(iProcessService.queryDefinitionList());
 	}
 
 	@GetMapping("/query/deployment/{deploymentId}")
-	public Response queryDeployment(@PathVariable String deploymentId) {
+	public Response<?> queryDeployment(@PathVariable String deploymentId) {
 		return Response.okResponse(iProcessService.queryDeploymentById(deploymentId));
 	}
 
 	@GetMapping("/query/deployment/list")
-	public Response queryDeploymentList() {
+	public Response<?> queryDeploymentList() {
 		return Response.okResponse(iProcessService.queryDeploymentList());
 	}
 
 	@GetMapping("/clear")
-	public Response clear() {
+	public Response<?> clear() {
 		iProcessService.clear();
 		return Response.okResponse(null);
 	}

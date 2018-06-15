@@ -11,24 +11,32 @@ import java.util.zip.ZipInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.StepType;
+import org.flow.boot.common.vo.process.DeploymentView;
+import org.flow.boot.common.vo.process.FlowInstanceVO;
+import org.flow.boot.common.vo.process.ProcessDefinitionView;
+import org.flow.boot.process.entity.FlowInstance;
+import org.flow.boot.process.entity.FlowInstance.Status;
 import org.flow.boot.process.entity.FlowProcess;
 import org.flow.boot.process.entity.FlowStep;
 import org.flow.boot.process.form.FileForm;
 import org.flow.boot.process.form.ProcessForm;
+import org.flow.boot.process.repository.FlowInstanceRepository;
 import org.flow.boot.process.repository.FlowProcessRepository;
 import org.flow.boot.process.repository.FlowStepRepository;
-import org.flow.boot.process.view.DeploymentView;
-import org.flow.boot.process.view.ProcessDefinitionView;
 import org.flowable.bpmn.converter.BpmnXMLConverter;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.CustomProperty;
 import org.flowable.bpmn.model.FlowElement;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
+import org.flowable.engine.FormService;
 import org.flowable.engine.RepositoryService;
+import org.flowable.engine.RuntimeService;
+import org.flowable.engine.TaskService;
 import org.flowable.engine.common.impl.util.io.InputStreamSource;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
+import org.flowable.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -44,9 +52,17 @@ public class IProcessServiceImpl implements IProcessService {
 	@Autowired
 	private RepositoryService repositoryService;
 	@Autowired
+	private RuntimeService runtimeService;
+	@Autowired
 	private FlowStepRepository flowStepRepository;
 	@Autowired
+	private FormService formService;
+	@Autowired
+	private TaskService taskService;
+	@Autowired
 	private FlowProcessRepository flowProcessRepository;
+	@Autowired
+	private FlowInstanceRepository flowInstanceRepository;
 
 	@Transactional
 	public void deploy(FileForm form) {
@@ -172,14 +188,14 @@ public class IProcessServiceImpl implements IProcessService {
 					} else {
 						flowStep.setStepType(StepType.EXECUTE);
 					}
-					
+
 					List<CustomProperty> customProperties = u.getCustomProperties();
 					for (CustomProperty customProperty : customProperties) {
 						customProperty.getName();
 						customProperty.getSimpleValue();
-						//保存步骤扩展信息
+						// 保存步骤扩展信息
 					}
-					
+
 					flowStepRepository.save(flowStep);
 					stepRank++;
 				}
@@ -189,6 +205,45 @@ public class IProcessServiceImpl implements IProcessService {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	@Transactional
+	public FlowInstanceVO start(String processId, String entityId, EntityType entityType) {
+		Date now = new Date();
+		ProcessInstance processInstance = runtimeService.startProcessInstanceById(processId);
+		FlowInstance flowInstance = new FlowInstance();
+		flowInstance.setInstanceId(processInstance.getId());
+		flowInstance.setEntityType(entityType);
+		flowInstance.setEntityId(entityId);
+		flowInstance.setProcessId(processId);
+		flowInstance.setStatus(Status.STARTED);
+		flowInstance.setCreateTime(now);
+		flowInstance.setUpdateTime(now);
+		List<FlowStep> flowSteps = flowStepRepository.findByProcessIdOrderByStepRank(processId);
+		if (flowSteps.isEmpty() == false && Objects.nonNull(flowSteps.get(0))) {
+			flowInstance.setStepId(flowSteps.get(0).getStepId());
+		}
+
+		flowInstanceRepository.save(flowInstance);
+
+		FlowInstanceVO vo = new FlowInstanceVO();
+		BeanUtils.copyProperties(flowInstance, vo);
+		return vo;
+	}
+
+	public String getRenderedHtml(String entityId, EntityType entityType) {
+		List<FlowInstance> flowInstances = flowInstanceRepository.findByEntityTypeAndEntityId(entityType, entityId);
+		String instanceId = flowInstances.get(0).getInstanceId();
+		String taskId = taskService.createTaskQuery().processInstanceId(instanceId).singleResult().getId();
+		return formService.getRenderedTaskForm(taskId).toString();// 这个方法是返回一个纯文本的（外置表单（一个.form结尾的文件，），可以是一个div标签）
+	}
+
+	@Transactional
+	public void completeTask(String entityId, EntityType entityType) {
+		List<FlowInstance> flowInstances = flowInstanceRepository.findByEntityTypeAndEntityId(entityType, entityId);
+		String instanceId = flowInstances.get(0).getInstanceId();
+		String taskId = taskService.createTaskQuery().processInstanceId(instanceId).singleResult().getId();
+		taskService.complete(taskId);
 	}
 
 }

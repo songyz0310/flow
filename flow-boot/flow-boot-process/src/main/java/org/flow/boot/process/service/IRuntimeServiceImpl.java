@@ -1,6 +1,6 @@
 package org.flow.boot.process.service;
 
-import org.flow.boot.process.view.ProcessInstanceView;
+import org.flow.boot.common.vo.process.ProcessInstanceView;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.springframework.beans.BeanUtils;

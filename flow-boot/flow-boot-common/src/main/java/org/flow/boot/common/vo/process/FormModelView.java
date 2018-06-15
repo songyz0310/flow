@@ -1,9 +1,4 @@
-package org.flow.boot.process.view;
-
-import java.util.List;
-
-import org.flowable.form.model.FormField;
-import org.flowable.form.model.FormOutcome;
+package org.flow.boot.common.vo.process;
 
 public class FormModelView {
 
@@ -11,8 +6,6 @@ public class FormModelView {
 	protected String key;
 	protected int version;
 	protected String description;
-	protected List<FormField> fields;
-	protected List<FormOutcome> outcomes;
 	protected String outcomeVariableName;
 
 	public String getName() {
@@ -45,22 +38,6 @@ public class FormModelView {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public List<FormField> getFields() {
-		return fields;
-	}
-
-	public void setFields(List<FormField> fields) {
-		this.fields = fields;
-	}
-
-	public List<FormOutcome> getOutcomes() {
-		return outcomes;
-	}
-
-	public void setOutcomes(List<FormOutcome> outcomes) {
-		this.outcomes = outcomes;
 	}
 
 	public String getOutcomeVariableName() {

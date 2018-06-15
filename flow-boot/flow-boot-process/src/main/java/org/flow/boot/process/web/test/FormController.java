@@ -30,7 +30,7 @@ public class FormController {
 	private IFormService iFormService;
 
 	@PostMapping(value = "/deploy/json", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public Response deployForm(@RequestParam(required = false) MultipartFile file, String name, String key,
+	public Response<?> deployForm(@RequestParam(required = false) MultipartFile file, String name, String key,
 			String parentDeploymentId) {
 		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key)) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
@@ -51,17 +51,17 @@ public class FormController {
 	}
 
 	@GetMapping("/query/{formId}")
-	public Response query(@PathVariable String formId) {
+	public Response<?> query(@PathVariable String formId) {
 		return Response.okResponse(iFormService.queryById(formId));
 	}
 
 	@GetMapping("/query/list")
-	public Response queryList() {
+	public Response<?> queryList() {
 		return Response.okResponse(iFormService.queryList());
 	}
 
 	@GetMapping("/clear")
-	public Response clear() {
+	public Response<?> clear() {
 		iFormService.clear();
 		return Response.okResponse(null);
 	}

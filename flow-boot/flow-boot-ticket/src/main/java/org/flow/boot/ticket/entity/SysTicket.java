@@ -43,10 +43,10 @@ public class SysTicket {
 	private String soStatus;
 
 	@Column(name = "concat_person")
-	private double concatPerson;
+	private String concatPerson;
 
 	@Column(name = "concat_phone")
-	private double concatPhone;
+	private String concatPhone;
 
 	@Column(name = "create_time", updatable = false)
 	private Date createTime;
@@ -110,19 +110,19 @@ public class SysTicket {
 		this.soStatus = soStatus;
 	}
 
-	public double getConcatPerson() {
+	public String getConcatPerson() {
 		return concatPerson;
 	}
 
-	public void setConcatPerson(double concatPerson) {
+	public void setConcatPerson(String concatPerson) {
 		this.concatPerson = concatPerson;
 	}
 
-	public double getConcatPhone() {
+	public String getConcatPhone() {
 		return concatPhone;
 	}
 
-	public void setConcatPhone(double concatPhone) {
+	public void setConcatPhone(String concatPhone) {
 		this.concatPhone = concatPhone;
 	}
 

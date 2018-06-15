@@ -25,9 +25,9 @@ public class FlowPageItem {
 	private String itemId;
 
 	@Column(name = "name")
-	private String createTime;
+	private String name;
 
-	@Column(name = "html")
+	@Column(name = "html", columnDefinition = "TEXT")
 	private String html;
 
 	public String getItemId() {
@@ -38,12 +38,12 @@ public class FlowPageItem {
 		this.itemId = itemId;
 	}
 
-	public String getCreateTime() {
-		return createTime;
+	public String getName() {
+		return name;
 	}
 
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getHtml() {

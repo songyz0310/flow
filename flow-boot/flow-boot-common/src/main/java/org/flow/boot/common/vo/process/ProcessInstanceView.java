@@ -1,9 +1,7 @@
-package org.flow.boot.process.view;
+package org.flow.boot.common.vo.process;
 
 import java.util.Date;
 import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ProcessInstanceView {
 
@@ -20,7 +18,6 @@ public class ProcessInstanceView {
 	private String description;
 	private String localizedName;
 	private String localizedDescription;
-	@JsonFormat(timezone = "Asia/Shanghai", pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startTime;
 	private String startUserId;
 	private String callbackId;

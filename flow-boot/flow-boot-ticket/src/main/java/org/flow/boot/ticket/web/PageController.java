@@ -18,8 +18,8 @@ public class PageController {
 
 	@GetMapping("ticket")
 	public String ticket(ModelMap map) {
-		Response list = flowControllerService.list(EntityType.TICKET);
-		map.put("list", list);
+		Response<?> response = flowControllerService.list(EntityType.TICKET);
+		map.put("processList", response.getData());
 		return "ticket";
 
 	}

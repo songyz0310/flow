@@ -1,13 +1,6 @@
-package org.flow.boot.process.entity;
+package org.flow.boot.common.vo.process;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.flow.boot.common.enums.EntityType;
 
@@ -17,9 +10,7 @@ import org.flow.boot.common.enums.EntityType;
  * @author songyz
  *
  */
-@Entity
-@Table(name = "flow_instance")
-public class FlowInstance {
+public class FlowInstanceVO {
 
 	public static enum Status {
 		STARTED, // 启动
@@ -27,31 +18,20 @@ public class FlowInstance {
 		STOPED,// 结束
 	}
 
-	@Id
-	@Column(name = "instance_id")
 	private String instanceId;
 
-	@Column(name = "process_id", updatable = false)
 	private String processId;
 
-	@Column(name = "entity_type", updatable = false)
-	@Enumerated(EnumType.STRING)
 	protected EntityType entityType;
 
-	@Column(name = "entity_id", updatable = false)
 	protected String entityId;
 
-	@Column(name = "status")
-	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@Column(name = "create_time", updatable = false)
 	private Date createTime;
 
-	@Column(name = "update_time")
 	private Date updateTime;
 
-	@Column(name = "step_id")
 	private String stepId;
 
 	public String getInstanceId() {

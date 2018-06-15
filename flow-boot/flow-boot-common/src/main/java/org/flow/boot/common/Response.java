@@ -1,10 +1,10 @@
 package org.flow.boot.common;
 
-public class Response {
+public class Response<T> {
 
 	private int ecode;
 	private String message;
-	private Object data;
+	private T data;
 
 	public int getEcode() {
 		return ecode;
@@ -22,34 +22,34 @@ public class Response {
 		this.message = message;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 
-	public static Response okResponse() {
+	public static <T> Response<T> okResponse() {
 		return okResponse(null);
 	}
 
-	public static Response okResponse(Object data) {
-		Response resp = new Response();
+	public static <T> Response<T> okResponse(T data) {
+		Response<T> resp = new Response<T>();
 		resp.setEcode(0);
 		resp.setData(data);
 		return resp;
 	}
 
-	public static Response errorResponse(ErrorCode errorCode) {
-		Response resp = new Response();
+	public static <T> Response<T> errorResponse(ErrorCode errorCode) {
+		Response<T> resp = new Response<T>();
 		resp.setEcode(errorCode.getCode());
 		resp.setMessage(errorCode.getMessage());
 		return resp;
 	}
 
-	public static Response errorResponse(ErrorCode errorCode, Object data) {
-		Response resp = errorResponse(errorCode);
+	public static <T> Response<T> errorResponse(ErrorCode errorCode, T data) {
+		Response<T> resp = errorResponse(errorCode);
 		resp.setData(data);
 		return resp;
 	}
