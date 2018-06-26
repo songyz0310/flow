@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
 <title>#{pageName}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+<link th:href="@{/plugin/loading/load.min.css}" rel="stylesheet" />
+<script th:src="@{/plugin/loading/load.min.js}" onload="Loading.start(1)"></script>
 </head>
 <body class="container-fluid">
+	<blockquote><b>这里是流程页面</b></blockquote>
 	<form id="form" action="/tickets/" class="form-horizontal">
 		<input type="hidden" name="entityType" /> 
 		<input type="hidden" name="entityId" />
@@ -18,4 +21,5 @@
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/flow.js}"></script>
 </html>

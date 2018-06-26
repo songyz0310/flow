@@ -30,6 +30,9 @@ public class FlowStep {
 	@Column(name = "process_id", updatable = false)
 	private String processId;
 
+	@Column(name = "step_key")
+	private String stepKey;
+
 	@Column(name = "step_name")
 	private String stepName;
 
@@ -89,6 +92,14 @@ public class FlowStep {
 
 	public void setPageId(String pageId) {
 		this.pageId = pageId;
+	}
+
+	public String getStepKey() {
+		return stepKey;
+	}
+
+	public void setStepKey(String stepKey) {
+		this.stepKey = stepKey;
 	}
 
 }

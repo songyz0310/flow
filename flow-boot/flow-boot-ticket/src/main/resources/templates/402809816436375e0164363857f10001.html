@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
 <title>预约</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
-	rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link th:href="@{/webjars/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/plugin/loading/load.min.css}" rel="stylesheet" />
+<script th:src="@{/plugin/loading/load.min.js}" onload="Loading.start(1)"></script>
 </head>
-<body class="container-fluid">
+<body class="container-fluid" id="body">
+
+	<blockquote><b>这里是流程页面</b></blockquote>
+
 	<form id="form" action="/tickets/" class="form-horizontal">
 		<input type="hidden" name="entityType" /> <input type="hidden"
 			name="entityId" /> <input type="hidden" name="stepId" /> <input
@@ -17,9 +20,9 @@
 			<label class="col-sm-2 control-label">工单客户</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control"
-					name="page_4028098164021d340164022220190010_" placeholder="请填写工单客户"
-					data-itemid="4028098164021d34016402222014000d"
-					data-fpcid="4028098164021d340164022220190010" data-required=""
+					name="page_402809816436375e0164363857f50003_" placeholder="请填写工单客户"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f50003" data-required=""
 					data-reg="" data-regTip="">
 			</div>
 		</div>
@@ -27,10 +30,10 @@
 			<label class="col-sm-2 control-label">工单联系人</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control"
-					name="page_4028098164021d340164022220190011_"
+					name="page_402809816436375e0164363857f50004_"
 					placeholder="请填写工单联系人"
-					data-itemid="4028098164021d34016402222014000d"
-					data-fpcid="4028098164021d340164022220190011" data-required=""
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f50004" data-required=""
 					data-reg="" data-regTip="">
 			</div>
 		</div>
@@ -38,9 +41,9 @@
 			<label class="col-sm-2 control-label">联系电话</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control"
-					name="page_4028098164021d340164022220190012_" placeholder="请填写联系电话"
-					data-itemid="4028098164021d34016402222014000d"
-					data-fpcid="4028098164021d340164022220190012" data-required=""
+					name="page_402809816436375e0164363857f50005_" placeholder="请填写联系电话"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f50005" data-required=""
 					data-reg="" data-regTip="">
 			</div>
 		</div>
@@ -48,9 +51,9 @@
 			<label class="col-sm-2 control-label">上门时间</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control"
-					name="page_4028098164021d340164022220190013_" placeholder="请填写上门时间"
-					data-itemid="4028098164021d34016402222014000d"
-					data-fpcid="4028098164021d340164022220190013" data-required=""
+					name="page_402809816436375e0164363857f50006_" placeholder="请填写上门时间"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f50006" data-required=""
 					data-reg="" data-regTip="">
 			</div>
 		</div>
@@ -58,9 +61,9 @@
 			<label class="col-sm-2 control-label">上门地址</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control"
-					name="page_4028098164021d340164022220190014_" placeholder="请填写上门地址"
-					data-itemid="4028098164021d34016402222014000d"
-					data-fpcid="4028098164021d340164022220190014" data-required=""
+					name="page_402809816436375e0164363857f60007_" placeholder="请填写上门地址"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f60007" data-required=""
 					data-reg="" data-regTip="">
 			</div>
 		</div>
@@ -69,4 +72,5 @@
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/flow.js}"></script>
 </html>

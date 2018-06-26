@@ -1,11 +1,18 @@
 package org.flow.boot.ticket.service;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.common.vo.process.FlowProcessVO;
 import org.flow.boot.common.vo.process.FlowStepVO;
+import org.flow.boot.common.vo.ticket.TicketVO;
 import org.flow.boot.ticket.entity.SysTicket;
 import org.flow.boot.ticket.form.TicketForm;
 import org.flow.boot.ticket.repository.SysTicketRepository;
@@ -49,7 +56,26 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	public String ticketFlow(String ticketId) {
-		return flowControllerService.getRenderedHtml(EntityType.TICKET, ticketId).getData();
+
+		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+
+		String stepId = ticket.getStepId();
+		FlowStepVO step = stepControllerService.findById(stepId).getData();
+		String pageId = step.getPageId();
+
+		File file = new File("src\\main\\resources\\templates\\" + pageId + ".html");
+		if (file.exists() == false) {
+			String html = flowControllerService.getRenderedHtml(EntityType.TICKET, ticketId).getData();
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+
+				writer.write(html);
+				writer.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return pageId;
+
 	}
 
 	@Transactional
@@ -63,6 +89,16 @@ public class TicketServiceImpl implements TicketService {
 		ticket.setStepType(flowStepVO.getStepType());
 		ticket.setUpdateTime(new Date());
 		sysTicketRepository.save(ticket);
+	}
+
+	public List<TicketVO> listTicket() {
+		List<TicketVO> data = new LinkedList<>();
+		sysTicketRepository.findAll().forEach(ticket -> {
+			TicketVO vo = new TicketVO();
+			BeanUtils.copyProperties(ticket, vo);
+			data.add(vo);
+		});
+		return data;
 	}
 
 }

@@ -1,10 +1,5 @@
-/**
- * 
- */
-
 $(function() {
 
-	//初始化select
-	$("select").select2();
+	// 初始化select
 
 })

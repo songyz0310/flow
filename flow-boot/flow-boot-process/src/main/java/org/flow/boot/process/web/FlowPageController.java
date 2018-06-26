@@ -22,16 +22,15 @@ public class FlowPageController {
 		return Response.okResponse(flowPageRepository.findAll());
 	}
 
-	@GetMapping("initPage")
-	public Response<?> initPage() {
-		flowPageService.initPage();
-		return Response.okResponse();
-	}
-
-	@GetMapping("initData")
+	@GetMapping("init")
 	public Response<?> initData() {
-		flowPageService.initData();
-		return Response.okResponse();
+		if (flowPageRepository.findAll().size() == 0) {
+			flowPageService.initData();
+			flowPageService.initPage();
+			return Response.okResponse("初始化成功");
+		} else {
+			return Response.okResponse("禁止重复初始化");
+		}
 	}
 
 }

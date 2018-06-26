@@ -6,6 +6,7 @@ import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.DeploymentView;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.common.vo.process.ProcessDefinitionView;
+import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.form.FileForm;
 import org.flow.boot.process.form.ProcessForm;
 
@@ -29,6 +30,6 @@ public interface IProcessService {
 
 	public String getRenderedHtml(String entityId, EntityType entityType);
 
-	public void completeTask(String entityId, EntityType entityType);
+	public FlowInstance completeTask(String entityId, EntityType entityType);
 
 }

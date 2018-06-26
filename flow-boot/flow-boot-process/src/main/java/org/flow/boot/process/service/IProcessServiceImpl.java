@@ -37,6 +37,7 @@ import org.flowable.engine.common.impl.util.io.InputStreamSource;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -178,6 +179,7 @@ public class IProcessServiceImpl implements IProcessService {
 					flowStep.setProcessId(pd.getId());
 					flowStep.setStepName(u.getName());
 					flowStep.setStepRank(stepRank);
+					flowStep.setStepKey(u.getId());
 
 					String formKey = u.getFormKey();
 					if (Objects.equals(formKey, StepType.SIGNIN.name())) {
@@ -239,11 +241,20 @@ public class IProcessServiceImpl implements IProcessService {
 	}
 
 	@Transactional
-	public void completeTask(String entityId, EntityType entityType) {
+	public FlowInstance completeTask(String entityId, EntityType entityType) {
 		List<FlowInstance> flowInstances = flowInstanceRepository.findByEntityTypeAndEntityId(entityType, entityId);
-		String instanceId = flowInstances.get(0).getInstanceId();
+		FlowInstance flowInstance = flowInstances.get(0);
+		String instanceId = flowInstance.getInstanceId();
 		String taskId = taskService.createTaskQuery().processInstanceId(instanceId).singleResult().getId();
 		taskService.complete(taskId);
+
+		Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
+		String stepKey = task.getTaskDefinitionKey();
+		FlowStep flowStep = flowStepRepository.findByStepKey(stepKey);
+		flowInstance.setStepId(flowStep.getStepId());
+		flowInstanceRepository.save(flowInstance);
+		return flowInstance;
+
 	}
 
 }

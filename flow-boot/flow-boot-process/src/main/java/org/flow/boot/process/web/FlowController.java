@@ -8,6 +8,7 @@ import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
+import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.form.ProcessForm;
 import org.flow.boot.process.repository.FlowProcessRepository;
 import org.flow.boot.process.service.IProcessService;
@@ -79,14 +80,13 @@ public class FlowController {
 		}
 		return Response.okResponse(iProcessService.getRenderedHtml(entityId, entityType));
 	}
-	
+
 	@PostMapping("complete")
-	public Response<String> completeTask(EntityType entityType, String entityId) {
+	public Response<FlowInstance> completeTask(EntityType entityType, String entityId) {
 		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId)) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 		}
-		iProcessService.completeTask(entityId, entityType);
-		return Response.okResponse();
+		return Response.okResponse(iProcessService.completeTask(entityId, entityType));
 	}
 
 }
