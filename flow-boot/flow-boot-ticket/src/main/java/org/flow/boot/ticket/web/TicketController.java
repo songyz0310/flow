@@ -1,6 +1,7 @@
 package org.flow.boot.ticket.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -98,8 +99,11 @@ public class TicketController implements IFlowController {
 	}
 
 	// 流程页面确认
-	public Response<?> flowConfirm(String entityId) {
-		return null;
+	public Response<?> flowConfirm(HttpServletRequest request) {
+
+		Map<String, String[]> parameterMap = request.getParameterMap();
+
+		return Response.okResponse(parameterMap);
 	}
 
 	// 非页面流程，执行下一步

@@ -3,6 +3,24 @@ var flow = function() {
 	var hasInit = false;
 	var $form = null;
 
+	// 参数校验
+	var confirmCheck = function() {
+		var check = true;
+		// 非空校验
+		$("[name][data-required=true]", $form).each(function() {
+			if ($.trim(this.value) == "") {
+				check = false;
+				layer.open({
+					content : this.getAttribute("placeholder"),
+					skin : 'msg',
+					time : 2
+				});
+				return true;
+			}
+		});
+		return check;
+	}
+
 	// 初始化函数
 	var initFn = function() {
 		if (hasInit)
@@ -38,29 +56,22 @@ var flow = function() {
 	var confirmFn = function() {
 
 		if (confirmCheck()) {
-
+			$form = $form || $("form");
+			$.post(app.path + config.confirm, $form.serializeArray(), function(result) {
+				if (result.ecode == 0) {
+					console.info(result.data);
+				} else {
+					alert(result.message);
+				}
+				Loading.stop();
+			});
 		}
-
-		Loading.start();
-		console.info($form);
-
 	}
 
 	// 流程执行函数
 	var completeFn = function() {
 		Loading.start();
 		console.info("complete")
-	}
-
-	var confirmCheck = function() {
-		var check = true;
-		$("[name][data-required=true]", $form).each(function() {
-			if ($.trim(this.value) == "") {
-				check = false;
-				return true;
-			}
-		});
-		return check;
 	}
 
 	return {

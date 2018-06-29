@@ -42,7 +42,7 @@ public interface IFlowController {
 	 * @return
 	 */
 	@PostMapping(value = "/flow/confirm")
-	public Response<?> flowConfirm(String entityId);
+	public Response<?> flowConfirm(HttpServletRequest request);
 
 	/**
 	 * 非页面流程，执行下一步
