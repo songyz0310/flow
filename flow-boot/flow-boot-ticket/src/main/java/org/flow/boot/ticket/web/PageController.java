@@ -1,8 +1,6 @@
 package org.flow.boot.ticket.web;
 
-import org.flow.boot.common.Response;
-import org.flow.boot.common.enums.EntityType;
-import org.flow.boot.ticket.service.feignclient.FlowControllerService;
+import org.flow.boot.ticket.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,16 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("page")
 public class PageController {
-
+	
 	@Autowired
-	private FlowControllerService flowControllerService;
+	private TicketService ticketService;
 
-	@GetMapping("ticket")
-	public String ticket(ModelMap map) {
-		Response<?> response = flowControllerService.list(EntityType.TICKET);
-		map.put("processList", response.getData());
-		return "ticket";
+	@GetMapping("index")
+	public String index() {
+		return "index";
+	}
 
+	@GetMapping("ticket/list")
+	public String ticketList(ModelMap map) {
+		map.put("ticketList", ticketService.ticketList());
+		return "ticketList";
 	}
 
 }

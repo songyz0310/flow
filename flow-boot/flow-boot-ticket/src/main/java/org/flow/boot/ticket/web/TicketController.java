@@ -1,6 +1,5 @@
 package org.flow.boot.ticket.web;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +15,7 @@ import org.flow.boot.ticket.form.TicketForm;
 import org.flow.boot.ticket.repository.SysTicketRepository;
 import org.flow.boot.ticket.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,29 +23,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @RestController
 @RequestMapping("ticket")
-public class TicketController {
-
-	private TemplateEngine templateEngine = new TemplateEngine();
-	{
-		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-
-		templateResolver.setTemplateMode("LEGACYHTML5");
-		templateResolver.setPrefix("templates/");
-		templateResolver.setSuffix(".html");
-		templateResolver.setCharacterEncoding("UTF-8");
-		templateResolver.setCacheable(false);
-
-		templateEngine.setTemplateResolver(templateResolver); // 设置模板解析器
-	}
+public class TicketController implements IFlowController {
 
 	@Autowired
 	private TicketService ticketService;
 	@Autowired
 	private SysTicketRepository sysTicketRepository;
+
+	@Autowired
+	@Qualifier("flowTemplateEngine")
+	private TemplateEngine templateEngine;
 
 	@PostMapping(value = "open")
 	public Response<?> openTicket(@RequestBody TicketForm ticket) {
@@ -59,35 +49,48 @@ public class TicketController {
 
 	@GetMapping(value = "list")
 	public Response<List<TicketVO>> listTicket() {
-		return Response.okResponse(ticketService.listTicket());
+		return Response.okResponse(ticketService.ticketList());
 	}
 
-	@GetMapping(value = "flow/page")
-	public String ticketFlow(String ticketId, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		if (Objects.isNull(ticketId)) {
+	// 流程页面
+	public String flowPage(String entityId, String stepId, HttpServletRequest req, HttpServletResponse resp) {
+		if (Objects.isNull(entityId)) {
 			return ErrorCode.PARAM_MISS.getMessage();
 		}
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		SysTicket ticket = sysTicketRepository.findOne(entityId);
 		if (Objects.isNull(ticket)) {
 			return "工单不存在";
 		} else if (Objects.isNull(ticket.getStepId())) {
 			return "工单步骤为空";
+		} else if (Objects.equals(ticket.getStepId(), stepId) == false) {
+			return "工单步骤与当前步骤不符";
 		} else if (Objects.equals(ticket.getStepType(), StepType.PAGE) == false) {
 			return "工单步骤不是页面";
 		}
 
 		WebContext ctx = new WebContext(req, resp, req.getServletContext());
-		return templateEngine.process(ticketService.ticketFlow(ticketId), ctx);
+		return templateEngine.process(ticketService.ticketFlow(entityId), ctx);
 	}
 
-	@GetMapping(value = "flow/complete")
-	public Response<?> complete(String ticketId) {
+	// 流程页面数据
+	public Response<?> flowPageData(String entityId) {
+
+		return Response.okResponse(entityId);
+	}
+
+	// 流程页面确认
+	public Response<?> flowConfirm(String entityId) {
+		return null;
+	}
+
+	// 非页面流程，执行下一步
+	public Response<?> flowComplete(String entityId) {
 		Response<?> response = Response.errorResponse(ErrorCode.UNKNOWN);
-		if (Objects.isNull(ticketId)) {
+		if (Objects.isNull(entityId)) {
 			response.setMessage(ErrorCode.PARAM_MISS.getMessage());
 			return response;
 		}
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		SysTicket ticket = sysTicketRepository.findOne(entityId);
 		if (Objects.isNull(ticket)) {
 			response.setMessage("工单不存在");
 			return response;
@@ -99,7 +102,7 @@ public class TicketController {
 			return response;
 		}
 
-		ticketService.completeStep(ticketId);
+		ticketService.completeStep(entityId);
 		return Response.okResponse("成功");
 	}
 }

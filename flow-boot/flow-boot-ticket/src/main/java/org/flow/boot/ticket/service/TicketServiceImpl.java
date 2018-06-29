@@ -63,11 +63,18 @@ public class TicketServiceImpl implements TicketService {
 		FlowStepVO step = stepControllerService.findById(stepId).getData();
 		String pageId = step.getPageId();
 
-		File file = new File("src\\main\\resources\\templates\\" + pageId + ".html");
+		File file = new File("target\\classes\\templates\\ticket\\" + pageId + ".html");
 		if (file.exists() == false) {
+			try {
+				if (file.getParentFile().exists() == false) {
+					file.getParentFile().mkdirs();
+				}
+				file.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			String html = flowControllerService.getRenderedHtml(EntityType.TICKET, ticketId).getData();
 			try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-
 				writer.write(html);
 				writer.flush();
 			} catch (IOException e) {
@@ -91,7 +98,7 @@ public class TicketServiceImpl implements TicketService {
 		sysTicketRepository.save(ticket);
 	}
 
-	public List<TicketVO> listTicket() {
+	public List<TicketVO> ticketList() {
 		List<TicketVO> data = new LinkedList<>();
 		sysTicketRepository.findAll().forEach(ticket -> {
 			TicketVO vo = new TicketVO();

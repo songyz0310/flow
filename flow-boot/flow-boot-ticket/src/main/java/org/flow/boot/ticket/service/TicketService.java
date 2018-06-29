@@ -13,6 +13,6 @@ public interface TicketService {
 
 	void completeStep(String ticketId);
 
-	List<TicketVO> listTicket();
+	List<TicketVO> ticketList();
 
 }

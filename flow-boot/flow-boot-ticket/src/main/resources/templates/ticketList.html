@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>工单</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+
+</head>
+<body class="container-fluid">
+	<blockquote>
+	  <p>工单列表</p>
+	</blockquote>
+	<table class="table table-striped table-bordered" style="text-align: center;">
+		<thead>
+			<tr class="heading">
+				<th>序号</th>
+				<th>创建时间</th>
+				<th>当前步骤</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="ticket,ticketStat : ${ticketList}">
+				<td th:text="${ticketStat.count}">工单ID</td>
+				<td th:text="${#dates.format(ticket.createTime,'yy/MM/dd HH:mm')}">2018</td>
+				<td th:text="${ticket.stepName}">开单</td>
+				<td th:if="${ticket.stepType.name()} eq PAGE">
+					<a th:text="${ticket.stepName}" th:href="@{'/ticket/flow/page?entityId='+${ticket.ticketId}+'&stepId='+${ticket.stepId}}"></a>
+				</td>
+				<td th:if="${ticket.stepType.name()} ne PAGE">
+					<button th:text="${ticket.stepName}" th:onclick="'flow.complete(\''+${ticket.ticketId}+'\')'" class="btn btn-xs btn-success">成功</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/flow.js}"></script>
+</html>
