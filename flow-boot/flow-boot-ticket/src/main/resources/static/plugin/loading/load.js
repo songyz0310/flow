@@ -88,3 +88,11 @@ var Loading = function() {
 		}
 	};
 }();
+
+// var i = 2;
+// setInterval(function() {
+// Loading.destroy();
+// Loading.start(i);
+// i++;
+// i = (i == 12 ? 1 : i);
+// }, 3000);

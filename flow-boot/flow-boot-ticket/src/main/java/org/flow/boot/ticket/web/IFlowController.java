@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.flow.boot.common.Response;
+import org.flow.boot.common.enums.EntityType;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public interface IFlowController {
 	 * @return
 	 */
 	@GetMapping(value = "/flow/page/data")
-	public Response<?> flowPageData(String entityId);
+	public Response<?> flowPageData(EntityType entityType, String entityId, String stepId);
 
 	/**
 	 * 流程页面确认

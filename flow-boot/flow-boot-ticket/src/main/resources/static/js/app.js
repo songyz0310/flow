@@ -34,6 +34,20 @@ var app = function() {
 				}
 			}
 			return value;
+		},
+		setGetUrl : function(url, param) {
+			url = url == null ? "" : url;
+			var s = "";
+			for ( var key in param)
+				s += "&" + key + "=" + param[key];
+
+			if (s == "")
+				return url;
+
+			if (url.indexOf("?") == -1)
+				url += "?";
+
+			return url + (url.indexOf("?") == url.length - 1 ? s.substr(1) : s);
 		}
 	}
 }();

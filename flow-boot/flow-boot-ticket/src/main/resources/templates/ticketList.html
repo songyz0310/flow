@@ -26,7 +26,7 @@
 				<td th:text="${#dates.format(ticket.createTime,'yy/MM/dd HH:mm')}">2018</td>
 				<td th:text="${ticket.stepName}">开单</td>
 				<td th:if="${ticket.stepType.name()} eq PAGE">
-					<a th:text="${ticket.stepName}" th:href="@{'/ticket/flow/page?entityId='+${ticket.ticketId}+'&stepId='+${ticket.stepId}}"></a>
+					<a th:text="${ticket.stepName}" th:href="@{'/ticket/flow/page?entityType='+${entityType.name()}+'&entityId='+${ticket.ticketId}+'&stepId='+${ticket.stepId}}"></a>
 				</td>
 				<td th:if="${ticket.stepType.name()} ne PAGE">
 					<button th:text="${ticket.stepName}" th:onclick="'flow.complete(\''+${ticket.ticketId}+'\')'" class="btn btn-xs btn-success">成功</button>

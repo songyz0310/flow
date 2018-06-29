@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,14 +13,19 @@ import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.common.vo.process.FlowProcessVO;
 import org.flow.boot.common.vo.process.FlowStepVO;
+import org.flow.boot.common.vo.ticket.StepDataVO;
 import org.flow.boot.common.vo.ticket.TicketVO;
+import org.flow.boot.ticket.entity.SysFlowStepData;
 import org.flow.boot.ticket.entity.SysTicket;
 import org.flow.boot.ticket.form.TicketForm;
+import org.flow.boot.ticket.repository.SysFlowStepDataRepository;
 import org.flow.boot.ticket.repository.SysTicketRepository;
 import org.flow.boot.ticket.service.feignclient.FlowControllerService;
 import org.flow.boot.ticket.service.feignclient.StepControllerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +38,8 @@ public class TicketServiceImpl implements TicketService {
 	private FlowControllerService flowControllerService;
 	@Autowired
 	private StepControllerService stepControllerService;
+	@Autowired
+	private SysFlowStepDataRepository sysFlowStepDataRepository;
 
 	@Transactional
 	public void openTicket(TicketForm form) {
@@ -55,7 +63,7 @@ public class TicketServiceImpl implements TicketService {
 		sysTicketRepository.save(ticket);
 	}
 
-	public String ticketFlow(String ticketId) {
+	public String getTicketFlowPage(String ticketId) {
 
 		SysTicket ticket = sysTicketRepository.findOne(ticketId);
 
@@ -83,6 +91,18 @@ public class TicketServiceImpl implements TicketService {
 		}
 		return pageId;
 
+	}
+
+	public List<StepDataVO> getTicketFlowData(EntityType entityType, String entityId, String stepId) {
+		SysFlowStepData search = new SysFlowStepData();
+		search.setEntityId(entityId);
+		search.setEntityType(entityType);
+		search.setStepId(stepId);
+		Sort sort = new Sort(Sort.Direction.ASC, "dataId");
+		List<SysFlowStepData> flStepDatas = sysFlowStepDataRepository.findAll(Example.of(search), sort);
+		List<StepDataVO> dataList = new ArrayList<>();
+		BeanUtils.copyProperties(flStepDatas, dataList);
+		return dataList;
 	}
 
 	@Transactional

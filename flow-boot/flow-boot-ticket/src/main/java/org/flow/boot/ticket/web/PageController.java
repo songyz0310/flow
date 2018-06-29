@@ -1,5 +1,6 @@
 package org.flow.boot.ticket.web;
 
+import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.ticket.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("page")
 public class PageController {
-	
+
 	@Autowired
 	private TicketService ticketService;
 
@@ -22,6 +23,7 @@ public class PageController {
 	@GetMapping("ticket/list")
 	public String ticketList(ModelMap map) {
 		map.put("ticketList", ticketService.ticketList());
+		map.put("entityType", EntityType.TICKET);
 		return "ticketList";
 	}
 

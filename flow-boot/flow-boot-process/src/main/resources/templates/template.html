@@ -4,22 +4,37 @@
 <meta charset="UTF-8" />
 <title>#{pageName}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-<link th:href="@{/plugin/loading/load.min.css}" rel="stylesheet" />
-<script th:src="@{/plugin/loading/load.min.js}" onload="Loading.start(1)"></script>
+<link th:href="@{/static/plugin/loading/load.min.css}" rel="stylesheet" />
+<script th:src="@{/static/plugin/loading/load.min.js}" onload="Loading.start(1)"></script>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/static/css/flow.css}" rel="stylesheet" />
 </head>
 <body class="container-fluid">
-	<blockquote><b>这里是流程页面</b></blockquote>
+	<blockquote><b>这里是#{pageName}</b></blockquote>
 	<form id="form" action="/tickets/" class="form-horizontal">
 		<input type="hidden" name="entityType" /> 
 		<input type="hidden" name="entityId" />
 		<input type="hidden" name="stepId" />
-		<input type="hidden" name="status" />
 		#{source}
 	</form>
-	<button type="button" class="btn btn-primary btn-lg btn-block">#{pageName}</button>
+	<div class="confirm_block"></div>
+	<div class="confirm_btn">
+		<button type="button" class="btn btn-primary btn-lg btn-block">#{pageName}</button>
+	</div>
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/static/js/config.js}"></script>
+<script th:src="@{/static/js/app.js}"></script>
+<script th:src="@{/static/js/flow.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+   var host = [[${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort() +   #httpServletRequest.getContextPath() + '/'}]];
+   var ctx = [[@{/}]];
+   app.init(host,ctx);
+   
+   $(function(){
+	   flow.init();
+   });
+   
+</script>
 </html>

@@ -1,41 +1,89 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8" /><title>完成</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/></head><body class="container-fluid">	<form id="form" action="/tickets/" class="form-horizontal">		<input type="hidden" name="entityType" /> 		<input type="hidden" name="entityId" />		<input type="hidden" name="stepId" />		<input type="hidden" name="status" />		<div class="form-group">
-	<label class="col-sm-2 control-label">最终联系人</label>
-	<div class="col-sm-10">
-		<input type="text" class="form-control"
-			name="page_402809816436375e0164363857f60008_" placeholder="请填写最终联系人"
-			data-itemid="402809816436375e0164363857de0000" data-fpcid="402809816436375e0164363857f60008"
-			data-required="" data-reg="" data-regTip="">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>完成</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link th:href="@{/static/plugin/loading/load.min.css}" rel="stylesheet" />
+<script th:src="@{/static/plugin/loading/load.min.js}" onload="Loading.start(1)"></script>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/static/css/flow.css}" rel="stylesheet" />
+</head>
+<body class="container-fluid">
+	<form class="form-horizontal">
+		<input type="hidden" name="entityType" />
+		<input type="hidden" name="entityId" />
+		<input type="hidden" name="stepId" /> 
+		<div class="form-group">
+			<label class="col-sm-2 control-label">最终联系人</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_402809816436375e0164363857f60008_"
+					placeholder="请填写最终联系人"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f60008" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">联系电话</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_402809816436375e0164363857f60009_" placeholder="请填写联系电话"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f60009" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">故障描述</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_402809816436375e0164363857f6000a_" placeholder="请填写故障描述"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f6000a" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">现场确认</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_402809816436375e0164363857f7000b_" placeholder="请填写现场确认"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f7000b" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">解决方案</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					name="page_402809816436375e0164363857f7000c_" placeholder="请填写解决方案"
+					data-itemid="402809816436375e0164363857de0000"
+					data-fpcid="402809816436375e0164363857f7000c" data-required=""
+					data-reg="" data-regTip="">
+			</div>
+		</div>
+	</form>
+	<div class="confirm_block"></div>
+	<div class="confirm_btn">
+		<button type="button" class="btn btn-primary btn-lg btn-block">预约</button>
 	</div>
-</div><div class="form-group">
-	<label class="col-sm-2 control-label">联系电话</label>
-	<div class="col-sm-10">
-		<input type="text" class="form-control"
-			name="page_402809816436375e0164363857f60009_" placeholder="请填写联系电话"
-			data-itemid="402809816436375e0164363857de0000" data-fpcid="402809816436375e0164363857f60009"
-			data-required="" data-reg="" data-regTip="">
-	</div>
-</div><div class="form-group">
-	<label class="col-sm-2 control-label">故障描述</label>
-	<div class="col-sm-10">
-		<input type="text" class="form-control"
-			name="page_402809816436375e0164363857f6000a_" placeholder="请填写故障描述"
-			data-itemid="402809816436375e0164363857de0000" data-fpcid="402809816436375e0164363857f6000a"
-			data-required="" data-reg="" data-regTip="">
-	</div>
-</div><div class="form-group">
-	<label class="col-sm-2 control-label">现场确认</label>
-	<div class="col-sm-10">
-		<input type="text" class="form-control"
-			name="page_402809816436375e0164363857f7000b_" placeholder="请填写现场确认"
-			data-itemid="402809816436375e0164363857de0000" data-fpcid="402809816436375e0164363857f7000b"
-			data-required="" data-reg="" data-regTip="">
-	</div>
-</div><div class="form-group">
-	<label class="col-sm-2 control-label">解决方案</label>
-	<div class="col-sm-10">
-		<input type="text" class="form-control"
-			name="page_402809816436375e0164363857f7000c_" placeholder="请填写解决方案"
-			data-itemid="402809816436375e0164363857de0000" data-fpcid="402809816436375e0164363857f7000c"
-			data-required="" data-reg="" data-regTip="">
-	</div>
-</div>	</form>	<button type="button" class="btn btn-primary btn-lg btn-block">完成</button></body><script th:src="@{/webjars/jquery/jquery.min.js}"></script><script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script></html>
+</body>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/config.js}"></script>
+<script th:src="@{/static/js/app.js}"></script>
+<script th:src="@{/static/js/flow.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+   var host = [[${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort() +   #httpServletRequest.getContextPath() + '/'}]];
+   var ctx = [[@{/}]];
+   app.init(host,ctx);
+
+   $(function(){
+	   flow.init();
+   });
+   
+</script>
+</html>

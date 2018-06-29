@@ -2,12 +2,14 @@ package org.flow.boot.ticket.web;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
+import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.StepType;
 import org.flow.boot.common.vo.ticket.TicketVO;
 import org.flow.boot.ticket.entity.SysTicket;
@@ -69,13 +71,30 @@ public class TicketController implements IFlowController {
 		}
 
 		WebContext ctx = new WebContext(req, resp, req.getServletContext());
-		return templateEngine.process(ticketService.ticketFlow(entityId), ctx);
+		return templateEngine.process(ticketService.getTicketFlowPage(entityId), ctx);
 	}
 
 	// 流程页面数据
-	public Response<?> flowPageData(String entityId) {
-
-		return Response.okResponse(entityId);
+	public Response<?> flowPageData(EntityType entityType, String entityId, String stepId) {
+		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
+		SysTicket ticket = sysTicketRepository.findOne(entityId);
+		if (Objects.isNull(ticket)) {
+			error.setMessage("工单不存在");
+			return error;
+		} else if (Objects.equals(ticket.getStepId(), stepId) == false) {
+			error.setMessage("工单步骤与当前步骤不符");
+			return error;
+		} else if (Objects.equals(ticket.getStepType(), StepType.PAGE) == false) {
+			error.setMessage("工单步骤不是页面");
+			return error;
+		}
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO 显示加载动画
+			e.printStackTrace();
+		}
+		return Response.okResponse(ticketService.getTicketFlowData(entityType, entityId, stepId));
 	}
 
 	// 流程页面确认
