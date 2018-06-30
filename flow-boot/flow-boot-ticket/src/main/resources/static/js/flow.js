@@ -10,11 +10,7 @@ var flow = function() {
 		$("[name][data-required=true]", $form).each(function() {
 			if ($.trim(this.value) == "") {
 				check = false;
-				layer.open({
-					content : this.getAttribute("placeholder"),
-					skin : 'msg',
-					time : 2
-				});
+				layer.msg(this.getAttribute("placeholder"));
 				return true;
 			}
 		});
@@ -45,7 +41,7 @@ var flow = function() {
 
 				console.info(data);
 			} else {
-				alert(result.message);
+				layer.msg(result.message);
 			}
 			Loading.stop();
 		});
@@ -54,14 +50,13 @@ var flow = function() {
 
 	// 页面确认函数
 	var confirmFn = function() {
-
 		if (confirmCheck()) {
 			$form = $form || $("form");
 			$.post(app.path + config.confirm, $form.serializeArray(), function(result) {
 				if (result.ecode == 0) {
 					console.info(result.data);
 				} else {
-					alert(result.message);
+					layer.msg(result.message);
 				}
 				Loading.stop();
 			});
@@ -71,7 +66,7 @@ var flow = function() {
 	// 流程执行函数
 	var completeFn = function() {
 		Loading.start();
-		console.info("complete")
+		layer.msg("complete");
 	}
 
 	return {

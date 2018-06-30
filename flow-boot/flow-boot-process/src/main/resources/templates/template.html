@@ -24,7 +24,7 @@
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/static/plugin/layer.mobile-v2.0/layer.js}"></script>
+<script th:src="@{/webjars/layer/dist/layer.js}"></script>
 <script th:src="@{/static/js/config.js}"></script>
 <script th:src="@{/static/js/app.js}"></script>
 <script th:src="@{/static/js/flow.js}"></script>
@@ -32,10 +32,8 @@
    var host = [[${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort()}]];
    var ctx = [[@{/}]];
    app.init(host,ctx);
-   
    $(function(){
 	   flow.init();
    });
-   
 </script>
 </html>

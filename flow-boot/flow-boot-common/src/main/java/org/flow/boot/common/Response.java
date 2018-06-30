@@ -18,6 +18,10 @@ public class Response<T> {
 		return message;
 	}
 
+	public void appendMessage(String message) {
+		this.message += message;
+	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}

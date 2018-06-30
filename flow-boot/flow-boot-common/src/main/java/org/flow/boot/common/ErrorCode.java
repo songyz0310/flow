@@ -4,12 +4,17 @@ public enum ErrorCode {
 
 	UNKNOWN(-1, "未知异常"), //
 	SUCCESS(0, "成功"), //
-	
-	BASE_REQUEST_400(1001, "缺少必要基础参数"), //
+
+	// http 异常
+	HTTP_400_BIND(1001, "【MVC】参数绑定异常，"), //
+	HTTP_400_VALIDATION(1002, "【MVC】参数违反约束，"), //
+	HTTP_404_NOT_FOUND(1003, "【MVC】请求地址没找到，"), //
+	HTTP_405_NOT_ALLOWED(1004, "【MVC】缺少必要基础参数，"), //
+	HTTP_415_MEDIA_TYPE(1005, "【MVC】不支持的媒体类型，"), //
 
 	// 基础异常
 	PARAM_MISS(2001, "缺少必要基础参数"), //
-	
+
 	;
 
 	// 系统未知异常

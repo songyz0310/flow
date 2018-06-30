@@ -6,6 +6,12 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * 资源路径映射，资源缓存
+ * 
+ * @author Administrator
+ *
+ */
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 

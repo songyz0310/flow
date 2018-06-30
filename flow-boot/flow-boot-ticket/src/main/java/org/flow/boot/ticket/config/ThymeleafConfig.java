@@ -6,6 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+/**
+ * 初始化自定义模板引擎
+ * 
+ * @author Administrator
+ *
+ */
 @Configuration
 public class ThymeleafConfig {
 

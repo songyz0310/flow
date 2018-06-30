@@ -56,7 +56,7 @@ public class FlowPageServiceImpl implements FlowPageService {
 				StringBuilder pageTemp = new StringBuilder();
 				String line;
 				while ((line = reader.readLine()) != null) {
-					pageTemp.append(line);
+					pageTemp.append(line).append("\r\n");
 				}
 				List<FlowPageConfig> pageConfigs = flowPageConfigRepository.findByPageId(flowPage.getPageId());
 				for (FlowPageConfig fpc : pageConfigs) {
@@ -103,7 +103,7 @@ public class FlowPageServiceImpl implements FlowPageService {
 				"			data-itemid=\"#{itemId}\" data-fpcid=\"#{fpcId}\"\r\n" + //
 				"			data-required=\"#{required}\" data-reg=\"#{reg}\" data-regTip=\"#{regTip}\">\r\n" + //
 				"	</div>\r\n" + //
-				"</div>");//
+				"</div>\r\n");//
 
 		flowPageItemRepository.save(flowPageItem);
 
