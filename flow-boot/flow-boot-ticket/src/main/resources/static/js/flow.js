@@ -52,7 +52,8 @@ var flow = function() {
 	var confirmFn = function() {
 		if (confirmCheck()) {
 			$form = $form || $("form");
-			$.post(app.path + config.confirm, $form.serializeArray(), function(result) {
+			$.post(app.path + config.confirm, $form.serializeArray(), function(
+					result) {
 				if (result.ecode == 0) {
 					console.info(result.data);
 				} else {
@@ -64,14 +65,14 @@ var flow = function() {
 	}
 
 	// 流程执行函数
-	var completeFn = function() {
+	var executeFn = function(entityType, entityId, stepId) {
 		Loading.start();
-		layer.msg("complete");
+		layer.msg("execute");
 	}
 
 	return {
 		init : initFn,
 		confirm : confirmFn,
-		complete : completeFn
+		execute : executeFn
 	}
 }();

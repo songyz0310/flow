@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
+import org.flow.boot.common.dto.ticket.FlowStepDTO;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.StepType;
 import org.flow.boot.common.vo.ticket.TicketVO;
 import org.flow.boot.ticket.entity.SysTicket;
 import org.flow.boot.ticket.form.TicketForm;
 import org.flow.boot.ticket.repository.SysTicketRepository;
-import org.flow.boot.ticket.service.TicketService;
+import org.flow.boot.ticket.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +30,10 @@ import org.thymeleaf.context.WebContext;
 
 @RestController
 @RequestMapping("ticket")
-public class TicketController implements IFlowController {
+public class TicketController implements FlowController {
 
 	@Autowired
-	private TicketService ticketService;
+	private ITicketService ticketService;
 	@Autowired
 	private SysTicketRepository sysTicketRepository;
 
@@ -107,25 +108,28 @@ public class TicketController implements IFlowController {
 	}
 
 	// 非页面流程，执行下一步
-	public Response<?> flowComplete(String entityId) {
+	public Response<?> flowExecute(FlowStepDTO flowStep) {
 		Response<?> response = Response.errorResponse(ErrorCode.UNKNOWN);
-		if (Objects.isNull(entityId)) {
+		if (flowStep.paramIsMiss()) {
 			response.setMessage(ErrorCode.PARAM_MISS.getMessage());
 			return response;
 		}
-		SysTicket ticket = sysTicketRepository.findOne(entityId);
+		SysTicket ticket = sysTicketRepository.findOne(flowStep.getEntityId());
 		if (Objects.isNull(ticket)) {
 			response.setMessage("工单不存在");
 			return response;
 		} else if (Objects.isNull(ticket.getStepId())) {
 			response.setMessage("工单步骤为空");
 			return response;
+		} else if (Objects.equals(ticket.getStepId(), flowStep.getStepId()) == false) {
+			response.setMessage("工单步骤与当前步骤不符");
+			return response;
 		} else if (Objects.equals(ticket.getStepType(), StepType.PAGE)) {
 			response.setMessage("工单步骤是页面");
 			return response;
 		}
 
-		ticketService.completeStep(entityId);
+		ticketService.flowExecute(flowStep);
 		return Response.okResponse("成功");
 	}
 }

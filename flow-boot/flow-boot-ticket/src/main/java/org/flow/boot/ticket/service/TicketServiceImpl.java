@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.flow.boot.common.dto.ticket.FlowStepDTO;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.common.vo.process.FlowProcessVO;
@@ -41,6 +42,16 @@ public class TicketServiceImpl implements TicketService {
 	@Autowired
 	private SysFlowStepDataRepository sysFlowStepDataRepository;
 
+	public List<TicketVO> ticketList() {
+		List<TicketVO> data = new LinkedList<>();
+		sysTicketRepository.findAll().forEach(ticket -> {
+			TicketVO vo = new TicketVO();
+			BeanUtils.copyProperties(ticket, vo);
+			data.add(vo);
+		});
+		return data;
+	}
+
 	@Transactional
 	public void openTicket(TicketForm form) {
 		Date now = new Date();
@@ -64,9 +75,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	public String getTicketFlowPage(String ticketId) {
-
 		SysTicket ticket = sysTicketRepository.findOne(ticketId);
-
 		String stepId = ticket.getStepId();
 		FlowStepVO step = stepControllerService.findById(stepId).getData();
 		String pageId = step.getPageId();
@@ -74,9 +83,9 @@ public class TicketServiceImpl implements TicketService {
 		File file = new File("target\\classes\\templates\\ticket\\" + pageId + ".html");
 		if (file.exists() == false) {
 			try {
-				if (file.getParentFile().exists() == false) {
+				if (file.getParentFile().exists() == false)
 					file.getParentFile().mkdirs();
-				}
+
 				file.createNewFile();
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -106,26 +115,17 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Transactional
-	public void completeStep(String ticketId) {
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
-		FlowInstanceVO flowInstanceVO = flowControllerService.completeStep(EntityType.TICKET, ticketId).getData();
-		FlowStepVO flowStepVO = stepControllerService.findById(flowInstanceVO.getStepId()).getData();
-		ticket.setSoStatus("---");// TODO 从扩展中取值
-		ticket.setStepId(flowStepVO.getStepId());
-		ticket.setStepName(flowStepVO.getStepName());
-		ticket.setStepType(flowStepVO.getStepType());
-		ticket.setUpdateTime(new Date());
-		sysTicketRepository.save(ticket);
-	}
-
-	public List<TicketVO> ticketList() {
-		List<TicketVO> data = new LinkedList<>();
-		sysTicketRepository.findAll().forEach(ticket -> {
-			TicketVO vo = new TicketVO();
-			BeanUtils.copyProperties(ticket, vo);
-			data.add(vo);
-		});
-		return data;
+	public void flowExecute(FlowStepDTO flowStep) {
+		
+//		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+//		FlowInstanceVO flowInstanceVO = flowControllerService.completeStep(EntityType.TICKET, ticketId).getData();
+//		FlowStepVO flowStepVO = stepControllerService.findById(flowInstanceVO.getStepId()).getData();
+//		ticket.setSoStatus("---");// TODO 从扩展中取值
+//		ticket.setStepId(flowStepVO.getStepId());
+//		ticket.setStepName(flowStepVO.getStepName());
+//		ticket.setStepType(flowStepVO.getStepType());
+//		ticket.setUpdateTime(new Date());
+//		sysTicketRepository.save(ticket);
 	}
 
 }

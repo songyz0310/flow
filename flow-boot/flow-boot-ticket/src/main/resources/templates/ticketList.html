@@ -30,7 +30,7 @@
 					<a th:text="${ticket.stepName}" th:href="@{'/ticket/flow/page?entityType='+${entityType.name()}+'&entityId='+${ticket.ticketId}+'&stepId='+${ticket.stepId}}"></a>
 				</td>
 				<td th:if="${ticket.stepType.name()} ne PAGE">
-					<button th:text="${ticket.stepName}" th:onclick="'flow.complete(\''+${ticket.ticketId}+'\')'" class="btn btn-xs btn-success">成功</button>
+					<button th:text="${ticket.stepName}" th:onclick="'flow.complete(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\')'" class="btn btn-xs btn-success">成功</button>
 				</td>
 			</tr>
 		</tbody>
@@ -41,7 +41,4 @@
 <script th:src="@{/webjars/layer/dist/layer.js}"></script>
 <script th:src="@{/static/js/app.js}"></script>
 <script th:src="@{/static/js/flow.js}"></script>
-<script>
-
-</script>
 </html>

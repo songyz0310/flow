@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.flow.boot.common.Response;
+import org.flow.boot.common.dto.ticket.FlowStepDTO;
 import org.flow.boot.common.enums.EntityType;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author songyz
  *
  */
-public interface IFlowController {
+public interface FlowController {
 
 	/**
 	 * 流程页面
@@ -47,10 +48,10 @@ public interface IFlowController {
 	/**
 	 * 非页面流程，执行下一步
 	 * 
-	 * @param entityId
+	 * @param flowStep
 	 * @return
 	 */
-	@PostMapping(value = "flow/complete")
-	public Response<?> flowComplete(String entityId);
+	@PostMapping(value = "flow/execute")
+	public Response<?> flowExecute(FlowStepDTO flowStep);
 
 }
