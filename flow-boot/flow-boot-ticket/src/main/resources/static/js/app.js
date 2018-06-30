@@ -51,4 +51,3 @@ var app = function() {
 		}
 	}
 }();
-

@@ -1,7 +1,11 @@
 var _content_div = null;
 var Loading = function() {
+	var startTime = null;
+	var showInterval = 1000;
+	
 	return {
 		start : function(type, color) {
+			startTime = new Date();
 			if (_content_div != null) {
 				_content_div.style.display = "block";
 				return;
@@ -80,7 +84,9 @@ var Loading = function() {
 
 		},
 		stop : function() {
-			_content_div.style.display = "none";
+			setTimeout(() => {
+				_content_div.style.display = "none";
+			}, showInterval-( new Date() - startTime));
 		},
 		destroy : function() {
 			document.getElementsByTagName("html")[0].removeChild(_content_div);
