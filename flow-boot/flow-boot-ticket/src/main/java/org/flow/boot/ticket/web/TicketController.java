@@ -17,7 +17,7 @@ import org.flow.boot.common.vo.ticket.TicketVO;
 import org.flow.boot.ticket.entity.SysTicket;
 import org.flow.boot.ticket.form.TicketForm;
 import org.flow.boot.ticket.repository.SysTicketRepository;
-import org.flow.boot.ticket.service.ITicketService;
+import org.flow.boot.ticket.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +33,7 @@ import org.thymeleaf.context.WebContext;
 public class TicketController implements FlowController {
 
 	@Autowired
-	private ITicketService ticketService;
+	private TicketService ticketService;
 	@Autowired
 	private SysTicketRepository sysTicketRepository;
 
