@@ -18,7 +18,7 @@ public class FlowControllerServiceImpl implements FlowControllerService {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 
-	public Response<FlowProcessVO> findById(String processId) {
+	public Response<FlowProcessVO> queryById(String processId) {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 

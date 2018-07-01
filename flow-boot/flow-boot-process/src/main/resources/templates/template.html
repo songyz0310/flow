@@ -29,11 +29,11 @@
 <script th:src="@{/static/js/app.js}"></script>
 <script th:src="@{/static/js/flow.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-   var host = [[${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #httpServletRequest.getServerPort()}]];
-   var ctx = [[@{/}]];
-   app.init(host,ctx);
-   $(function(){
-	   flow.init();
-   });
+	var host = location.origin;
+	var ctx = [[@{/}]];
+	app.init(host,ctx);
+	$(function(){
+		flow.init();
+	});
 </script>
 </html>

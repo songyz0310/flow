@@ -17,7 +17,7 @@ public interface FlowControllerService {
 	public Response<?> list(@RequestParam("entityType") EntityType entityType);
 
 	@RequestMapping(value = "query/{processId}", method = RequestMethod.GET)
-	public Response<FlowProcessVO> findById(@PathVariable("processId") String processId);
+	public Response<FlowProcessVO> queryById(@PathVariable("processId") String processId);
 
 	@RequestMapping(value = "/start", method = RequestMethod.POST)
 	public Response<FlowInstanceVO> start(//

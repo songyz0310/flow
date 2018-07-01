@@ -1,7 +1,7 @@
-var _content_div = null;
 var Loading = function() {
 	var startTime = null;
-	var showInterval = 1000;
+	var showInterval = 1500;
+	var _content_div = null;
 	
 	return {
 		start : function(type, color) {
@@ -83,14 +83,17 @@ var Loading = function() {
 			document.getElementsByTagName("html")[0].appendChild(_content_div);
 
 		},
-		stop : function() {
+		stop : function(callback) {
 			setTimeout(() => {
 				_content_div.style.display = "none";
+				(callback && typeof(callback)==="function") && callback();
 			}, showInterval-( new Date() - startTime));
 		},
 		destroy : function() {
-			document.getElementsByTagName("html")[0].removeChild(_content_div);
-			_content_div = null;
+			if (_content_div != null) {
+				document.getElementsByTagName("html")[0].removeChild(_content_div);
+				_content_div = null;
+			}
 		}
 	};
 }();

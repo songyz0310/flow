@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface StepControllerService {
 
 	@RequestMapping(value = "query/{stepId}", method = RequestMethod.GET)
-	public Response<FlowStepVO> findById(@PathVariable("stepId") String stepId);
+	public Response<FlowStepVO> queryById(@PathVariable("stepId") String stepId);
 }

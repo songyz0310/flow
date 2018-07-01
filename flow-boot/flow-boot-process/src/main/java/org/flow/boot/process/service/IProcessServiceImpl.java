@@ -237,7 +237,7 @@ public class IProcessServiceImpl implements IProcessService {
 		List<FlowInstance> flowInstances = flowInstanceRepository.findByEntityTypeAndEntityId(entityType, entityId);
 		String instanceId = flowInstances.get(0).getInstanceId();
 		String taskId = taskService.createTaskQuery().processInstanceId(instanceId).singleResult().getId();
-		return formService.getRenderedTaskForm(taskId).toString();// 这个方法是返回一个纯文本的（外置表单（一个.form结尾的文件，），可以是一个div标签）
+		return formService.getRenderedTaskForm(taskId).toString();// 这个方法是返回一个纯文本的HTML
 	}
 
 	@Transactional
@@ -249,9 +249,16 @@ public class IProcessServiceImpl implements IProcessService {
 		taskService.complete(taskId);
 
 		Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
-		String stepKey = task.getTaskDefinitionKey();
-		FlowStep flowStep = flowStepRepository.findByStepKey(stepKey);
-		flowInstance.setStepId(flowStep.getStepId());
+		if (Objects.nonNull(task)) {
+			String stepKey = task.getTaskDefinitionKey();
+			FlowStep flowStep = flowStepRepository.findByStepKey(stepKey);
+			flowInstance.setStepId(flowStep.getStepId());
+			flowInstance.setStatus(Status.RUNNING);
+		} else {
+			flowInstance.setStepId(null);
+			flowInstance.setStatus(Status.STOPED);
+		}
+		flowInstance.setUpdateTime(new Date());
 		flowInstanceRepository.save(flowInstance);
 		return flowInstance;
 

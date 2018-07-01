@@ -61,6 +61,7 @@ var flow = function() {
 	var confirmFn = function() {
 		if (confirmCheck()) {
 			$form = $form || $("form");
+			Loading.start();
 			$.ajax({
 				url : app.path + config.confirm,
 				data : $form.serializeArray(),
@@ -72,7 +73,9 @@ var flow = function() {
 					} else {
 						layer.msg(result.message);
 					}
-					Loading.stop();
+					Loading.stop(() => {
+						history.go(-1);
+					});
 				},
 				error : function(error) {
 					layer.msg(error.responseJSON.message);
@@ -105,7 +108,9 @@ var flow = function() {
 				} else {
 					layer.msg(result.message);
 				}
-				Loading.stop();
+				Loading.stop(() => {
+					history.go(0);
+				});
 			},
 			error : function(error) {
 				layer.msg(error.responseJSON.message);
