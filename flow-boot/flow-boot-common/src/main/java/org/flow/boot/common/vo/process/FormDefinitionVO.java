@@ -6,7 +6,7 @@ package org.flow.boot.common.vo.process;
  * @author songyz
  *
  */
-public class FormDefinitionView {
+public class FormDefinitionVO {
 
 	private String id;
 	private String category;

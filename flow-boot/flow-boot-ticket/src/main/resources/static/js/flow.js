@@ -31,7 +31,7 @@ var flow = function() {
 		param.entityType = app.getUrlParam("entityType");
 
 		$.ajax({
-			url : app.setGetUrl(app.path + config.pageData, param),
+			url : app.setGetUrl(app.path + config.flowPageData, param),
 			type : "GET",
 			dataType : "json",
 			success : function(result) {
@@ -63,7 +63,7 @@ var flow = function() {
 			$form = $form || $("form");
 			Loading.start();
 			$.ajax({
-				url : app.path + config.confirm,
+				url : app.path + config.flowConfirm,
 				data : $form.serializeArray(),
 				type : "POST",
 				dataType : "json",
@@ -74,7 +74,7 @@ var flow = function() {
 						layer.msg(result.message);
 					}
 					Loading.stop(() => {
-						history.go(-1);
+						location.href = document.referrer;
 					});
 				},
 				error : function(error) {
@@ -98,7 +98,7 @@ var flow = function() {
 		Loading.start();
 
 		$.ajax({
-			url : app.path + config.execute,
+			url : app.path + config.flowExecute,
 			data : flowStep,
 			type : "POST",
 			dataType : "json",
@@ -109,7 +109,7 @@ var flow = function() {
 					layer.msg(result.message);
 				}
 				Loading.stop(() => {
-					history.go(0);
+					location.reload();
 				});
 			},
 			error : function(error) {

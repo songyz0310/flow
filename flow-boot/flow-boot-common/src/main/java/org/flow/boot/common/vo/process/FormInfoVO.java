@@ -1,13 +1,13 @@
 package org.flow.boot.common.vo.process;
 
-public class FormInfoView {
+public class FormInfoVO {
 
 	protected String id;
 	protected String name;
 	protected String description;
 	protected String key;
 	protected int version;
-	protected FormModelView formModel;
+	protected FormModelVO formModel;
 
 	public String getId() {
 		return id;
@@ -49,11 +49,11 @@ public class FormInfoView {
 		this.version = version;
 	}
 
-	public FormModelView getFormModel() {
+	public FormModelVO getFormModel() {
 		return formModel;
 	}
 
-	public void setFormModel(FormModelView formModel) {
+	public void setFormModel(FormModelVO formModel) {
 		this.formModel = formModel;
 	}
 

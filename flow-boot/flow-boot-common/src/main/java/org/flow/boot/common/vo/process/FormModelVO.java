@@ -1,6 +1,6 @@
 package org.flow.boot.common.vo.process;
 
-public class FormModelView {
+public class FormModelVO {
 
 	protected String name;
 	protected String key;

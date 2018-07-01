@@ -3,7 +3,7 @@ package org.flow.boot.common.vo.process;
 import java.util.Date;
 import java.util.Map;
 
-public class ProcessInstanceView {
+public class ProcessInstanceVO extends ExecutionVO {
 
 	private String processDefinitionId;
 	private String processDefinitionName;

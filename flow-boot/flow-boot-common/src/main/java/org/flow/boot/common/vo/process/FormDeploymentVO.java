@@ -8,7 +8,7 @@ import java.util.Date;
  * @author songyz
  *
  */
-public class FormDeploymentView {
+public class FormDeploymentVO {
 	
 	private String id;
 	private String name;

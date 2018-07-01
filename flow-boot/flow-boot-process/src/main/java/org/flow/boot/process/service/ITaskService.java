@@ -2,16 +2,16 @@ package org.flow.boot.process.service;
 
 import java.util.List;
 
-import org.flow.boot.common.vo.process.FormInfoView;
-import org.flow.boot.common.vo.process.TaskView;
+import org.flow.boot.common.vo.process.FormInfoVO;
+import org.flow.boot.common.vo.process.TaskVO;
 
 public interface ITaskService {
 
-	public TaskView queryById(String taskId);
+	public TaskVO queryById(String taskId);
 
-	public List<TaskView> queryList();
+	public List<TaskVO> queryList();
 
-	public FormInfoView queryFormInfo(String taskId);
+	public FormInfoVO queryFormInfo(String taskId);
 
 	public Object queryForm(String taskId);
 

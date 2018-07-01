@@ -5,7 +5,7 @@ import java.util.List;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.DeploymentView;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
-import org.flow.boot.common.vo.process.ProcessDefinitionView;
+import org.flow.boot.common.vo.process.ProcessDefinitionVO;
 import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.form.FileForm;
 import org.flow.boot.process.form.ProcessForm;
@@ -14,9 +14,9 @@ public interface IProcessService {
 
 	public void deploy(FileForm form);
 
-	public ProcessDefinitionView queryDefinitionById(String processDefinitionId);
+	public ProcessDefinitionVO queryDefinitionById(String processDefinitionId);
 
-	public List<ProcessDefinitionView> queryDefinitionList();
+	public List<ProcessDefinitionVO> queryDefinitionList();
 
 	public DeploymentView queryDeploymentById(String deploymentId);
 

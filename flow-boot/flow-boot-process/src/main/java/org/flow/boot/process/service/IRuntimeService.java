@@ -1,8 +1,16 @@
 package org.flow.boot.process.service;
 
-import org.flow.boot.common.vo.process.ProcessInstanceView;
+import java.util.List;
+
+import org.flow.boot.common.vo.process.HistoricActivityInstanceVO;
+import org.flow.boot.common.vo.process.ProcessInstanceVO;
 
 public interface IRuntimeService {
 
-	ProcessInstanceView startFlowInstanceById(String processDefinitionId);
+	ProcessInstanceVO startFlowInstanceById(String processDefinitionId);
+
+	List<ProcessInstanceVO> queryInstanceList();
+
+	List<HistoricActivityInstanceVO> queryActivityList(String processInstanceId);
+
 }

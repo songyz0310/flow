@@ -6,7 +6,7 @@ package org.flow.boot.common.vo.process;
  * @author songyz
  *
  */
-public class ProcessDefinitionView {
+public class ProcessDefinitionVO {
 
 	private String id;
 	private String category;

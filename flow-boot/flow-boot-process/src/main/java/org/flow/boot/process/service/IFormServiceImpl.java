@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import org.flow.boot.common.vo.process.FormDefinitionView;
+import org.flow.boot.common.vo.process.FormDefinitionVO;
 import org.flow.boot.process.form.MyForm;
 import org.flowable.form.api.FormDefinition;
 import org.flowable.form.api.FormRepositoryService;
@@ -46,22 +46,22 @@ public class IFormServiceImpl implements IFormService {
 
 	}
 
-	public FormDefinitionView queryById(String formId) {
+	public FormDefinitionVO queryById(String formId) {
 		FormDefinition fd = formRepositoryService.createFormDefinitionQuery().formId(formId).singleResult();
 		if (Objects.isNull(fd)) {
 			return null;
 		}
 
-		FormDefinitionView vo = new FormDefinitionView();
+		FormDefinitionVO vo = new FormDefinitionVO();
 		BeanUtils.copyProperties(fd, vo);
 		return vo;
 	}
 
-	public List<FormDefinitionView> queryList() {
+	public List<FormDefinitionVO> queryList() {
 		List<FormDefinition> list = formRepositoryService.createFormDefinitionQuery().list();
-		List<FormDefinitionView> data = new LinkedList<>();
+		List<FormDefinitionVO> data = new LinkedList<>();
 		list.forEach(fd -> {
-			FormDefinitionView vo = new FormDefinitionView();
+			FormDefinitionVO vo = new FormDefinitionVO();
 			BeanUtils.copyProperties(fd, vo);
 			data.add(vo);
 		});

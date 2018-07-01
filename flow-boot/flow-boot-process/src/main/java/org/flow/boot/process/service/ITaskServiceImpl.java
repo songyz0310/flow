@@ -3,9 +3,9 @@ package org.flow.boot.process.service;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.flow.boot.common.vo.process.FormInfoView;
-import org.flow.boot.common.vo.process.FormModelView;
-import org.flow.boot.common.vo.process.TaskView;
+import org.flow.boot.common.vo.process.FormInfoVO;
+import org.flow.boot.common.vo.process.FormModelVO;
+import org.flow.boot.common.vo.process.TaskVO;
 import org.flowable.engine.FormService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.form.TaskFormData;
@@ -24,18 +24,18 @@ public class ITaskServiceImpl implements ITaskService {
 	@Autowired
 	private FormService formService;
 
-	public TaskView queryById(String taskId) {
+	public TaskVO queryById(String taskId) {
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-		TaskView vo = new TaskView();
+		TaskVO vo = new TaskVO();
 		BeanUtils.copyProperties(task, vo);
 		return vo;
 	}
 
-	public List<TaskView> queryList() {
+	public List<TaskVO> queryList() {
 		List<Task> list = taskService.createTaskQuery().list();
-		List<TaskView> data = new LinkedList<>();
+		List<TaskVO> data = new LinkedList<>();
 		list.forEach(fd -> {
-			TaskView vo = new TaskView();
+			TaskVO vo = new TaskVO();
 			BeanUtils.copyProperties(fd, vo);
 			data.add(vo);
 		});
@@ -43,11 +43,11 @@ public class ITaskServiceImpl implements ITaskService {
 		return data;
 	}
 
-	public FormInfoView queryFormInfo(String taskId) {
+	public FormInfoVO queryFormInfo(String taskId) {
 		FormInfo formInfo = taskService.getTaskFormModel(taskId);
 		FormModel formModel = formInfo.getFormModel();
-		FormInfoView vo = new FormInfoView();
-		FormModelView formModelView = new FormModelView();
+		FormInfoVO vo = new FormInfoVO();
+		FormModelVO formModelView = new FormModelVO();
 		BeanUtils.copyProperties(formInfo, vo);
 		BeanUtils.copyProperties(formModel, formModelView);
 		vo.setFormModel(formModelView);

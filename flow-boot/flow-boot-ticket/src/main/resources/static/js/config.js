@@ -1,7 +1,7 @@
 config = {
-	page : 'ticket/flow/page',
-	pageData : 'ticket/flow/page/data',
-	confirm : 'ticket/flow/confirm',
-	execute : 'ticket/flow/execute',
+	flowPage : 'ticket/flow/page',
+	flowPageData : 'ticket/flow/page/data',
+	flowConfirm : 'ticket/flow/confirm',
+	flowExecute : 'ticket/flow/execute',
 	version : 0.1
 };

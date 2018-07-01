@@ -29,9 +29,7 @@
 				<td th:if="${ticket.stepName} eq null">已完成</td>
 				<td th:if="${ticket.stepName} ne null" th:text="${ticket.stepName}">开单</td>
 				
-				<td th:if="${ticket.stepType} eq null">
-					
-				</td>
+				<td th:if="${ticket.stepType} eq null"></td>
 				<td th:if="${ticket.stepType} ne null and ${ticket.stepType?.name()} eq PAGE">
 					<a th:text="${ticket.stepName}" th:href="@{'/ticket/flow/page?entityType='+${entityType.name()}+'&entityId='+${ticket.ticketId}+'&stepId='+${ticket.stepId}}"></a>
 				</td>

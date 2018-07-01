@@ -3,7 +3,7 @@ package org.flow.boot.common.vo.process;
 import java.util.Date;
 import java.util.Map;
 
-public class TaskView {
+public class TaskVO {
 
 	private String id;
 	private String name;

@@ -1,18 +1,18 @@
 package org.flow.boot.common.vo.process;
 
 public class ExecutionVO {
-	
-	private String id;
-	private boolean suspended;
-	private boolean ended;
-	private String activityId;
-	private String processInstanceId;
-	private String parentId;
-	private String superExecutionId;
-	private String rootProcessInstanceId;
-	private String tenantId;
-	private String name;
-	private String description;
+
+	protected String id;
+	protected boolean suspended;
+	protected boolean ended;
+	protected String activityId;
+	protected String processInstanceId;
+	protected String parentId;
+	protected String superExecutionId;
+	protected String rootProcessInstanceId;
+	protected String tenantId;
+	protected String name;
+	protected String description;
 
 	public String getId() {
 		return id;

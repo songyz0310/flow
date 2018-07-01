@@ -13,7 +13,7 @@ import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.StepType;
 import org.flow.boot.common.vo.process.DeploymentView;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
-import org.flow.boot.common.vo.process.ProcessDefinitionView;
+import org.flow.boot.common.vo.process.ProcessDefinitionVO;
 import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.entity.FlowInstance.Status;
 import org.flow.boot.process.entity.FlowProcess;
@@ -96,11 +96,11 @@ public class IProcessServiceImpl implements IProcessService {
 		}
 	}
 
-	public List<ProcessDefinitionView> queryDefinitionList() {
+	public List<ProcessDefinitionVO> queryDefinitionList() {
 		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-		List<ProcessDefinitionView> data = new LinkedList<>();
+		List<ProcessDefinitionVO> data = new LinkedList<>();
 		list.forEach(pd -> {
-			ProcessDefinitionView vo = new ProcessDefinitionView();
+			ProcessDefinitionVO vo = new ProcessDefinitionVO();
 			BeanUtils.copyProperties(pd, vo);
 			data.add(vo);
 		});
@@ -134,12 +134,12 @@ public class IProcessServiceImpl implements IProcessService {
 		repositoryService.createDeploymentQuery().list().forEach(pd -> repositoryService.deleteDeployment(pd.getId()));
 	}
 
-	public ProcessDefinitionView queryDefinitionById(String processDefinitionId) {
+	public ProcessDefinitionVO queryDefinitionById(String processDefinitionId) {
 
 		ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId)
 				.singleResult();
 
-		ProcessDefinitionView vo = new ProcessDefinitionView();
+		ProcessDefinitionVO vo = new ProcessDefinitionVO();
 		BeanUtils.copyProperties(pd, vo);
 		return vo;
 	}
