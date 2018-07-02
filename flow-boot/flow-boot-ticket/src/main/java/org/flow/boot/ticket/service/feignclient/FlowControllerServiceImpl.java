@@ -30,4 +30,8 @@ public class FlowControllerServiceImpl implements FlowControllerService {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 
+	public Response<FlowInstanceVO> cancelStep(EntityType entityType, String entityId) {
+		return Response.errorResponse(ErrorCode.UNKNOWN);
+	}
+
 }

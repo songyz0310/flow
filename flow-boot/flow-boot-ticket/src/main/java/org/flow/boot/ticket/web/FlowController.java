@@ -20,19 +20,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface FlowController {
 
 	// 流程页面
-	@GetMapping(value = "/flow/page", produces = MediaType.TEXT_HTML_VALUE)
-	public String flowPage(StepDTO step, HttpServletRequest request, HttpServletResponse response);
+	@GetMapping(value = "/step/page", produces = MediaType.TEXT_HTML_VALUE)
+	public String stepPage(StepDTO step, HttpServletRequest request, HttpServletResponse response);
 
 	// 流程页面数据
-	@GetMapping(value = "/flow/page/data")
-	public Response<?> flowPageData(StepDTO step);
+	@GetMapping(value = "/step/page/data")
+	public Response<?> stepPageData(StepDTO step);
 
 	// 流程页面确认
-	@PostMapping(value = "/flow/confirm")
-	public Response<?> flowConfirm(StepPageDTO stepPage, HttpServletRequest request);
+	@PostMapping(value = "/step/confirm")
+	public Response<?> stepConfirm(StepPageDTO stepPage, HttpServletRequest request);
 
 	// 非页面流程，执行下一步
-	@PostMapping(value = "flow/execute")
-	public Response<?> flowExecute(StepActivityDTO stepActivity);
+	@PostMapping(value = "step/execute")
+	public Response<?> stepExecute(StepActivityDTO stepActivity);
+
+	// 流程回退
+	@PostMapping(value = "/step/cancel")
+	public Response<?> stepCancel(StepDTO step);
 
 }

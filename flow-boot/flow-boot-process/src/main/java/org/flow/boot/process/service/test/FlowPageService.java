@@ -1,4 +1,4 @@
-package org.flow.boot.process.service;
+package org.flow.boot.process.service.test;
 
 public interface FlowPageService {
 

@@ -1,4 +1,4 @@
-package org.flow.boot.process.service;
+package org.flow.boot.process.service.test;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.flow.boot.common.vo.process.HistoricActivityInstanceVO;
 import org.flow.boot.common.vo.process.ProcessInstanceVO;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
-import org.flowable.engine.common.api.query.QueryProperty;
+import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.engine.impl.HistoricActivityInstanceQueryProperty;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.springframework.beans.BeanUtils;
@@ -32,10 +32,6 @@ public class IRuntimeServiceImpl implements IRuntimeService {
 	}
 
 	public List<ProcessInstanceVO> queryInstanceList() {
-
-		// runtimeService.createChangeActivityStateBuilder().processInstanceId(processInstanceId)
-		// .cancelActivityId(currentNode).startActivityId(beforeNode).changeState();
-
 		List<ProcessInstanceVO> list = new LinkedList<>();
 		runtimeService.createProcessInstanceQuery().list().forEach(pi -> {
 			ProcessInstanceVO vo = new ProcessInstanceVO();
@@ -47,11 +43,19 @@ public class IRuntimeServiceImpl implements IRuntimeService {
 
 	public List<HistoricActivityInstanceVO> queryActivityList(String processInstanceId) {
 		List<HistoricActivityInstanceVO> list = new LinkedList<>();
-		historyService.createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).orderBy(HistoricActivityInstanceQueryProperty.START).asc().list().forEach(pi -> {
+
+		List<HistoricActivityInstance> list4 = historyService.createHistoricActivityInstanceQuery()
+				.processInstanceId(processInstanceId).orderBy(HistoricActivityInstanceQueryProperty.START).asc().list();
+
+		System.out.println(list4);
+		System.out.println(list4.size());
+
+		list4.forEach(pi -> {
 			HistoricActivityInstanceVO vo = new HistoricActivityInstanceVO();
 			BeanUtils.copyProperties(pi, vo);
 			list.add(vo);
 		});
+
 		return list;
 	}
 

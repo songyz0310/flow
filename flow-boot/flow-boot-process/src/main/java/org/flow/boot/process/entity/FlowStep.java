@@ -102,4 +102,9 @@ public class FlowStep {
 		this.stepKey = stepKey;
 	}
 
+	public String toString() {
+		return "FlowStep [stepId=" + stepId + ", processId=" + processId + ", stepKey=" + stepKey + ", stepName="
+				+ stepName + ", stepRank=" + stepRank + ", stepType=" + stepType + ", pageId=" + pageId + "]";
+	}
+
 }

@@ -3,8 +3,8 @@ package org.flow.boot.ticket.service;
 import java.util.List;
 
 import org.flow.boot.common.dto.ticket.StepActivityDTO;
+import org.flow.boot.common.dto.ticket.StepDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
-import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.ticket.StepDataVO;
 import org.flow.boot.common.vo.ticket.TicketVO;
 import org.flow.boot.ticket.form.TicketForm;
@@ -17,10 +17,12 @@ public interface TicketService {
 
 	String getTicketFlowPage(String ticketId);
 
-	List<StepDataVO> getTicketFlowData(EntityType entityType, String entityId, String stepId);
+	List<StepDataVO> getTicketStepData(StepDTO dto);
 
-	void flowExecute(StepActivityDTO stepActivity);
+	void stepExecute(StepActivityDTO stepActivity);
 
-	void flowConfirm(StepPageDTO stepPage);
+	void stepConfirm(StepPageDTO stepPage);
+
+	void stepCancel(StepDTO dto);
 
 }

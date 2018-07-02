@@ -11,7 +11,7 @@ import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.form.ProcessForm;
 import org.flow.boot.process.repository.FlowProcessRepository;
-import org.flow.boot.process.service.IProcessService;
+import org.flow.boot.process.service.test.IProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +34,8 @@ public class FlowController {
 	@PostMapping(value = "deploy", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response<String> deploy(@RequestParam(required = false) MultipartFile file, String name, String key)
 			throws IOException {
-		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key)) {
+		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
 
 		ProcessForm form = new ProcessForm();
 		form.setKey(key);
@@ -46,47 +45,44 @@ public class FlowController {
 		return Response.okResponse("成功");
 	}
 
-	@GetMapping(value = "/list")
-	public Response<?> list(EntityType entityType) {
-		if (Objects.isNull(entityType)) {
-			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
-
-		return Response.okResponse(flowProcessRepository.findByEntityType(entityType));
-	}
-
-	@GetMapping(value = "query/{processId}")
+	@GetMapping("query/{processId}")
 	public Response<?> findById(@PathVariable String processId) {
-		if (Objects.isNull(processId)) {
+		if (Objects.isNull(processId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
 
 		return Response.okResponse(flowProcessRepository.findOne(processId));
 	}
 
-	@PostMapping(value = "/start")
+	@PostMapping("start")
 	public Response<FlowInstanceVO> start(EntityType entityType, String processId, String entityId) {
-		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(processId, entityId)) {
+		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(processId, entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
 
 		return Response.okResponse(iProcessService.start(processId, entityId, entityType));
 	}
 
-	@GetMapping("rendered/html")
-	public Response<String> getRenderedHtml(EntityType entityType, String entityId) {
-		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId)) {
+	@GetMapping("step/html")
+	public Response<String> stepHtml(EntityType entityType, String entityId) {
+		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
+
 		return Response.okResponse(iProcessService.getRenderedHtml(entityId, entityType));
 	}
 
-	@PostMapping("complete")
-	public Response<FlowInstance> completeTask(EntityType entityType, String entityId) {
-		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId)) {
+	@PostMapping("step/complete")
+	public Response<FlowInstance> stepComplete(EntityType entityType, String entityId) {
+		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
+
 		return Response.okResponse(iProcessService.completeTask(entityId, entityType));
+	}
+
+	@PostMapping("step/cancel")
+	public Response<FlowInstance> cancelTask(EntityType entityType, String entityId) {
+		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId))
+			return Response.errorResponse(ErrorCode.PARAM_MISS);
+
+		return Response.okResponse(iProcessService.cancelTask(entityId, entityType));
 	}
 
 }

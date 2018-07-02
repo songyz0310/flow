@@ -58,7 +58,7 @@ public class TicketController implements FlowController {
 	}
 
 	// 流程页面
-	public String flowPage(StepDTO step, HttpServletRequest req, HttpServletResponse resp) {
+	public String stepPage(StepDTO step, HttpServletRequest req, HttpServletResponse resp) {
 		if (step.paramIsMiss()) {
 			return ErrorCode.PARAM_MISS.getMessage();
 		}
@@ -78,7 +78,7 @@ public class TicketController implements FlowController {
 	}
 
 	// 流程页面数据
-	public Response<?> flowPageData(StepDTO dto) {
+	public Response<?> stepPageData(StepDTO dto) {
 		if (dto.paramIsMiss()) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 		}
@@ -95,12 +95,11 @@ public class TicketController implements FlowController {
 			return error;
 		}
 
-		return Response
-				.okResponse(ticketService.getTicketFlowData(dto.getEntityType(), dto.getEntityId(), dto.getStepId()));
+		return Response.okResponse(ticketService.getTicketStepData(dto));
 	}
 
 	// 流程页面确认
-	public Response<?> flowConfirm(StepPageDTO stepPage, HttpServletRequest request) {
+	public Response<?> stepConfirm(StepPageDTO stepPage, HttpServletRequest request) {
 		Response<?> response = Response.errorResponse(ErrorCode.UNKNOWN);
 		if (stepPage.paramIsMiss()) {
 			response.setMessage(ErrorCode.PARAM_MISS.getMessage());
@@ -122,12 +121,12 @@ public class TicketController implements FlowController {
 		}
 		Map<String, Object> pageParam = WebUtils.getParametersStartingWith(request, "page_");
 		stepPage.setPageParam(pageParam);
-		ticketService.flowConfirm(stepPage);
+		ticketService.stepConfirm(stepPage);
 		return Response.okResponse(stepPage);
 	}
 
 	// 非页面流程，执行下一步
-	public Response<?> flowExecute(StepActivityDTO stepActivity) {
+	public Response<?> stepExecute(StepActivityDTO stepActivity) {
 		Response<?> response = Response.errorResponse(ErrorCode.UNKNOWN);
 		if (stepActivity.paramIsMiss()) {
 			response.setMessage(ErrorCode.PARAM_MISS.getMessage());
@@ -148,7 +147,25 @@ public class TicketController implements FlowController {
 			return response;
 		}
 
-		ticketService.flowExecute(stepActivity);
+		ticketService.stepExecute(stepActivity);
+		return Response.okResponse("成功");
+	}
+
+	public Response<?> stepCancel(StepDTO dto) {
+		if (dto.paramIsMiss()) {
+			return Response.errorResponse(ErrorCode.PARAM_MISS);
+		}
+		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
+		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
+		if (Objects.isNull(ticket)) {
+			error.setMessage("工单不存在");
+			return error;
+		} else if (Objects.equals(ticket.getStepId(), dto.getStepId()) == false) {
+			error.setMessage("工单步骤与当前步骤不符");
+			return error;
+		}
+
+		ticketService.stepCancel(dto);
 		return Response.okResponse("成功");
 	}
 }

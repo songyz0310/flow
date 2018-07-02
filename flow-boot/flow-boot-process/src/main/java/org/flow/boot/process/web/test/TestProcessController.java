@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.process.form.FileForm;
-import org.flow.boot.process.service.IProcessService;
+import org.flow.boot.process.service.test.IProcessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/flow/process")
-public class ProcessController {
+@RequestMapping("test/flow/process")
+public class TestProcessController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestProcessController.class);
 
 	@Autowired
 	private IProcessService iProcessService;
 
-	@PostMapping(value = "/deploy/zip", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value = "deploy/zip", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response<?> deployZip(@RequestParam(required = false) MultipartFile file, String name, String key) {
 		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key)) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
@@ -48,7 +48,7 @@ public class ProcessController {
 		}
 	}
 
-	@PostMapping(value = "/deploy/xml", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value = "deploy/xml", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response<?> deployXml(@RequestParam(required = false) MultipartFile file, String name, String key) {
 		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key)) {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
@@ -67,27 +67,27 @@ public class ProcessController {
 		}
 	}
 
-	@GetMapping("/query/definition/{processDefinitionId}")
+	@GetMapping("query/definition/{processDefinitionId}")
 	public Response<?> queryDefinition(@PathVariable String processDefinitionId) {
 		return Response.okResponse(iProcessService.queryDefinitionById(processDefinitionId));
 	}
 
-	@GetMapping("/query/definition/list")
+	@GetMapping("query/definition/list")
 	public Response<?> queryDefinitionList() {
 		return Response.okResponse(iProcessService.queryDefinitionList());
 	}
 
-	@GetMapping("/query/deployment/{deploymentId}")
+	@GetMapping("query/deployment/{deploymentId}")
 	public Response<?> queryDeployment(@PathVariable String deploymentId) {
 		return Response.okResponse(iProcessService.queryDeploymentById(deploymentId));
 	}
 
-	@GetMapping("/query/deployment/list")
+	@GetMapping("query/deployment/list")
 	public Response<?> queryDeploymentList() {
 		return Response.okResponse(iProcessService.queryDeploymentList());
 	}
 
-	@GetMapping("/clear")
+	@GetMapping("clear")
 	public Response<?> clear() {
 		iProcessService.clear();
 		return Response.okResponse(null);

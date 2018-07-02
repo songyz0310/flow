@@ -25,13 +25,18 @@ public interface FlowControllerService {
 			@RequestParam("processId") String processId, //
 			@RequestParam("entityId") String entityId);
 
-	@RequestMapping(value = "rendered/html", method = RequestMethod.GET)
+	@RequestMapping(value = "step/html", method = RequestMethod.GET)
 	public Response<String> getRenderedHtml(//
 			@RequestParam("entityType") EntityType entityType, //
 			@RequestParam("entityId") String entityId);
 
-	@RequestMapping(value = "complete", method = RequestMethod.POST)
+	@RequestMapping(value = "step/complete", method = RequestMethod.POST)
 	public Response<FlowInstanceVO> completeStep(//
+			@RequestParam("entityType") EntityType entityType, //
+			@RequestParam("entityId") String entityId);
+
+	@RequestMapping(value = "step/cancel", method = RequestMethod.POST)
+	public Response<FlowInstanceVO> cancelStep(//
 			@RequestParam("entityType") EntityType entityType, //
 			@RequestParam("entityId") String entityId);
 

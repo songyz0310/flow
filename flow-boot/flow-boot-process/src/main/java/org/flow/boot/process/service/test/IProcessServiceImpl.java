@@ -1,4 +1,4 @@
-package org.flow.boot.process.service;
+package org.flow.boot.process.service.test;
 
 import java.io.InputStream;
 import java.util.Collection;
@@ -30,10 +30,13 @@ import org.flowable.bpmn.model.FlowElement;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.FormService;
+import org.flowable.engine.HistoryService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.common.impl.util.io.InputStreamSource;
+import org.flowable.engine.history.HistoricActivityInstance;
+import org.flowable.engine.impl.HistoricActivityInstanceQueryProperty;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
@@ -60,6 +63,8 @@ public class IProcessServiceImpl implements IProcessService {
 	private FormService formService;
 	@Autowired
 	private TaskService taskService;
+	@Autowired
+	private HistoryService historyService;
 	@Autowired
 	private FlowProcessRepository flowProcessRepository;
 	@Autowired
@@ -135,7 +140,6 @@ public class IProcessServiceImpl implements IProcessService {
 	}
 
 	public ProcessDefinitionVO queryDefinitionById(String processDefinitionId) {
-
 		ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId)
 				.singleResult();
 
@@ -262,6 +266,47 @@ public class IProcessServiceImpl implements IProcessService {
 		flowInstanceRepository.save(flowInstance);
 		return flowInstance;
 
+	}
+
+	@Transactional
+	public FlowInstance cancelTask(String entityId, EntityType entityType) {
+		List<FlowInstance> flowInstances = flowInstanceRepository.findByEntityTypeAndEntityId(entityType, entityId);
+		FlowInstance flowInstance = flowInstances.get(0);
+
+		String instanceId = flowInstance.getInstanceId();
+
+		List<HistoricActivityInstance> list = historyService.createHistoricActivityInstanceQuery()
+				.processInstanceId(instanceId).orderBy(HistoricActivityInstanceQueryProperty.START).asc().list();
+
+		Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
+		if (Objects.nonNull(task)) {
+			System.out.println(task.getName());
+		}
+		int size = list.size();
+		if (size > 2) {
+			runtimeService.createChangeActivityStateBuilder().processInstanceId(instanceId)
+					.moveActivityIdTo(list.get(size - 1).getActivityId(), list.get(size - 2).getActivityId())
+					.changeState();
+		}
+
+		// TODO 工作流已经做完的，回退会失败
+		// org.flowable.engine.common.api.FlowableException:
+		// Execution could not be found with id 2501
+		System.out.println("--------------------------");
+		System.out.println(task.getName());
+		task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
+		if (Objects.nonNull(task)) {
+			String stepKey = task.getTaskDefinitionKey();
+			FlowStep flowStep = flowStepRepository.findByStepKey(stepKey);
+			flowInstance.setStepId(flowStep.getStepId());
+			flowInstance.setStatus(Status.RUNNING);
+		} else {
+			flowInstance.setStepId(null);
+			flowInstance.setStatus(Status.STOPED);
+		}
+		flowInstance.setUpdateTime(new Date());
+		flowInstanceRepository.save(flowInstance);
+		return flowInstance;
 	}
 
 }

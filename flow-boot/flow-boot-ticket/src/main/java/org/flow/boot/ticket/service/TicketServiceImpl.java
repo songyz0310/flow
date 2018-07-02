@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.flow.boot.common.dto.ticket.StepActivityDTO;
+import org.flow.boot.common.dto.ticket.StepDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
@@ -113,20 +114,23 @@ public class TicketServiceImpl implements TicketService {
 
 	}
 
-	public List<StepDataVO> getTicketFlowData(EntityType entityType, String entityId, String stepId) {
+	public List<StepDataVO> getTicketStepData(StepDTO dto) {
 		SysFlowStepData search = new SysFlowStepData();
-		search.setEntityId(entityId);
-		search.setEntityType(entityType);
-		search.setStepId(stepId);
+		search.setEntityId(dto.getEntityId());
+		search.setEntityType(dto.getEntityType());
+		search.setStepId(dto.getStepId());
 		Sort sort = new Sort(Sort.Direction.ASC, "dataId");
-		List<SysFlowStepData> flStepDatas = sysFlowStepDataRepository.findAll(Example.of(search), sort);
 		List<StepDataVO> dataList = new ArrayList<>();
-		BeanUtils.copyProperties(flStepDatas, dataList);
+		sysFlowStepDataRepository.findAll(Example.of(search), sort).forEach(fsd -> {
+			StepDataVO vo = new StepDataVO();
+			BeanUtils.copyProperties(fsd, vo);
+			dataList.add(vo);
+		});
 		return dataList;
 	}
 
 	@Transactional
-	public void flowExecute(StepActivityDTO stepActivity) {
+	public void stepExecute(StepActivityDTO stepActivity) {
 		Date now = new Date();
 
 		String ticketId = stepActivity.getEntityId();
@@ -167,7 +171,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Transactional
-	public void flowConfirm(StepPageDTO stepPage) {
+	public void stepConfirm(StepPageDTO stepPage) {
 		Date now = new Date();
 
 		String ticketId = stepPage.getEntityId();
@@ -228,6 +232,23 @@ public class TicketServiceImpl implements TicketService {
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 
+	}
+
+	@Transactional
+	public void stepCancel(StepDTO dto) {
+		Date now = new Date();
+		String ticketId = dto.getEntityId();
+		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		FlowInstanceVO flowInstance = flowControllerService.cancelStep(EntityType.TICKET, ticketId).getData();
+		if (flowInstance.getStatus() == Status.RUNNING) {
+			FlowStepVO nextStep = stepControllerService.queryById(flowInstance.getStepId()).getData();
+			ticket.setStepId(nextStep.getStepId());
+			ticket.setStepName(nextStep.getStepName());
+			ticket.setStepType(nextStep.getStepType());
+		}
+
+		ticket.setUpdateTime(now);
+		sysTicketRepository.save(ticket);
 	}
 
 }

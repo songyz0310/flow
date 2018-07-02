@@ -31,7 +31,7 @@ var flow = function() {
 		param.entityType = app.getUrlParam("entityType");
 
 		$.ajax({
-			url : app.setGetUrl(app.path + config.flowPageData, param),
+			url : app.setGetUrl(app.path + config.stepPageData, param),
 			type : "GET",
 			dataType : "json",
 			success : function(result) {
@@ -42,7 +42,10 @@ var flow = function() {
 					$("[name=entityId]", $form).val(param.entityId);
 					$("[name=entityType]", $form).val(param.entityType);
 
-					console.info(data);
+					$.each(data,function(i,o){
+						if (o.value != "") 
+							$("[data-fpcid="+o.fpcId+"]",$form).val(o.value);
+					});
 				} else {
 					layer.msg(result.message);
 				}
@@ -63,7 +66,7 @@ var flow = function() {
 			$form = $form || $("form");
 			Loading.start();
 			$.ajax({
-				url : app.path + config.flowConfirm,
+				url : app.path + config.stepConfirm,
 				data : $form.serializeArray(),
 				type : "POST",
 				dataType : "json",
@@ -87,19 +90,19 @@ var flow = function() {
 
 	// 流程执行函数
 	var executeFn = function(entityType, entityId, stepId) {
-		var flowStep = {};
-		flowStep.entityType = entityType;
-		flowStep.entityId = entityId;
-		flowStep.stepId = stepId;
-		flowStep.address = "北京市昌平区融泽嘉园";
-		flowStep.longitude = "116.400244";
-		flowStep.latitude = "39.92556";
+		var execute = {};
+		execute.entityType = entityType;
+		execute.entityId = entityId;
+		execute.stepId = stepId;
+		execute.address = "北京市昌平区融泽嘉园";
+		execute.longitude = "116.400244";
+		execute.latitude = "39.92556";
 
 		Loading.start();
 
 		$.ajax({
-			url : app.path + config.flowExecute,
-			data : flowStep,
+			url : app.path + config.stepExecute,
+			data : execute,
 			type : "POST",
 			dataType : "json",
 			success : function(result) {
@@ -119,10 +122,41 @@ var flow = function() {
 		});
 
 	}
+	
+	var cancelFn = function(entityType, entityId, stepId) {
+		var cancel = {};
+		cancel.entityType = entityType;
+		cancel.entityId = entityId;
+		cancel.stepId = stepId;
+
+		Loading.start();
+
+		$.ajax({
+			url : app.path + config.stepCancel,
+			data : cancel,
+			type : "POST",
+			dataType : "json",
+			success : function(result) {
+				if (result.ecode == 0) {
+					console.info(result.data);
+				} else {
+					layer.msg(result.message);
+				}
+				Loading.stop(() => {
+					location.reload();
+				});
+			},
+			error : function(error) {
+				layer.msg(error.responseJSON.message);
+				Loading.stop();
+			}
+		});
+	}
 
 	return {
 		init : initFn,
 		confirm : confirmFn,
-		execute : executeFn
+		execute : executeFn,
+		cancel : cancelFn
 	}
 }();

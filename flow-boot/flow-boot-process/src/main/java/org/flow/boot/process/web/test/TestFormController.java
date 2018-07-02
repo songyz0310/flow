@@ -8,7 +8,7 @@ import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.process.form.FileForm;
 import org.flow.boot.process.form.MyForm;
-import org.flow.boot.process.service.IFormService;
+import org.flow.boot.process.service.test.IFormService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/flow/form")
-public class FormController {
+@RequestMapping("test/flow/form")
+public class TestFormController {
 
-	private static final Logger logger = LoggerFactory.getLogger(FormController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestFormController.class);
 	@Autowired
 	private IFormService iFormService;
 
-	@PostMapping(value = "/deploy/json", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value = "deploy/json", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response<?> deployForm(@RequestParam(required = false) MultipartFile file, String name, String key,
 			String parentDeploymentId) {
 		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key)) {
@@ -50,17 +50,17 @@ public class FormController {
 		}
 	}
 
-	@GetMapping("/query/{formId}")
+	@GetMapping("query/{formId}")
 	public Response<?> query(@PathVariable String formId) {
 		return Response.okResponse(iFormService.queryById(formId));
 	}
 
-	@GetMapping("/query/list")
+	@GetMapping("query/list")
 	public Response<?> queryList() {
 		return Response.okResponse(iFormService.queryList());
 	}
 
-	@GetMapping("/clear")
+	@GetMapping("clear")
 	public Response<?> clear() {
 		iFormService.clear();
 		return Response.okResponse(null);

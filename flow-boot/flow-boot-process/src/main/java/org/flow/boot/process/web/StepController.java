@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("step")
+@RequestMapping("flow/step")
 public class StepController {
 
 	@Autowired
 	private FlowStepRepository flowStepRepository;
 
-	@GetMapping(value = "query/{stepId}")
+	@GetMapping("query/{stepId}")
 	public Response<?> findById(@PathVariable String stepId) {
-		if (Objects.isNull(stepId)) {
+		if (Objects.isNull(stepId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
 
 		return Response.okResponse(flowStepRepository.findOne(stepId));
 	}

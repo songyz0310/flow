@@ -1,4 +1,4 @@
-package org.flow.boot.process.service;
+package org.flow.boot.process.service.test;
 
 import java.util.List;
 
@@ -22,8 +22,6 @@ public interface IProcessService {
 
 	public List<DeploymentView> queryDeploymentList();
 
-	public void clear();
-
 	public void deploy(ProcessForm form);
 
 	public FlowInstanceVO start(String processId, String entityId, EntityType entityType);
@@ -31,5 +29,9 @@ public interface IProcessService {
 	public String getRenderedHtml(String entityId, EntityType entityType);
 
 	public FlowInstance completeTask(String entityId, EntityType entityType);
+
+	public FlowInstance cancelTask(String entityId, EntityType entityType);
+
+	public void clear();
 
 }
