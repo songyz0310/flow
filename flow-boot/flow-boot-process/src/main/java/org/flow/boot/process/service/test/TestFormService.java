@@ -5,7 +5,7 @@ import java.util.List;
 import org.flow.boot.common.vo.process.FormDefinitionVO;
 import org.flow.boot.process.form.MyForm;
 
-public interface IFormService {
+public interface TestFormService {
 
 	public void deploy(MyForm form);
 

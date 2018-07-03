@@ -1,9 +1,6 @@
-package org.flow.boot.process.service.test;
+package org.flow.boot.process.service;
 
-import java.io.InputStream;
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.zip.ZipInputStream;
@@ -11,32 +8,24 @@ import java.util.zip.ZipInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.StepType;
-import org.flow.boot.common.vo.process.DeploymentView;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
-import org.flow.boot.common.vo.process.ProcessDefinitionVO;
+import org.flow.boot.process.cmd.ConvertToUserTaskCmd;
+import org.flow.boot.process.cmd.JumpTaskCmd;
 import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.entity.FlowInstance.Status;
 import org.flow.boot.process.entity.FlowProcess;
 import org.flow.boot.process.entity.FlowStep;
-import org.flow.boot.process.form.FileForm;
 import org.flow.boot.process.form.ProcessForm;
 import org.flow.boot.process.repository.FlowInstanceRepository;
 import org.flow.boot.process.repository.FlowProcessRepository;
 import org.flow.boot.process.repository.FlowStepRepository;
-import org.flowable.bpmn.converter.BpmnXMLConverter;
-import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.CustomProperty;
-import org.flowable.bpmn.model.FlowElement;
-import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.FormService;
-import org.flowable.engine.HistoryService;
+import org.flowable.engine.ManagementService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
-import org.flowable.engine.common.impl.util.io.InputStreamSource;
-import org.flowable.engine.history.HistoricActivityInstance;
-import org.flowable.engine.impl.HistoricActivityInstanceQueryProperty;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
@@ -49,104 +38,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class IProcessServiceImpl implements IProcessService {
+public class FlowServiceImpl implements FlowService {
 
-	private static final Logger logger = LoggerFactory.getLogger(IProcessServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(FlowServiceImpl.class);
 
-	@Autowired
-	private RepositoryService repositoryService;
-	@Autowired
-	private RuntimeService runtimeService;
-	@Autowired
-	private FlowStepRepository flowStepRepository;
 	@Autowired
 	private FormService formService;
 	@Autowired
 	private TaskService taskService;
 	@Autowired
-	private HistoryService historyService;
+	private RuntimeService runtimeService;
+	@Autowired
+	private RepositoryService repositoryService;
+	@Autowired
+	private ManagementService managementService;
+	@Autowired
+	private FlowStepRepository flowStepRepository;
 	@Autowired
 	private FlowProcessRepository flowProcessRepository;
 	@Autowired
 	private FlowInstanceRepository flowInstanceRepository;
-
-	@Transactional
-	public void deploy(FileForm form) {
-		switch (form.getType()) {
-		case ZIP:
-			try (ZipInputStream inputStream = new ZipInputStream(form.getFile())) {
-				repositoryService.createDeployment()//
-						.name(form.getName())//
-						.addZipInputStream(inputStream)//
-						.deploy();
-			} catch (Exception e) {
-				logger.error("流程部署Zip异常，exception:{}", e);
-				throw new RuntimeException(e);
-			}
-			break;
-		case XML:
-			try (InputStream inputStream = form.getFile()) {
-				repositoryService.createDeployment()//
-						.name(form.getName())//
-						.addInputStream(form.getKey(), inputStream)//
-						.deploy();
-			} catch (Exception e) {
-				logger.error("流程部署Xml异常，exception:{}", e);
-				throw new RuntimeException(e);
-			}
-			break;
-		default:
-			logger.error("流程部署文件格式有问题，type:{}", form.getType());
-			break;
-		}
-	}
-
-	public List<ProcessDefinitionVO> queryDefinitionList() {
-		List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-		List<ProcessDefinitionVO> data = new LinkedList<>();
-		list.forEach(pd -> {
-			ProcessDefinitionVO vo = new ProcessDefinitionVO();
-			BeanUtils.copyProperties(pd, vo);
-			data.add(vo);
-		});
-		list.clear();
-		return data;
-	}
-
-	public DeploymentView queryDeploymentById(String deploymentId) {
-		Deployment deployment = repositoryService.createDeploymentQuery()//
-				.deploymentId(deploymentId)//
-				.singleResult();
-		DeploymentView vo = new DeploymentView();
-		BeanUtils.copyProperties(deployment, vo);
-		return vo;
-	}
-
-	public List<DeploymentView> queryDeploymentList() {
-		List<Deployment> list = repositoryService.createDeploymentQuery().list();
-		List<DeploymentView> data = new LinkedList<>();
-		list.forEach(pd -> {
-			DeploymentView vo = new DeploymentView();
-			BeanUtils.copyProperties(pd, vo);
-			data.add(vo);
-		});
-		list.clear();
-		return data;
-	}
-
-	@Transactional
-	public void clear() {
-		repositoryService.createDeploymentQuery().list().forEach(pd -> repositoryService.deleteDeployment(pd.getId()));
-	}
-
-	public ProcessDefinitionVO queryDefinitionById(String processDefinitionId) {
-		ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId)
-				.singleResult();
-
-		ProcessDefinitionVO vo = new ProcessDefinitionVO();
-		BeanUtils.copyProperties(pd, vo);
-		return vo;
-	}
 
 	@Transactional
 	public void deploy(ProcessForm form) {
@@ -170,41 +81,38 @@ public class IProcessServiceImpl implements IProcessService {
 			flowProcess.setUpdateTime(now);
 			flowProcessRepository.save(flowProcess);
 
-			InputStream xmlIs = repositoryService.getResourceAsStream(pd.getDeploymentId(), pd.getResourceName());
-			BpmnModel bm = new BpmnXMLConverter().convertToBpmnModel(new InputStreamSource(xmlIs), false, true);
-
+			ConvertToUserTaskCmd cmd = new ConvertToUserTaskCmd(pd.getId());
+			managementService.executeCommand(cmd);
+			List<UserTask> userTasks = cmd.getUserTasks();
 			int stepRank = 0;
-			Process process = bm.getProcesses().get(0);
-			Collection<FlowElement> flowElements = process.getFlowElements();
-			for (FlowElement flowElement : flowElements) {
-				if (flowElement instanceof UserTask) {
-					UserTask u = (UserTask) flowElement;
-					FlowStep flowStep = new FlowStep();
-					flowStep.setProcessId(pd.getId());
-					flowStep.setStepName(u.getName());
-					flowStep.setStepRank(stepRank);
-					flowStep.setStepKey(u.getId());
+			for (UserTask userTask : userTasks) {
+				FlowStep flowStep = new FlowStep();
+				flowStep.setProcessId(pd.getId());
+				flowStep.setStepName(userTask.getName());
+				flowStep.setStepRank(stepRank);
+				flowStep.setStepKey(userTask.getId());
 
-					String formKey = u.getFormKey();
-					if (Objects.equals(formKey, StepType.SIGNIN.name())) {
-						flowStep.setStepType(StepType.SIGNIN);
-					} else if (StringUtils.isNotEmpty(formKey)) {
-						flowStep.setPageId(formKey.replace(".html", ""));
-						flowStep.setStepType(StepType.PAGE);
-					} else {
-						flowStep.setStepType(StepType.EXECUTE);
-					}
-
-					List<CustomProperty> customProperties = u.getCustomProperties();
-					for (CustomProperty customProperty : customProperties) {
-						customProperty.getName();
-						customProperty.getSimpleValue();
-						// 保存步骤扩展信息
-					}
-
-					flowStepRepository.save(flowStep);
-					stepRank++;
+				String formKey = userTask.getFormKey();
+				if (Objects.equals(formKey, StepType.SIGNIN.name())) {
+					flowStep.setStepType(StepType.SIGNIN);
+				} else if (Objects.equals(formKey, StepType.CLOSE.name())) {
+					flowStep.setStepType(StepType.CLOSE);
+				} else if (StringUtils.isNotEmpty(formKey)) {
+					flowStep.setPageId(formKey.replace(".html", ""));
+					flowStep.setStepType(StepType.PAGE);
+				} else {
+					flowStep.setStepType(StepType.EXECUTE);
 				}
+
+				List<CustomProperty> customProperties = userTask.getCustomProperties();
+				for (CustomProperty customProperty : customProperties) {
+					customProperty.getName();
+					customProperty.getSimpleValue();
+					// 保存步骤扩展信息
+				}
+
+				flowStepRepository.save(flowStep);
+				stepRank++;
 			}
 		} catch (Exception e) {
 			logger.error("流程部署Zip异常，exception:{}", e);
@@ -275,29 +183,43 @@ public class IProcessServiceImpl implements IProcessService {
 
 		String instanceId = flowInstance.getInstanceId();
 
-		List<HistoricActivityInstance> list = historyService.createHistoricActivityInstanceQuery()
-				.processInstanceId(instanceId).orderBy(HistoricActivityInstanceQueryProperty.START).asc().list();
-
-		Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
-		if (Objects.nonNull(task)) {
-			System.out.println(task.getName());
-		}
-		int size = list.size();
-		if (size > 2) {
+		FlowStep flowStep = flowStepRepository.findOne(flowInstance.getStepId());
+		List<FlowStep> flowStepList = flowStepRepository.findByProcessIdAndStepRankLessThanEqualOrderByStepRank(
+				flowStep.getProcessId(), flowStep.getStepRank());
+		int size = flowStepList.size();
+		if (size >= 2) {
 			runtimeService.createChangeActivityStateBuilder().processInstanceId(instanceId)
-					.moveActivityIdTo(list.get(size - 1).getActivityId(), list.get(size - 2).getActivityId())
+					.moveActivityIdTo(flowStepList.get(size - 1).getStepKey(), flowStepList.get(size - 2).getStepKey())
 					.changeState();
 		}
 
-		// TODO 工作流已经做完的，回退会失败
-		// org.flowable.engine.common.api.FlowableException:
-		// Execution could not be found with id 2501
-		System.out.println("--------------------------");
-		System.out.println(task.getName());
+		Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
+		if (Objects.nonNull(task)) {
+			String stepKey = task.getTaskDefinitionKey();
+			flowStep = flowStepRepository.findByStepKey(stepKey);
+			flowInstance.setStepId(flowStep.getStepId());
+			flowInstance.setStatus(Status.RUNNING);
+		}
+		flowInstance.setUpdateTime(new Date());
+		flowInstanceRepository.save(flowInstance);
+		return flowInstance;
+	}
+
+	@Transactional
+	public FlowInstance jumpTask(String entityId, EntityType entityType, String stepId) {
+		List<FlowInstance> flowInstances = flowInstanceRepository.findByEntityTypeAndEntityId(entityType, entityId);
+		FlowInstance flowInstance = flowInstances.get(0);
+
+		String instanceId = flowInstance.getInstanceId();
+		Task task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
+
+		FlowStep flowStep = flowStepRepository.findOne(stepId);
+		managementService.executeCommand(new JumpTaskCmd(task.getId(), flowStep.getStepKey()));
+
 		task = taskService.createTaskQuery().processInstanceId(instanceId).singleResult();
 		if (Objects.nonNull(task)) {
 			String stepKey = task.getTaskDefinitionKey();
-			FlowStep flowStep = flowStepRepository.findByStepKey(stepKey);
+			flowStep = flowStepRepository.findByStepKey(stepKey);
 			flowInstance.setStepId(flowStep.getStepId());
 			flowInstance.setStatus(Status.RUNNING);
 		} else {

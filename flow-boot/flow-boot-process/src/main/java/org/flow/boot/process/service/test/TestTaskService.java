@@ -5,7 +5,7 @@ import java.util.List;
 import org.flow.boot.common.vo.process.FormInfoVO;
 import org.flow.boot.common.vo.process.TaskVO;
 
-public interface ITaskService {
+public interface TestTaskService {
 
 	public TaskVO queryById(String taskId);
 

@@ -1,9 +1,4 @@
-package org.flow.boot.process.entity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package org.flow.boot.common.vo.process;
 
 /**
  * 流程步骤扩展
@@ -11,18 +6,12 @@ import javax.persistence.Table;
  * @author songyz
  *
  */
-@Entity
-@Table(name = "flow_step_extense")
-public class FlowStepExtense {
+public class FlowStepExtenseVO {
 
-	@Id
-	@Column(name = "step_id")
 	private String stepId;
 
-	@Column(name = "step_icon")
 	private String stepIcon;
 
-	@Column(name = "step_status")
 	private String stepStatus;
 
 	public String getStepId() {
@@ -47,11 +36,6 @@ public class FlowStepExtense {
 
 	public void setStepStatus(String stepStatus) {
 		this.stepStatus = stepStatus;
-	}
-
-	@Override
-	public String toString() {
-		return "FlowStepExtense [stepId=" + stepId + ", stepIcon=" + stepIcon + ", stepStatus=" + stepStatus + "]";
 	}
 
 }

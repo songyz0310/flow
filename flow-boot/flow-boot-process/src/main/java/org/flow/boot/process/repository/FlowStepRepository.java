@@ -9,6 +9,8 @@ public interface FlowStepRepository extends JpaRepository<FlowStep, String> {
 
 	List<FlowStep> findByProcessIdOrderByStepRank(String processId);
 
+	List<FlowStep> findByProcessIdAndStepRankLessThanEqualOrderByStepRank(String processId, int stepRank);
+
 	FlowStep findByStepKey(String stepKey);
 
 }

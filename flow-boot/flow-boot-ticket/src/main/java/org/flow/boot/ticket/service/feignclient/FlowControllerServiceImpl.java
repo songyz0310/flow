@@ -34,4 +34,8 @@ public class FlowControllerServiceImpl implements FlowControllerService {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 
+	public Response<FlowInstanceVO> jumpStep(EntityType entityType, String entityId, String stepId) {
+		return Response.errorResponse(ErrorCode.UNKNOWN);
+	}
+
 }

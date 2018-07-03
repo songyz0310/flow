@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ITaskServiceImpl implements ITaskService {
+public class TestTaskServiceImpl implements TestTaskService {
 
 	@Autowired
 	private TaskService taskService;

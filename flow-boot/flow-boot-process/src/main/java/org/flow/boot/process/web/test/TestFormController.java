@@ -8,7 +8,7 @@ import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.process.form.FileForm;
 import org.flow.boot.process.form.MyForm;
-import org.flow.boot.process.service.test.IFormService;
+import org.flow.boot.process.service.test.TestFormService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class TestFormController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TestFormController.class);
 	@Autowired
-	private IFormService iFormService;
+	private TestFormService testFormService;
 
 	@PostMapping(value = "deploy/json", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response<?> deployForm(@RequestParam(required = false) MultipartFile file, String name, String key,
@@ -42,7 +42,7 @@ public class TestFormController {
 			form.setFile(file.getInputStream());
 			form.setType(FileForm.Type.JSON);
 			form.setParentDeploymentId(parentDeploymentId);
-			iFormService.deploy(form);
+			testFormService.deploy(form);
 			return Response.okResponse("成功");
 		} catch (IOException e) {
 			logger.error("流程部署Xml接口异常，exception:{}", e);
@@ -52,17 +52,17 @@ public class TestFormController {
 
 	@GetMapping("query/{formId}")
 	public Response<?> query(@PathVariable String formId) {
-		return Response.okResponse(iFormService.queryById(formId));
+		return Response.okResponse(testFormService.queryById(formId));
 	}
 
 	@GetMapping("query/list")
 	public Response<?> queryList() {
-		return Response.okResponse(iFormService.queryList());
+		return Response.okResponse(testFormService.queryList());
 	}
 
 	@GetMapping("clear")
 	public Response<?> clear() {
-		iFormService.clear();
+		testFormService.clear();
 		return Response.okResponse(null);
 	}
 

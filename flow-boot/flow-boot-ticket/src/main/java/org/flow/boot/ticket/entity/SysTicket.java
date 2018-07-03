@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.flow.boot.common.enums.StepType;
+import org.flow.boot.common.enums.TicketStatus;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -40,7 +41,8 @@ public class SysTicket {
 	private StepType stepType;
 
 	@Column(name = "so_status")
-	private String soStatus;
+	@Enumerated(EnumType.STRING)
+	private TicketStatus soStatus;
 
 	@Column(name = "concat_person")
 	private String concatPerson;
@@ -102,11 +104,11 @@ public class SysTicket {
 		this.stepType = stepType;
 	}
 
-	public String getSoStatus() {
+	public TicketStatus getSoStatus() {
 		return soStatus;
 	}
 
-	public void setSoStatus(String soStatus) {
+	public void setSoStatus(TicketStatus soStatus) {
 		this.soStatus = soStatus;
 	}
 

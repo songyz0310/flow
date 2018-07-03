@@ -5,7 +5,7 @@ import java.util.List;
 import org.flow.boot.common.vo.process.HistoricActivityInstanceVO;
 import org.flow.boot.common.vo.process.ProcessInstanceVO;
 
-public interface IRuntimeService {
+public interface TestRuntimeService {
 
 	ProcessInstanceVO startFlowInstanceById(String processDefinitionId);
 

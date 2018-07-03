@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class IFormServiceImpl implements IFormService {
+public class TestFormServiceImpl implements TestFormService {
 
-	private static final Logger logger = LoggerFactory.getLogger(IFormServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(TestFormServiceImpl.class);
 
 	@Autowired
 	private FormRepositoryService formRepositoryService;

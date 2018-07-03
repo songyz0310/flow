@@ -11,7 +11,7 @@ import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.form.ProcessForm;
 import org.flow.boot.process.repository.FlowProcessRepository;
-import org.flow.boot.process.service.test.IProcessService;
+import org.flow.boot.process.service.FlowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FlowController {
 
 	@Autowired
-	private IProcessService iProcessService;
+	private FlowService flowService;
 	@Autowired
 	private FlowProcessRepository flowProcessRepository;
 
@@ -41,7 +41,7 @@ public class FlowController {
 		form.setKey(key);
 		form.setName(name);
 		form.setFile(file.getInputStream());
-		iProcessService.deploy(form);
+		flowService.deploy(form);
 		return Response.okResponse("成功");
 	}
 
@@ -58,7 +58,7 @@ public class FlowController {
 		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(processId, entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(iProcessService.start(processId, entityId, entityType));
+		return Response.okResponse(flowService.start(processId, entityId, entityType));
 	}
 
 	@GetMapping("step/html")
@@ -66,7 +66,7 @@ public class FlowController {
 		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(iProcessService.getRenderedHtml(entityId, entityType));
+		return Response.okResponse(flowService.getRenderedHtml(entityId, entityType));
 	}
 
 	@PostMapping("step/complete")
@@ -74,7 +74,7 @@ public class FlowController {
 		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(iProcessService.completeTask(entityId, entityType));
+		return Response.okResponse(flowService.completeTask(entityId, entityType));
 	}
 
 	@PostMapping("step/cancel")
@@ -82,7 +82,15 @@ public class FlowController {
 		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(iProcessService.cancelTask(entityId, entityType));
+		return Response.okResponse(flowService.cancelTask(entityId, entityType));
+	}
+
+	@PostMapping("step/jump")
+	public Response<FlowInstance> jumpTask(EntityType entityType, String entityId, String stepId) {
+		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId, stepId))
+			return Response.errorResponse(ErrorCode.PARAM_MISS);
+
+		return Response.okResponse(flowService.jumpTask(entityId, entityType, stepId));
 	}
 
 }

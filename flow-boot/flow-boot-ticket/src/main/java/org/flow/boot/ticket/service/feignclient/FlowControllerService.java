@@ -40,4 +40,10 @@ public interface FlowControllerService {
 			@RequestParam("entityType") EntityType entityType, //
 			@RequestParam("entityId") String entityId);
 
+	@RequestMapping(value = "step/jump", method = RequestMethod.POST)
+	public Response<FlowInstanceVO> jumpStep(//
+			@RequestParam("entityType") EntityType entityType, //
+			@RequestParam("entityId") String entityId, //
+			@RequestParam("stepId") String stepId);
+
 }

@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class FlowPageServiceImpl implements FlowPageService {
+public class TestFlowPageServiceImpl implements TestFlowPageService {
 
 	@Autowired
 	private FlowPageRepository flowPageRepository;
@@ -103,7 +103,7 @@ public class FlowPageServiceImpl implements FlowPageService {
 				"			data-itemid=\"#{itemId}\" data-fpcid=\"#{fpcId}\"\r\n" + //
 				"			data-required=\"#{required}\" data-reg=\"#{reg}\" data-regTip=\"#{regTip}\">\r\n" + //
 				"	</div>\r\n" + //
-				"</div>\r\n");//
+				"</div>\r\n");
 
 		flowPageItemRepository.save(flowPageItem);
 
@@ -116,14 +116,14 @@ public class FlowPageServiceImpl implements FlowPageService {
 		finishPage.setEntityType(EntityType.TICKET);
 		finishPage.setPageName("完成");
 		flowPageRepository.save(finishPage);
-		
+
 		FlowPageConfig fpc1 = new FlowPageConfig();
 		fpc1.setItemId(flowPageItem.getItemId());
 		fpc1.setPageId(appointPage.getPageId());
 		fpc1.setName("工单客户");
 		fpc1.setRank(0);
 		flowPageConfigRepository.save(fpc1);
-		
+
 		FlowPageConfig fpc2 = new FlowPageConfig();
 		fpc2.setItemId(flowPageItem.getItemId());
 		fpc2.setPageId(appointPage.getPageId());

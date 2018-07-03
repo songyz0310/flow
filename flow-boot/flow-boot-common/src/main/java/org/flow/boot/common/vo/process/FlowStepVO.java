@@ -22,6 +22,8 @@ public class FlowStepVO {
 
 	private String pageId;
 
+	private FlowStepExtenseVO flowStepExtense;
+
 	public String getStepId() {
 		return stepId;
 	}
@@ -68,6 +70,14 @@ public class FlowStepVO {
 
 	public void setPageId(String pageId) {
 		this.pageId = pageId;
+	}
+
+	public FlowStepExtenseVO getFlowStepExtense() {
+		return flowStepExtense;
+	}
+
+	public void setFlowStepExtense(FlowStepExtenseVO flowStepExtense) {
+		this.flowStepExtense = flowStepExtense;
 	}
 
 }

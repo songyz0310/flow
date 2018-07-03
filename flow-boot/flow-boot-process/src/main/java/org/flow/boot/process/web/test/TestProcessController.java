@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.process.form.FileForm;
-import org.flow.boot.process.service.test.IProcessService;
+import org.flow.boot.process.service.test.TestFlowService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class TestProcessController {
 	private static final Logger logger = LoggerFactory.getLogger(TestProcessController.class);
 
 	@Autowired
-	private IProcessService iProcessService;
+	private TestFlowService testFlowService;
 
 	@PostMapping(value = "deploy/zip", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response<?> deployZip(@RequestParam(required = false) MultipartFile file, String name, String key) {
@@ -40,7 +40,7 @@ public class TestProcessController {
 			form.setName(name);
 			form.setFile(file.getInputStream());
 			form.setType(FileForm.Type.ZIP);
-			iProcessService.deploy(form);
+			testFlowService.deploy(form);
 			return Response.okResponse("成功");
 		} catch (IOException e) {
 			logger.error("流程部署Zip接口异常，exception:{}", e);
@@ -59,7 +59,7 @@ public class TestProcessController {
 			form.setName(name);
 			form.setFile(file.getInputStream());
 			form.setType(FileForm.Type.XML);
-			iProcessService.deploy(form);
+			testFlowService.deploy(form);
 			return Response.okResponse("成功");
 		} catch (IOException e) {
 			logger.error("流程部署Xml接口异常，exception:{}", e);
@@ -69,27 +69,27 @@ public class TestProcessController {
 
 	@GetMapping("query/definition/{processDefinitionId}")
 	public Response<?> queryDefinition(@PathVariable String processDefinitionId) {
-		return Response.okResponse(iProcessService.queryDefinitionById(processDefinitionId));
+		return Response.okResponse(testFlowService.queryDefinitionById(processDefinitionId));
 	}
 
 	@GetMapping("query/definition/list")
 	public Response<?> queryDefinitionList() {
-		return Response.okResponse(iProcessService.queryDefinitionList());
+		return Response.okResponse(testFlowService.queryDefinitionList());
 	}
 
 	@GetMapping("query/deployment/{deploymentId}")
 	public Response<?> queryDeployment(@PathVariable String deploymentId) {
-		return Response.okResponse(iProcessService.queryDeploymentById(deploymentId));
+		return Response.okResponse(testFlowService.queryDeploymentById(deploymentId));
 	}
 
 	@GetMapping("query/deployment/list")
 	public Response<?> queryDeploymentList() {
-		return Response.okResponse(iProcessService.queryDeploymentList());
+		return Response.okResponse(testFlowService.queryDeploymentList());
 	}
 
 	@GetMapping("clear")
 	public Response<?> clear() {
-		iProcessService.clear();
+		testFlowService.clear();
 		return Response.okResponse(null);
 	}
 

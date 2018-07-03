@@ -14,6 +14,7 @@ import org.flow.boot.common.dto.ticket.StepActivityDTO;
 import org.flow.boot.common.dto.ticket.StepDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
 import org.flow.boot.common.enums.EntityType;
+import org.flow.boot.common.enums.TicketStatus;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.common.vo.process.FlowInstanceVO.Status;
 import org.flow.boot.common.vo.process.FlowPageConfigVO;
@@ -79,7 +80,7 @@ public class TicketServiceImpl implements TicketService {
 		FlowProcessVO flowProcessVO = flowControllerService.queryById(processId).getData();
 		FlowStepVO flowStepVO = stepControllerService.queryById(flowInstanceVO.getStepId()).getData();
 		ticket.setProcessName(flowProcessVO.getProcessName());
-		ticket.setSoStatus("已开单");// TODO 从扩展中取值
+		ticket.setSoStatus(TicketStatus.BILLED);
 		ticket.setStepId(flowStepVO.getStepId());
 		ticket.setStepName(flowStepVO.getStepName());
 		ticket.setStepType(flowStepVO.getStepType());
@@ -139,7 +140,7 @@ public class TicketServiceImpl implements TicketService {
 		SysTicket ticket = sysTicketRepository.findOne(ticketId);
 
 		FlowStepVO stepVO = stepControllerService.queryById(stepId).getData();
-		ticket.setSoStatus(stepVO.getStepName());// TODO 从当前步骤扩展中取值
+		ticket.setSoStatus(TicketStatus.valueOf(stepVO.getFlowStepExtense().getStepStatus()));// 从当前步骤扩展中取值
 
 		SysFlowStepActivity activity = new SysFlowStepActivity();
 		activity.setAddress(stepActivity.getAddress());
@@ -159,8 +160,6 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setStepName(nextStep.getStepName());
 			ticket.setStepType(nextStep.getStepType());
 		} else if (flowInstance.getStatus() == Status.STOPED) {
-			// TODO 待关单
-			ticket.setSoStatus("待关单");
 			ticket.setStepId(null);
 			ticket.setStepName(null);
 			ticket.setStepType(null);
@@ -180,7 +179,7 @@ public class TicketServiceImpl implements TicketService {
 		SysTicket ticket = sysTicketRepository.findOne(ticketId);
 
 		FlowStepVO stepVO = stepControllerService.queryById(stepId).getData();
-		ticket.setSoStatus(stepVO.getStepName());// TODO 从当前步骤扩展中取值
+		ticket.setSoStatus(TicketStatus.valueOf(stepVO.getFlowStepExtense().getStepStatus()));// 从当前步骤扩展中取值
 
 		SysFlowStepActivity activity = new SysFlowStepActivity();
 		activity.setAddress(stepPage.getAddress());
@@ -222,8 +221,6 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setStepName(nextStep.getStepName());
 			ticket.setStepType(nextStep.getStepType());
 		} else if (flowInstance.getStatus() == Status.STOPED) {
-			// TODO 待关单
-			ticket.setSoStatus("待关单");
 			ticket.setStepId(null);
 			ticket.setStepName(null);
 			ticket.setStepType(null);
@@ -236,6 +233,7 @@ public class TicketServiceImpl implements TicketService {
 
 	@Transactional
 	public void stepCancel(StepDTO dto) {
+		// TODO 回退状态
 		Date now = new Date();
 		String ticketId = dto.getEntityId();
 		SysTicket ticket = sysTicketRepository.findOne(ticketId);

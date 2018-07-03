@@ -6,6 +6,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.flow.boot.common.enums.StepType;
@@ -45,6 +47,10 @@ public class FlowStep {
 
 	@Column(name = "page_id")
 	private String pageId;
+
+	@OneToOne
+	@JoinColumn(name = "step_id")
+	private FlowStepExtense flowStepExtense;
 
 	public String getStepId() {
 		return stepId;
@@ -102,9 +108,19 @@ public class FlowStep {
 		this.stepKey = stepKey;
 	}
 
+	public FlowStepExtense getFlowStepExtense() {
+		return flowStepExtense;
+	}
+
+	public void setFlowStepExtense(FlowStepExtense flowStepExtense) {
+		this.flowStepExtense = flowStepExtense;
+	}
+
+	@Override
 	public String toString() {
 		return "FlowStep [stepId=" + stepId + ", processId=" + processId + ", stepKey=" + stepKey + ", stepName="
-				+ stepName + ", stepRank=" + stepRank + ", stepType=" + stepType + ", pageId=" + pageId + "]";
+				+ stepName + ", stepRank=" + stepRank + ", stepType=" + stepType + ", pageId=" + pageId
+				+ ", flowStepExtense=" + flowStepExtense + "]";
 	}
 
 }

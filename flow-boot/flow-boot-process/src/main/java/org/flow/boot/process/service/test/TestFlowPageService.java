@@ -1,6 +1,6 @@
 package org.flow.boot.process.service.test;
 
-public interface FlowPageService {
+public interface TestFlowPageService {
 
 	void initData();
 

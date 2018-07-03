@@ -2,7 +2,7 @@ package org.flow.boot.process.web.test;
 
 import org.flow.boot.common.Response;
 import org.flow.boot.process.repository.FlowPageRepository;
-import org.flow.boot.process.service.test.FlowPageService;
+import org.flow.boot.process.service.test.TestFlowPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestFlowPageController {
 
 	@Autowired
-	private FlowPageService flowPageService;
+	private TestFlowPageService testFlowPageService;
 	@Autowired
 	private FlowPageRepository flowPageRepository;
 
@@ -25,9 +25,9 @@ public class TestFlowPageController {
 	@GetMapping("init")
 	public Response<?> initData() {
 		if (flowPageRepository.findAll().size() == 0) {
-			flowPageService.initData();
-			flowPageService.initPage();
-			return Response.okResponse("初始化成功");
+			testFlowPageService.initData();
+			testFlowPageService.initPage();
+			return queryList();
 		} else {
 			return Response.okResponse("禁止重复初始化");
 		}
