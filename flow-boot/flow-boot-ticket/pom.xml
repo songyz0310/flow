@@ -49,6 +49,16 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		<!-- 健康监控 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!--安全验证 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<!-- 数据库驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -59,10 +69,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml -->
+		<!-- https://mvnrepository.com/artifact/ognl/ognl -->
 		<dependency>
-			<groupId>net.sourceforge.nekohtml</groupId>
-			<artifactId>nekohtml</artifactId>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<version>3.2.6</version>
 		</dependency>
 		<!-- 前段静态webjars引入 -->
 		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
@@ -92,12 +103,10 @@
 			<artifactId>animate.css</artifactId>
 			<version>3.5.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>layer</artifactId>
 			<version>3.1.1</version>
 		</dependency>
-
 	</dependencies>
 </project>
