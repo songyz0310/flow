@@ -8,7 +8,6 @@ import java.util.zip.ZipInputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.StepType;
-import org.flow.boot.common.enums.TicketStatus;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.process.cmd.ConvertToUserTaskCmd;
 import org.flow.boot.process.cmd.JumpTaskCmd;
@@ -16,11 +15,9 @@ import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.entity.FlowInstance.Status;
 import org.flow.boot.process.entity.FlowProcess;
 import org.flow.boot.process.entity.FlowStep;
-import org.flow.boot.process.entity.FlowStepExtense;
 import org.flow.boot.process.form.ProcessForm;
 import org.flow.boot.process.repository.FlowInstanceRepository;
 import org.flow.boot.process.repository.FlowProcessRepository;
-import org.flow.boot.process.repository.FlowStepExtenseRepository;
 import org.flow.boot.process.repository.FlowStepRepository;
 import org.flowable.bpmn.model.CustomProperty;
 import org.flowable.bpmn.model.UserTask;
@@ -61,8 +58,6 @@ public class FlowServiceImpl implements FlowService {
 	private FlowProcessRepository flowProcessRepository;
 	@Autowired
 	private FlowInstanceRepository flowInstanceRepository;
-	@Autowired
-	private FlowStepExtenseRepository flowStepExtenseRepository;
 
 	@Transactional
 	public void deploy(ProcessForm form) {
@@ -117,33 +112,6 @@ public class FlowServiceImpl implements FlowService {
 				}
 
 				flowStepRepository.save(flowStep);
-				
-				FlowStepExtense flowStepExtense = new FlowStepExtense();
-				flowStepExtense.setStepId(flowStep.getStepId());
-				switch (flowStep.getStepName()) {
-				case "接单":
-					flowStepExtense.setStepStatus(TicketStatus.RECEIVED.name());
-					break;
-				case "预约":
-					flowStepExtense.setStepStatus(TicketStatus.APPOINTED.name());
-					break;
-				case "出发":
-					flowStepExtense.setStepStatus(TicketStatus.SETOUT.name());
-					break;
-				case "到场":
-					flowStepExtense.setStepStatus(TicketStatus.ARRIVED.name());
-					break;
-				case "完成":
-					flowStepExtense.setStepStatus(TicketStatus.FINISHED.name());
-					break;
-				case "关单":
-					flowStepExtense.setStepStatus(TicketStatus.CLOSE.name());
-					break;
-				default:
-					flowStepExtense.setStepStatus(TicketStatus.BILLED.name());
-					break;
-				}
-				flowStepExtenseRepository.save(flowStepExtense);
 				stepRank++;
 			}
 		} catch (Exception e) {

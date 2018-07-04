@@ -59,6 +59,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml -->
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+		</dependency>
 		<!-- 前段静态webjars引入 -->
 		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
 		<dependency>
@@ -81,10 +86,18 @@
 			<artifactId>select2</artifactId>
 			<version>3.5.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/animate.css -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>animate.css</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>layer</artifactId>
 			<version>3.1.1</version>
 		</dependency>
+
 	</dependencies>
 </project>
