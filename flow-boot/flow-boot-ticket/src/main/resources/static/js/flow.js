@@ -123,6 +123,39 @@ var flow = function() {
 
 	}
 	
+	// 流程跳跃
+	var jumpFn = function(entityType, entityId, stepId,jumpStepId) {
+		var jump = {};
+		jump.entityType = entityType;
+		jump.entityId = entityId;
+		jump.stepId = stepId;
+		jump.jumpStepId = jumpStepId;
+		
+		Loading.start();
+		
+		$.ajax({
+			url : app.path + config.stepJump,
+			data : jump,
+			type : "POST",
+			dataType : "json",
+			success : function(result) {
+				if (result.ecode == 0) {
+					console.info(result.data);
+				} else {
+					layer.msg(result.message);
+				}
+				Loading.stop(() => {
+					location.reload();
+				});
+			},
+			error : function(error) {
+				layer.msg(error.responseJSON.message);
+				Loading.stop();
+			}
+		});
+	}
+	
+	// 回退
 	var cancelFn = function(entityType, entityId, stepId) {
 		var cancel = {};
 		cancel.entityType = entityType;
@@ -157,6 +190,7 @@ var flow = function() {
 		init : initFn,
 		confirm : confirmFn,
 		execute : executeFn,
+		jump : jumpFn,
 		cancel : cancelFn
 	}
 }();

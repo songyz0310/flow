@@ -25,4 +25,6 @@ public interface TicketService {
 
 	void stepCancel(StepDTO dto);
 
+	void quicklyFinishi(StepDTO dto);
+
 }

@@ -62,10 +62,13 @@ var Loading = function() {
 				_load_div.className = "sk-load sk-folding-cube";
 				_load_div.innerHTML = '<div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div>';
 				break;
+			case 16:
+				_load_div.className = "sk-load loader-16";
+				break;
 
 			}
 
-			if (type == 8 || type == 10 || type == 11) {// 伪类样式渲染完在修改
+			if (type == 8 || type == 10 || type == 11|| type == 16) {// 伪类样式渲染完在修改
 				_load_div.style.color = color;
 			} else {
 				var array = _load_div.children;

@@ -4,5 +4,6 @@ config = {
 	stepConfirm : 'ticket/step/confirm',
 	stepExecute : 'ticket/step/execute',
 	stepCancel : 'ticket/step/cancel',
+	stepJump : 'ticket/step/jump',
 	version : 0.1
 };

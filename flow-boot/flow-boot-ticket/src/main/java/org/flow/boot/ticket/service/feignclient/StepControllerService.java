@@ -1,5 +1,7 @@
 package org.flow.boot.ticket.service.feignclient;
 
+import java.util.ArrayList;
+
 import org.flow.boot.common.Response;
 import org.flow.boot.common.vo.process.FlowStepExtenseVO;
 import org.flow.boot.common.vo.process.FlowStepVO;
@@ -14,7 +16,9 @@ public interface StepControllerService {
 	@RequestMapping(value = "query/{stepId}", method = RequestMethod.GET)
 	public Response<FlowStepVO> queryById(@PathVariable("stepId") String stepId);
 
-	@RequestMapping(value = "queryByStepStatus/{stepStatus}", method = RequestMethod.GET)
-	public Response<FlowStepExtenseVO> queryByStepStatus(@PathVariable("stepStatus") String stepStatus);
+	@RequestMapping(value = "query/{processId}/{toStatus}", method = RequestMethod.GET)
+	public Response<ArrayList<FlowStepExtenseVO>> queryByStepStatus(//
+			@PathVariable("processId") String processId, //
+			@PathVariable("toStatus") String toStatus);
 
 }

@@ -22,8 +22,23 @@ public class FlowStepExtense {
 	@Column(name = "step_icon")
 	private String stepIcon;
 
-	@Column(name = "step_status")
-	private String stepStatus;
+	@Column(name = "from_status")
+	private String fromStatus;
+
+	@Column(name = "to_status")
+	private String toStatus;
+
+	public FlowStepExtense(String stepId, String stepIcon, String fromStatus, String toStatus) {
+		super();
+		this.stepId = stepId;
+		this.stepIcon = stepIcon;
+		this.fromStatus = fromStatus;
+		this.toStatus = toStatus;
+	}
+
+	public FlowStepExtense() {
+		super();
+	}
 
 	public String getStepId() {
 		return stepId;
@@ -41,17 +56,20 @@ public class FlowStepExtense {
 		this.stepIcon = stepIcon;
 	}
 
-	public String getStepStatus() {
-		return stepStatus;
+	public String getFromStatus() {
+		return fromStatus;
 	}
 
-	public void setStepStatus(String stepStatus) {
-		this.stepStatus = stepStatus;
+	public void setFromStatus(String fromStatus) {
+		this.fromStatus = fromStatus;
 	}
 
-	@Override
-	public String toString() {
-		return "FlowStepExtense [stepId=" + stepId + ", stepIcon=" + stepIcon + ", stepStatus=" + stepStatus + "]";
+	public String getToStatus() {
+		return toStatus;
+	}
+
+	public void setToStatus(String toStatus) {
+		this.toStatus = toStatus;
 	}
 
 }

@@ -5,7 +5,7 @@
 <title>工单</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-<link th:href="@{/static/plugin/loading/load.min.css}" rel="stylesheet" href="../static/plugin/loading/load.min.css"/>
+<link th:href="@{/static/plugin/loading/load.css}" rel="stylesheet" href="../static/plugin/loading/load.min.css"/>
 <script th:src="@{/static/plugin/loading/load.js}" src="../static/plugin/loading/load.min.js"></script>
 </head>
 <body class="container-fluid">
@@ -33,10 +33,14 @@
 				<td th:if="${ticket.stepType} ne null and ${ticket.stepType?.name()} eq PAGE">
 					<a th:text="${ticket.stepName}" th:href="@{'/ticket/step/page?entityType='+${entityType.name()}+'&entityId='+${ticket.ticketId}+'&stepId='+${ticket.stepId}}"></a>
 					<button th:onclick="'flow.cancel(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\')'" class="btn btn-xs btn-danger">回退</button>
+					<button th:if="${ticket.appointStepId} ne null" th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.appointStepId}+'\')'" class="btn btn-xs btn-success">改约</button>
+					<button th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.closeStepId}+'\')'" class="btn btn-xs btn-success">关单</button>
 				</td>
 				<td th:if="${ticket.stepType} ne null and ${ticket.stepType?.name()} ne PAGE">
 					<button th:text="${ticket.stepName}" th:onclick="'flow.execute(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\')'" class="btn btn-xs btn-success"></button>
 					<button th:onclick="'flow.cancel(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\')'" class="btn btn-xs btn-danger">回退</button>
+					<button th:if="${ticket.appointStepId} ne null" th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.appointStepId}+'\')'" class="btn btn-xs btn-success">改约</button>
+					<button th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.closeStepId}+'\')'" class="btn btn-xs btn-success">关单</button>
 				</td>
 			</tr>
 		</tbody>

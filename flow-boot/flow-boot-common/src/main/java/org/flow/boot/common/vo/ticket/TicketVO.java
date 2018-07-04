@@ -28,6 +28,11 @@ public class TicketVO {
 
 	private Date updateTime;
 
+	/********************************************/
+	private String appointStepId;
+
+	private String closeStepId;
+
 	public String getTicketId() {
 		return ticketId;
 	}
@@ -114,6 +119,22 @@ public class TicketVO {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getAppointStepId() {
+		return appointStepId;
+	}
+
+	public void setAppointStepId(String appointStepId) {
+		this.appointStepId = appointStepId;
+	}
+
+	public String getCloseStepId() {
+		return closeStepId;
+	}
+
+	public void setCloseStepId(String closeStepId) {
+		this.closeStepId = closeStepId;
 	}
 
 }

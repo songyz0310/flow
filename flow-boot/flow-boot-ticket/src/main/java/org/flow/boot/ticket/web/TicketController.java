@@ -44,9 +44,8 @@ public class TicketController implements FlowController {
 
 	@PostMapping("open")
 	public Response<?> openTicket(@RequestBody TicketForm ticket) {
-		if (Objects.isNull(ticket) || ticket.paramIsMiss()) {
+		if (Objects.isNull(ticket) || ticket.paramIsMiss())
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
 
 		ticketService.openTicket(ticket);
 		return Response.okResponse("成功");
@@ -59,9 +58,9 @@ public class TicketController implements FlowController {
 
 	// 流程页面
 	public String stepPage(StepDTO step, HttpServletRequest req, HttpServletResponse resp) {
-		if (step.paramIsMiss()) {
+		if (step.paramIsMiss())
 			return ErrorCode.PARAM_MISS.getMessage();
-		}
+
 		SysTicket ticket = sysTicketRepository.findOne(step.getEntityId());
 		if (Objects.isNull(ticket)) {
 			return "工单不存在";
@@ -79,9 +78,9 @@ public class TicketController implements FlowController {
 
 	// 流程页面数据
 	public Response<?> stepPageData(StepDTO dto) {
-		if (dto.paramIsMiss()) {
+		if (dto.paramIsMiss())
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
+
 		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
 		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
 		if (Objects.isNull(ticket)) {
@@ -152,9 +151,9 @@ public class TicketController implements FlowController {
 	}
 
 	public Response<?> stepCancel(StepDTO dto) {
-		if (dto.paramIsMiss()) {
+		if (dto.paramIsMiss())
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
-		}
+
 		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
 		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
 		if (Objects.isNull(ticket)) {
@@ -166,6 +165,24 @@ public class TicketController implements FlowController {
 		}
 
 		ticketService.stepCancel(dto);
+		return Response.okResponse("成功");
+	}
+
+	public Response<?> quicklyFinishi(StepDTO dto) {
+		if (dto.paramIsMiss())
+			return Response.errorResponse(ErrorCode.PARAM_MISS);
+
+		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
+		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
+		if (Objects.isNull(ticket)) {
+			error.setMessage("工单不存在");
+			return error;
+		} else if (Objects.equals(ticket.getStepId(), dto.getStepId()) == false) {
+			error.setMessage("工单步骤与当前步骤不符");
+			return error;
+		}
+
+		ticketService.quicklyFinishi(dto);
 		return Response.okResponse("成功");
 	}
 }

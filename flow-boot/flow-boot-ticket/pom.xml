@@ -55,10 +55,10 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<!--安全验证 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency> -->
 		<!-- 数据库驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
