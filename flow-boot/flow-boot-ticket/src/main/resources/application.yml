@@ -1,0 +1,40 @@
+server:
+  port: 6003
+  context-path: /
+spring:
+  application:
+    name: ticket
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/flow?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: songyz
+    driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+  mvc:
+    static-path-pattern: /statics/**
+    throw-exception-if-no-handler-found: true
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+    org.hibernate.type.descriptor.sql.BasicExtractor: INFO
+    com.itmuch: INFO
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://songyz:songyz2018@localhost:6001/eureka/

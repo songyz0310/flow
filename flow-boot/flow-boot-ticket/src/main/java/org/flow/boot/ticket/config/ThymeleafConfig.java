@@ -19,10 +19,9 @@ public class ThymeleafConfig {
 	private String mode;
 	@Value("${spring.thymeleaf.cache}")
 	private String cache;
-	@Value("${spring.mvc.view.prefix.boot}")
-	private String prefix;
-	@Value("${spring.mvc.view.suffix}")
+	@Value("${spring.thymeleaf.suffix}")
 	private String suffix;
+	private String prefix = "templates/ticket/";
 
 	@Bean("flowTemplateEngine")
 	public TemplateEngine templateEngine() {

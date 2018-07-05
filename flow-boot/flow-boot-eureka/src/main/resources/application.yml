@@ -1,0 +1,23 @@
+server:
+  port: 6001
+  context-path: /
+spring:
+  application:
+    name: eureka
+logging:
+  level:
+    root: INFO
+eureka:
+  instance:
+    hostname: localhost
+  server:
+    enable-self-preservation: false
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      default-zone: http://${eureka.instance.hostname}:${server.port}
+security:
+  user:
+    name: songyz
+    password: songyz2018

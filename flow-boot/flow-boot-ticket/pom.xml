@@ -31,11 +31,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-		<!-- spring 日志 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</dependency>
 		<!-- spring cloud -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -54,11 +49,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<!--安全验证 -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
 		<!-- 数据库驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -90,18 +80,6 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars/select2 -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>select2</artifactId>
-			<version>3.5.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars/animate.css -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>animate.css</artifactId>
-			<version>3.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
