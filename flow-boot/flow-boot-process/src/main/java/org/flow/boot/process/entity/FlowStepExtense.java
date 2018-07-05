@@ -1,9 +1,14 @@
 package org.flow.boot.process.entity;
 
+import java.util.List;
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 流程步骤扩展
@@ -28,12 +33,16 @@ public class FlowStepExtense {
 	@Column(name = "to_status")
 	private String toStatus;
 
-	public FlowStepExtense(String stepId, String stepIcon, String fromStatus, String toStatus) {
+	@Column(name = "candidate_groups")
+	private String candidateGroups;
+
+	public FlowStepExtense(String stepId, String stepIcon, String fromStatus, String toStatus, String candidateGroups) {
 		super();
 		this.stepId = stepId;
 		this.stepIcon = stepIcon;
 		this.fromStatus = fromStatus;
 		this.toStatus = toStatus;
+		this.candidateGroups = candidateGroups;
 	}
 
 	public FlowStepExtense() {
@@ -70,6 +79,20 @@ public class FlowStepExtense {
 
 	public void setToStatus(String toStatus) {
 		this.toStatus = toStatus;
+	}
+
+	public String getCandidateGroups() {
+		return candidateGroups;
+	}
+
+	public void setCandidateGroups(String candidateGroups) {
+		this.candidateGroups = candidateGroups;
+	}
+
+	public void setCandidateGroups(List<String> candidateGroups) {
+		if (Objects.nonNull(candidateGroups)) {
+			this.candidateGroups = StringUtils.join(candidateGroups.toArray(), ",");
+		}
 	}
 
 }

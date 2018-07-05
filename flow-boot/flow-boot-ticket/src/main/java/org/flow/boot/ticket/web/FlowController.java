@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.flow.boot.common.Response;
 import org.flow.boot.common.dto.ticket.StepActivityDTO;
 import org.flow.boot.common.dto.ticket.StepDTO;
+import org.flow.boot.common.dto.ticket.StepJumpDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public interface FlowController {
 	public Response<?> stepCancel(StepDTO step);
 
 	// 流程快速完成
-	@PostMapping(value = "quickly/finishi")
-	public Response<?> quicklyFinishi(StepDTO step);
+	@PostMapping(value = "step/jump")
+	public Response<?> stepJump(StepJumpDTO step);
 
 }

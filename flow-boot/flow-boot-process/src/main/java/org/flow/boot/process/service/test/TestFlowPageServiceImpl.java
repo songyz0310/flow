@@ -36,7 +36,7 @@ public class TestFlowPageServiceImpl implements TestFlowPageService {
 	public void initPage() {
 
 		flowPageRepository.findAll().forEach(flowPage -> {
-			File file = new File("src\\main\\resources\\templates\\" + flowPage.getPageId() + ".html");
+			File file = new File("process\\" + flowPage.getPageId() + ".html");
 			if (file.exists()) {
 				return;
 			}

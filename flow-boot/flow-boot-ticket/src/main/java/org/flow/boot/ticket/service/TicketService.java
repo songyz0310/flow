@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.flow.boot.common.dto.ticket.StepActivityDTO;
 import org.flow.boot.common.dto.ticket.StepDTO;
+import org.flow.boot.common.dto.ticket.StepJumpDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
 import org.flow.boot.common.vo.ticket.StepDataVO;
 import org.flow.boot.common.vo.ticket.TicketVO;
@@ -25,6 +26,6 @@ public interface TicketService {
 
 	void stepCancel(StepDTO dto);
 
-	void quicklyFinishi(StepDTO dto);
+	void stepJump(StepJumpDTO dto);
 
 }

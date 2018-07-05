@@ -1,5 +1,6 @@
 package org.flow.boot.process.service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,6 @@ import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.StepType;
 import org.flow.boot.common.enums.TicketStatus;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
-import org.flow.boot.process.cmd.ConvertToUserTaskCmd;
 import org.flow.boot.process.cmd.JumpTaskCmd;
 import org.flow.boot.process.entity.FlowInstance;
 import org.flow.boot.process.entity.FlowInstance.Status;
@@ -22,7 +22,10 @@ import org.flow.boot.process.repository.FlowInstanceRepository;
 import org.flow.boot.process.repository.FlowProcessRepository;
 import org.flow.boot.process.repository.FlowStepExtenseRepository;
 import org.flow.boot.process.repository.FlowStepRepository;
+import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.CustomProperty;
+import org.flowable.bpmn.model.FlowElement;
+import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.FormService;
 import org.flowable.engine.ManagementService;
@@ -86,69 +89,71 @@ public class FlowServiceImpl implements FlowService {
 			flowProcess.setUpdateTime(now);
 			flowProcessRepository.save(flowProcess);
 
-			ConvertToUserTaskCmd cmd = new ConvertToUserTaskCmd(pd.getId());
-			managementService.executeCommand(cmd);
-			List<UserTask> userTasks = cmd.getUserTasks();
 			int stepRank = 0;
 			String fromStatus = null;
-			for (UserTask userTask : userTasks) {
-				FlowStep flowStep = new FlowStep();
-				flowStep.setProcessId(pd.getId());
-				flowStep.setStepName(userTask.getName());
-				flowStep.setStepRank(stepRank);
-				flowStep.setStepKey(userTask.getId());
+			BpmnModel bpmnModel = repositoryService.getBpmnModel(pd.getId());
+			Process mainProcess = bpmnModel.getMainProcess();
+			Collection<FlowElement> flowElements = mainProcess.getFlowElements();
+			for (FlowElement flowElement : flowElements) {
+				if (flowElement instanceof UserTask) {
+					UserTask userTask = (UserTask) flowElement;
+					FlowStep flowStep = new FlowStep();
+					flowStep.setProcessId(pd.getId());
+					flowStep.setStepName(userTask.getName());
+					flowStep.setStepRank(stepRank);
+					flowStep.setStepKey(userTask.getId());
 
-				String formKey = userTask.getFormKey();
-				if (Objects.equals(formKey, StepType.SIGNIN.name())) {
-					flowStep.setStepType(StepType.SIGNIN);
-				} else if (Objects.equals(formKey, StepType.CLOSE.name())) {
-					flowStep.setStepType(StepType.CLOSE);
-				} else if (StringUtils.isNotEmpty(formKey)) {
-					flowStep.setPageId(formKey.replace(".html", ""));
-					flowStep.setStepType(StepType.PAGE);
-				} else {
-					flowStep.setStepType(StepType.EXECUTE);
+					String formKey = userTask.getFormKey();
+					if (Objects.equals(formKey, StepType.SIGNIN.name())) {
+						flowStep.setStepType(StepType.SIGNIN);
+					} else if (StringUtils.isNotEmpty(formKey)) {
+						flowStep.setPageId(formKey.replace(".html", ""));
+						flowStep.setStepType(StepType.PAGE);
+					} else {
+						flowStep.setStepType(StepType.EXECUTE);
+					}
+
+					List<CustomProperty> customProperties = userTask.getCustomProperties();
+					for (CustomProperty customProperty : customProperties) {
+						customProperty.getName();
+						customProperty.getSimpleValue();
+						// 保存步骤扩展信息
+					}
+
+					flowStepRepository.save(flowStep);
+
+					FlowStepExtense flowStepExtense = new FlowStepExtense();
+					flowStepExtense.setStepId(flowStep.getStepId());
+					flowStepExtense.setCandidateGroups(userTask.getCandidateGroups());
+					flowStepExtense.setFromStatus(fromStatus);
+					switch (flowStep.getStepName()) {
+					case "接单":
+						flowStepExtense.setToStatus(TicketStatus.RECEIVED.name());
+						break;
+					case "预约":
+						flowStepExtense.setToStatus(TicketStatus.APPOINTED.name());
+						break;
+					case "出发":
+						flowStepExtense.setToStatus(TicketStatus.SETOUT.name());
+						break;
+					case "到场":
+						flowStepExtense.setToStatus(TicketStatus.ARRIVED.name());
+						break;
+					case "完成":
+						flowStepExtense.setToStatus(TicketStatus.FINISHED.name());
+						break;
+					case "关单":
+						flowStepExtense.setToStatus(TicketStatus.CLOSE.name());
+						break;
+					default:
+						flowStepExtense.setToStatus(TicketStatus.BILLED.name());
+						break;
+					}
+					fromStatus = flowStepExtense.getToStatus();
+					flowStepExtenseRepository.save(flowStepExtense);
+
+					stepRank++;
 				}
-
-				List<CustomProperty> customProperties = userTask.getCustomProperties();
-				for (CustomProperty customProperty : customProperties) {
-					customProperty.getName();
-					customProperty.getSimpleValue();
-					// 保存步骤扩展信息
-				}
-
-				flowStepRepository.save(flowStep);
-
-				FlowStepExtense flowStepExtense = new FlowStepExtense();
-				flowStepExtense.setStepId(flowStep.getStepId());
-				flowStepExtense.setFromStatus(fromStatus);
-				switch (flowStep.getStepName()) {
-				case "接单":
-					flowStepExtense.setToStatus(TicketStatus.RECEIVED.name());
-					break;
-				case "预约":
-					flowStepExtense.setToStatus(TicketStatus.APPOINTED.name());
-					break;
-				case "出发":
-					flowStepExtense.setToStatus(TicketStatus.SETOUT.name());
-					break;
-				case "到场":
-					flowStepExtense.setToStatus(TicketStatus.ARRIVED.name());
-					break;
-				case "完成":
-					flowStepExtense.setToStatus(TicketStatus.FINISHED.name());
-					break;
-				case "关单":
-					flowStepExtense.setToStatus(TicketStatus.CLOSE.name());
-					break;
-				default:
-					flowStepExtense.setToStatus(TicketStatus.BILLED.name());
-					break;
-				}
-				fromStatus = flowStepExtense.getToStatus();
-				flowStepExtenseRepository.save(flowStepExtense);
-
-				stepRank++;
 			}
 		} catch (Exception e) {
 			logger.error("流程部署Zip异常，exception:{}", e);

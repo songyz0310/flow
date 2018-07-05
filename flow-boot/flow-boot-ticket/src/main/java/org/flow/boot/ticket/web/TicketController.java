@@ -11,6 +11,7 @@ import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.common.dto.ticket.StepActivityDTO;
 import org.flow.boot.common.dto.ticket.StepDTO;
+import org.flow.boot.common.dto.ticket.StepJumpDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
 import org.flow.boot.common.enums.StepType;
 import org.flow.boot.common.vo.ticket.TicketVO;
@@ -168,7 +169,7 @@ public class TicketController implements FlowController {
 		return Response.okResponse("成功");
 	}
 
-	public Response<?> quicklyFinishi(StepDTO dto) {
+	public Response<?> stepJump(StepJumpDTO dto) {
 		if (dto.paramIsMiss())
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
@@ -180,9 +181,12 @@ public class TicketController implements FlowController {
 		} else if (Objects.equals(ticket.getStepId(), dto.getStepId()) == false) {
 			error.setMessage("工单步骤与当前步骤不符");
 			return error;
+		} else if (Objects.equals(dto.getJumpStepId(), "")) {
+			error.setMessage("工单跳跃的步骤不能为空");
+			return error;
 		}
 
-		ticketService.quicklyFinishi(dto);
+		ticketService.stepJump(dto);
 		return Response.okResponse("成功");
 	}
 }

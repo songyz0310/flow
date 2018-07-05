@@ -12,6 +12,7 @@ import java.util.Objects;
 
 import org.flow.boot.common.dto.ticket.StepActivityDTO;
 import org.flow.boot.common.dto.ticket.StepDTO;
+import org.flow.boot.common.dto.ticket.StepJumpDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.TicketStatus;
@@ -248,9 +249,19 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Transactional
-	public void quicklyFinishi(StepDTO dto) {
-		// TODO Auto-generated method stub
-
+	public void stepJump(StepJumpDTO dto) {
+		Date now = new Date();
+		String ticketId = dto.getEntityId();
+		String jumpStepId = dto.getJumpStepId();
+		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		FlowInstanceVO flowInstance = flowControllerService.jumpStep(EntityType.TICKET, ticketId, jumpStepId).getData();
+		FlowStepVO step = stepControllerService.queryById(flowInstance.getStepId()).getData();
+		ticket.setStepId(step.getStepId());
+		ticket.setStepName(step.getStepName());
+		ticket.setStepType(step.getStepType());
+		ticket.setSoStatus(TicketStatus.valueOf(step.getFlowStepExtense().getFromStatus()));// 从当前步骤扩展中取值回退状态
+		ticket.setUpdateTime(now);
+		sysTicketRepository.save(ticket);
 	}
 
 }

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class FlowableConfiguration {
+public class FlowableConfig {
 
 	@Autowired
 	private ProcessEngine processEngine;

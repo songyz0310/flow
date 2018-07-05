@@ -124,7 +124,7 @@ var flow = function() {
 	}
 	
 	// 流程跳跃
-	var jumpFn = function(entityType, entityId, stepId,jumpStepId) {
+	var jumpFn = function(entityType, entityId, stepId, jumpStepId) {
 		var jump = {};
 		jump.entityType = entityType;
 		jump.entityId = entityId;

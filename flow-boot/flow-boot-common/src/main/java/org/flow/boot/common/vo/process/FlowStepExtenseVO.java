@@ -16,6 +16,8 @@ public class FlowStepExtenseVO {
 
 	private String toStatus;
 
+	private String candidateGroups;
+
 	public String getStepId() {
 		return stepId;
 	}
@@ -46,6 +48,14 @@ public class FlowStepExtenseVO {
 
 	public void setToStatus(String toStatus) {
 		this.toStatus = toStatus;
+	}
+
+	public String getCandidateGroups() {
+		return candidateGroups;
+	}
+
+	public void setCandidateGroups(String candidateGroups) {
+		this.candidateGroups = candidateGroups;
 	}
 
 }

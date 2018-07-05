@@ -24,9 +24,9 @@ import com.netflix.config.validation.ValidationException;
  *
  */
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class WebGlobalException {
 
-	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+	private static final Logger log = LoggerFactory.getLogger(WebGlobalException.class);
 
 	// 运行时异常
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

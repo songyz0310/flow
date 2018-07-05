@@ -1,13 +1,21 @@
 package org.flow.boot.process.web.test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Objects;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.process.form.FileForm;
 import org.flow.boot.process.service.test.TestFlowService;
+import org.flowable.bpmn.model.BpmnModel;
+import org.flowable.engine.RepositoryService;
+import org.flowable.image.impl.DefaultProcessDiagramGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +36,10 @@ public class TestProcessController {
 
 	@Autowired
 	private TestFlowService testFlowService;
+	@Autowired
+	private RepositoryService repositoryService;
+
+	private DefaultProcessDiagramGenerator generator = new DefaultProcessDiagramGenerator();
 
 	@PostMapping(value = "deploy/zip", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public Response<?> deployZip(@RequestParam(required = false) MultipartFile file, String name, String key) {
@@ -85,6 +97,21 @@ public class TestProcessController {
 	@GetMapping("query/deployment/list")
 	public Response<?> queryDeploymentList() {
 		return Response.okResponse(testFlowService.queryDeploymentList());
+	}
+
+	@GetMapping("query/image/{processDefinitionId}")
+	public void queryDeploymentList(@PathVariable String processDefinitionId, HttpServletResponse response) {
+		BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+
+		try (InputStream in = generator.generateDiagram(bpmnModel, "PNG", Collections.emptyList(),
+				Collections.emptyList(), "宋体", "宋体", "宋体", null, 1.0); PrintWriter writer = response.getWriter()) {
+			int ch = 0;
+			while ((ch = in.read()) != -1)
+				writer.write(ch);
+		} catch (Exception e) {
+			logger.error("生成流程图片异常：", e);
+		}
+
 	}
 
 	@GetMapping("clear")
