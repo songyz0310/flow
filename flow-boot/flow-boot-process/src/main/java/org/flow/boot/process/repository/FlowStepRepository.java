@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FlowStepRepository extends JpaRepository<FlowStep, String> {
 
+	@Deprecated
 	List<FlowStep> findByProcessIdOrderByStepRank(String processId);
 
+	@Deprecated
 	List<FlowStep> findByProcessIdAndStepRankLessThanEqualOrderByStepRank(String processId, int stepRank);
 
-	FlowStep findByStepKey(String stepKey);
+	FlowStep findByProcessIdAndStepKey(String processId, String stepKey);
 
 }

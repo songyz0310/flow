@@ -34,13 +34,13 @@
 					<a th:text="${ticket.stepName}" th:href="@{'/ticket/step/page?entityType='+${entityType.name()}+'&entityId='+${ticket.ticketId}+'&stepId='+${ticket.stepId}}"></a>
 					<button th:onclick="'flow.cancel(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\')'" class="btn btn-xs btn-danger">回退</button>
 					<button th:if="${ticket.appointStepId} ne null" th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.appointStepId}+'\')'" class="btn btn-xs btn-info">改约</button>
-					<button th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.closeStepId}+'\')'" class="btn btn-xs btn-info">快速完成</button>
+					<button th:onclick="'flow.jumpTo(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.closeStepId}+'\')'" class="btn btn-xs btn-info">快速完成</button>
 				</td>
 				<td th:if="${ticket.stepType} ne null and ${ticket.stepType?.name()} ne PAGE">
 					<button th:text="${ticket.stepName}" th:onclick="'flow.execute(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\')'" class="btn btn-xs btn-success"></button>
 					<button th:onclick="'flow.cancel(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\')'" class="btn btn-xs btn-danger">回退</button>
 					<button th:if="${ticket.appointStepId} ne null" th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.appointStepId}+'\')'" class="btn btn-xs btn-info">改约</button>
-					<button th:onclick="'flow.jump(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.closeStepId}+'\')'" class="btn btn-xs btn-info">快速完成</button>
+					<button th:onclick="'flow.jumpTo(\''+${entityType.name()}+'\',\''+${ticket.ticketId}+'\',\''+${ticket.stepId}+'\',\''+${ticket.closeStepId}+'\')'" class="btn btn-xs btn-info">快速完成</button>
 				</td>
 			</tr>
 		</tbody>

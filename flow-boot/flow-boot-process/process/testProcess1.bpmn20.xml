@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
-  <process id="testProcess" name="测试流程" isExecutable="true">
+  <process id="testProcess1" name="标准流程1" isExecutable="true">
     <startEvent id="startEvent1"></startEvent>
     <userTask id="usertask1" name="接单"></userTask>
     <sequenceFlow id="sid-FFE2B103-C5C5-498E-8B6E-D0A57DCA9871" sourceRef="startEvent1" targetRef="usertask1"></sequenceFlow>

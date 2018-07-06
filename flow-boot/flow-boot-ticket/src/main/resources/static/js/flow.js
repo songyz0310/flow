@@ -124,18 +124,18 @@ var flow = function() {
 	}
 	
 	// 流程跳跃
-	var jumpFn = function(entityType, entityId, stepId, jumpStepId) {
-		var jump = {};
-		jump.entityType = entityType;
-		jump.entityId = entityId;
-		jump.stepId = stepId;
-		jump.jumpStepId = jumpStepId;
+	var jumpToFn = function(entityType, entityId, stepId, jumpStepId) {
+		var jumpTo = {};
+		jumpTo.entityType = entityType;
+		jumpTo.entityId = entityId;
+		jumpTo.stepId = stepId;
+		jumpTo.jumpStepId = jumpStepId;
 		
 		Loading.start();
 		
 		$.ajax({
-			url : app.path + config.stepJump,
-			data : jump,
+			url : app.path + config.stepJumpTo,
+			data : jumpTo,
 			type : "POST",
 			dataType : "json",
 			success : function(result) {
@@ -190,7 +190,7 @@ var flow = function() {
 		init : initFn,
 		confirm : confirmFn,
 		execute : executeFn,
-		jump : jumpFn,
+		jumpTo : jumpToFn,
 		cancel : cancelFn
 	}
 }();

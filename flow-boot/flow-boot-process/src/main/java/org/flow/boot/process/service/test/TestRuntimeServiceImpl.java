@@ -44,6 +44,8 @@ public class TestRuntimeServiceImpl implements TestRuntimeService {
 	public List<HistoricActivityInstanceVO> queryActivityList(String processInstanceId) {
 		List<HistoricActivityInstanceVO> list = new LinkedList<>();
 
+		
+		
 		List<HistoricActivityInstance> list4 = historyService.createHistoricActivityInstanceQuery()
 				.processInstanceId(processInstanceId).orderBy(HistoricActivityInstanceQueryProperty.START).asc().list();
 

@@ -1,6 +1,7 @@
 package org.flow.boot.process.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +10,6 @@ import org.flow.boot.common.Response;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.process.entity.FlowInstance;
-import org.flow.boot.process.form.ProcessForm;
 import org.flow.boot.process.repository.FlowProcessRepository;
 import org.flow.boot.process.service.FlowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,16 +33,12 @@ public class FlowController {
 	private FlowProcessRepository flowProcessRepository;
 
 	@PostMapping(value = "deploy", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public Response<String> deploy(@RequestParam(required = false) MultipartFile file, String name, String key)
+	public Response<String> deploy(@RequestParam(required = false) MultipartFile file, EntityType entityType)
 			throws IOException {
-		if (Objects.isNull(file) || StringUtils.isAnyEmpty(name, key))
+		if (Objects.isNull(file) || Objects.isNull(entityType))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		ProcessForm form = new ProcessForm();
-		form.setKey(key);
-		form.setName(name);
-		form.setFile(file.getInputStream());
-		flowService.deploy(form);
+		flowService.deploy(file.getInputStream(), entityType);
 		return Response.okResponse("成功");
 	}
 
@@ -54,11 +51,12 @@ public class FlowController {
 	}
 
 	@PostMapping("start")
-	public Response<FlowInstanceVO> start(EntityType entityType, String processId, String entityId) {
+	public Response<FlowInstanceVO> start(EntityType entityType, String processId, String entityId,
+			@RequestBody HashMap<String, Object> variables) {
 		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(processId, entityId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(flowService.start(processId, entityId, entityType));
+		return Response.okResponse(flowService.start(processId, entityId, entityType, variables));
 	}
 
 	@GetMapping("step/html")
@@ -85,12 +83,12 @@ public class FlowController {
 		return Response.okResponse(flowService.cancelTask(entityId, entityType));
 	}
 
-	@PostMapping("step/jump")
-	public Response<FlowInstance> jumpTask(EntityType entityType, String entityId, String stepId) {
+	@PostMapping("step/jumpTo")
+	public Response<FlowInstance> jumpToTask(EntityType entityType, String entityId, String stepId) {
 		if (Objects.isNull(entityType) || StringUtils.isAnyEmpty(entityId, stepId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(flowService.jumpTask(entityId, entityType, stepId));
+		return Response.okResponse(flowService.jumpToTask(entityId, entityType, stepId));
 	}
 
 }

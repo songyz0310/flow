@@ -11,6 +11,8 @@ public interface TestTaskService {
 
 	public List<TaskVO> queryList();
 
+	public List<TaskVO> queryHistoryList(String processInstanceId);
+
 	public FormInfoVO queryFormInfo(String taskId);
 
 	public Object queryForm(String taskId);

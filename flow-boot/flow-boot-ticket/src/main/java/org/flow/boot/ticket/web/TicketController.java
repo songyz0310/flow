@@ -169,7 +169,7 @@ public class TicketController implements FlowController {
 		return Response.okResponse("成功");
 	}
 
-	public Response<?> stepJump(StepJumpDTO dto) {
+	public Response<?> stepJumpTo(StepJumpDTO dto) {
 		if (dto.paramIsMiss())
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
@@ -186,7 +186,7 @@ public class TicketController implements FlowController {
 			return error;
 		}
 
-		ticketService.stepJump(dto);
+		ticketService.stepJumpTo(dto);
 		return Response.okResponse("成功");
 	}
 }

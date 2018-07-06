@@ -1,15 +1,18 @@
 package org.flow.boot.process.service;
 
+import java.io.InputStream;
+import java.util.Map;
+
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.process.entity.FlowInstance;
-import org.flow.boot.process.form.ProcessForm;
 
 public interface FlowService {
 
-	public void deploy(ProcessForm form);
+	public void deploy(InputStream inputStream, EntityType entityType);
 
-	public FlowInstanceVO start(String processId, String entityId, EntityType entityType);
+	public FlowInstanceVO start(String processId, String entityId, EntityType entityType,
+			Map<String, Object> variables);
 
 	public String getRenderedHtml(String entityId, EntityType entityType);
 
@@ -17,6 +20,6 @@ public interface FlowService {
 
 	public FlowInstance cancelTask(String entityId, EntityType entityType);
 
-	public FlowInstance jumpTask(String entityId, EntityType entityType, String stepId);
+	public FlowInstance jumpToTask(String entityId, EntityType entityType, String stepId);
 
 }

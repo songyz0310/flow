@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SysFlowStepDataRepository extends JpaRepository<SysFlowStepData, String> {
 
+	int deleteByStepId(String stepId);
 }

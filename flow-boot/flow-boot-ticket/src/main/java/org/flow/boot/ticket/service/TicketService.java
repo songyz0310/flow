@@ -26,6 +26,6 @@ public interface TicketService {
 
 	void stepCancel(StepDTO dto);
 
-	void stepJump(StepJumpDTO dto);
+	void stepJumpTo(StepJumpDTO dto);
 
 }

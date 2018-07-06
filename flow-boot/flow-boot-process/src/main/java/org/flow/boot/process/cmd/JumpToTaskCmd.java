@@ -10,15 +10,21 @@ import org.flowable.engine.impl.util.ProcessDefinitionUtil;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 import org.flowable.task.service.impl.persistence.entity.TaskEntityManager;
 
-public class JumpTaskCmd implements Command<Object> {
+/**
+ * 跳跃至指定步骤
+ * 
+ * @author songyz
+ *
+ */
+public class JumpToTaskCmd implements Command<Object> {
 
 	protected String taskId;
 
-	protected String target;
+	protected String flowElementId;
 
-	public JumpTaskCmd(String taskId, String target) {
+	public JumpToTaskCmd(String taskId, String flowElementId) {
 		this.taskId = taskId;
-		this.target = target;
+		this.flowElementId = flowElementId;
 	}
 
 	public Void execute(CommandContext commandContext) {
@@ -30,9 +36,11 @@ public class JumpTaskCmd implements Command<Object> {
 		ExecutionEntity ee = executionEntityManager.findById(taskEntity.getExecutionId());
 		Process process = ProcessDefinitionUtil.getProcess(ee.getProcessDefinitionId());
 
-		ee.setCurrentFlowElement(process.getFlowElement(target));
+		ee.setCurrentFlowElement(process.getFlowElement(flowElementId));
 
 		CommandContextUtil.getAgenda().planContinueProcessInCompensation(ee);
+
+		CommandContextUtil.getIdentityLinkService().deleteIdentityLinksByTaskId(taskId);
 
 		taskEntityManager.delete(taskId);
 

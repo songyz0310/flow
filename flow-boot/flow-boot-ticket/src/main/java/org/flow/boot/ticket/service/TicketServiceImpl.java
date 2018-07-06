@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -75,13 +76,15 @@ public class TicketServiceImpl implements TicketService {
 		BeanUtils.copyProperties(form, ticket);
 		sysTicketRepository.save(ticket);
 
-		String ticketId = ticket.getTicketId();
-		String processId = form.getProcessId();
-		FlowInstanceVO flowInstanceVO = flowControllerService.start(EntityType.TICKET, processId, ticketId).getData();
-		FlowProcessVO flowProcessVO = flowControllerService.queryById(processId).getData();
-		FlowStepVO flowStepVO = stepControllerService.queryById(flowInstanceVO.getStepId()).getData();
+		HashMap<String, Object> variables = new HashMap<>();
+		variables.put("ticket", ticket);
+
+		FlowInstanceVO flowInstance = flowControllerService
+				.start(EntityType.TICKET, form.getProcessId(), ticket.getTicketId(), variables).getData();
+		FlowProcessVO flowProcessVO = flowControllerService.queryById(form.getProcessId()).getData();
+		FlowStepVO flowStepVO = stepControllerService.queryById(flowInstance.getStepId()).getData();
 		ticket.setProcessName(flowProcessVO.getProcessName());
-		ticket.setSoStatus(TicketStatus.BILLED);
+		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setStepId(flowStepVO.getStepId());
 		ticket.setStepName(flowStepVO.getStepName());
 		ticket.setStepType(flowStepVO.getStepType());
@@ -165,6 +168,7 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setStepName(null);
 			ticket.setStepType(null);
 		}
+		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 
@@ -209,9 +213,7 @@ public class TicketServiceImpl implements TicketService {
 				flowStepData.setStepId(stepId);
 				flowStepData.setStepName(stepVO.getStepName());
 				flowStepData.setValue(value.toString());
-				// flowStepData.setValueType(ValueType.);//从组件中配置获取
 				sysFlowStepDataRepository.save(flowStepData);
-
 			});
 		}
 
@@ -226,7 +228,7 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setStepName(null);
 			ticket.setStepType(null);
 		}
-
+		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 
@@ -242,24 +244,23 @@ public class TicketServiceImpl implements TicketService {
 		ticket.setStepId(step.getStepId());
 		ticket.setStepName(step.getStepName());
 		ticket.setStepType(step.getStepType());
-		ticket.setSoStatus(TicketStatus.valueOf(step.getFlowStepExtense().getFromStatus()));// 从当前步骤扩展中取值回退状态
-
+		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
+		sysFlowStepDataRepository.deleteByStepId(dto.getStepId());
 	}
 
 	@Transactional
-	public void stepJump(StepJumpDTO dto) {
+	public void stepJumpTo(StepJumpDTO dto) {
 		Date now = new Date();
-		String ticketId = dto.getEntityId();
-		String jumpStepId = dto.getJumpStepId();
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
-		FlowInstanceVO flowInstance = flowControllerService.jumpStep(EntityType.TICKET, ticketId, jumpStepId).getData();
+		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
+		FlowInstanceVO flowInstance = flowControllerService
+				.jumpStepTo(EntityType.TICKET, dto.getEntityId(), dto.getJumpStepId()).getData();
 		FlowStepVO step = stepControllerService.queryById(flowInstance.getStepId()).getData();
 		ticket.setStepId(step.getStepId());
 		ticket.setStepName(step.getStepName());
 		ticket.setStepType(step.getStepType());
-		ticket.setSoStatus(TicketStatus.valueOf(step.getFlowStepExtense().getFromStatus()));// 从当前步骤扩展中取值回退状态
+		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 	}

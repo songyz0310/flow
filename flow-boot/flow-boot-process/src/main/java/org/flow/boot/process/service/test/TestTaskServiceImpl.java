@@ -7,11 +7,14 @@ import org.flow.boot.common.vo.process.FormInfoVO;
 import org.flow.boot.common.vo.process.FormModelVO;
 import org.flow.boot.common.vo.process.TaskVO;
 import org.flowable.engine.FormService;
+import org.flowable.engine.HistoryService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.form.TaskFormData;
 import org.flowable.form.api.FormInfo;
 import org.flowable.form.api.FormModel;
 import org.flowable.task.api.Task;
+import org.flowable.task.api.history.HistoricTaskInstance;
+import org.flowable.task.service.impl.HistoricTaskInstanceQueryProperty;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ public class TestTaskServiceImpl implements TestTaskService {
 	private TaskService taskService;
 	@Autowired
 	private FormService formService;
+	@Autowired
+	private HistoryService historyService;
 
 	public TaskVO queryById(String taskId) {
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
@@ -64,9 +69,20 @@ public class TestTaskServiceImpl implements TestTaskService {
 
 	public void completeTask(String taskId) {
 		taskService.complete(taskId);
-		// String processDefinitionId = "";
-		// taskService.createTaskQuery().processInstanceId(processInstanceId)
 
+	}
+
+	public List<TaskVO> queryHistoryList(String processInstanceId) {
+		List<HistoricTaskInstance> list = historyService.createHistoricTaskInstanceQuery()
+				.processInstanceId(processInstanceId).orderBy(HistoricTaskInstanceQueryProperty.START).asc().list();
+		List<TaskVO> data = new LinkedList<>();
+		list.forEach(fd -> {
+			TaskVO vo = new TaskVO();
+			BeanUtils.copyProperties(fd, vo);
+			data.add(vo);
+		});
+		list.clear();
+		return data;
 	}
 
 }

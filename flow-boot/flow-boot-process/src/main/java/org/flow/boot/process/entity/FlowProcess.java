@@ -44,6 +44,9 @@ public class FlowProcess {
 	@Column(name = "update_time")
 	private Date updateTime;
 
+	@Column(name = "version")
+	private int version;
+
 	public String getProcessId() {
 		return processId;
 	}
@@ -98,6 +101,14 @@ public class FlowProcess {
 
 	public void setEntityType(EntityType entityType) {
 		this.entityType = entityType;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 }

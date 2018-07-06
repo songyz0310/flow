@@ -37,6 +37,11 @@ public class TestTaskController {
 		return Response.okResponse(testTaskService.queryFormInfo(taskId));
 	}
 
+	@GetMapping("history/{processInstanceId}")
+	public Response<?> queryHistory(@PathVariable String processInstanceId) {
+		return Response.okResponse(testTaskService.queryHistoryList(processInstanceId));
+	}
+
 	@GetMapping(value = "form/{taskId}", produces = MediaType.TEXT_HTML_VALUE)
 	public Object queryForm(@PathVariable String taskId) {
 		return testTaskService.queryForm(taskId);

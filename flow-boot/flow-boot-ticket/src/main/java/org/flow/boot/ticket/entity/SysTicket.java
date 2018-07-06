@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import org.flow.boot.common.enums.StepType;
 import org.flow.boot.common.enums.TicketStatus;
+import org.flow.boot.common.enums.TicketType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -46,6 +47,10 @@ public class SysTicket {
 
 	@Column(name = "concat_person")
 	private String concatPerson;
+
+	@Column(name = "type")
+	@Enumerated(EnumType.STRING)
+	private TicketType type;
 
 	@Column(name = "concat_phone")
 	private String concatPhone;
@@ -142,6 +147,14 @@ public class SysTicket {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public TicketType getType() {
+		return type;
+	}
+
+	public void setType(TicketType type) {
+		this.type = type;
 	}
 
 }

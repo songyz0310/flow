@@ -41,6 +41,9 @@ public class FlowInstance {
 	@Column(name = "entity_id", updatable = false)
 	protected String entityId;
 
+	@Column(name = "entity_status")
+	private String entityStatus;
+
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -68,6 +71,30 @@ public class FlowInstance {
 
 	public void setProcessId(String processId) {
 		this.processId = processId;
+	}
+
+	public EntityType getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(EntityType entityType) {
+		this.entityType = entityType;
+	}
+
+	public String getEntityId() {
+		return entityId;
+	}
+
+	public void setEntityId(String entityId) {
+		this.entityId = entityId;
+	}
+
+	public String getEntityStatus() {
+		return entityStatus;
+	}
+
+	public void setEntityStatus(String entityStatus) {
+		this.entityStatus = entityStatus;
 	}
 
 	public Status getStatus() {
@@ -100,22 +127,6 @@ public class FlowInstance {
 
 	public void setStepId(String stepId) {
 		this.stepId = stepId;
-	}
-
-	public EntityType getEntityType() {
-		return entityType;
-	}
-
-	public void setEntityType(EntityType entityType) {
-		this.entityType = entityType;
-	}
-
-	public String getEntityId() {
-		return entityId;
-	}
-
-	public void setEntityId(String entityId) {
-		this.entityId = entityId;
 	}
 
 }

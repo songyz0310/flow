@@ -34,6 +34,8 @@ public class FlowInstanceVO {
 
 	private String stepId;
 
+	private String entityStatus;
+
 	public String getInstanceId() {
 		return instanceId;
 	}
@@ -96,6 +98,14 @@ public class FlowInstanceVO {
 
 	public void setEntityId(String entityId) {
 		this.entityId = entityId;
+	}
+
+	public String getEntityStatus() {
+		return entityStatus;
+	}
+
+	public void setEntityStatus(String entityStatus) {
+		this.entityStatus = entityStatus;
 	}
 
 }

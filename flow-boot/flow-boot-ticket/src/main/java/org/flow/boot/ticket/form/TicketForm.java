@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.BaseForm;
+import org.flow.boot.common.enums.TicketStatus;
+import org.flow.boot.common.enums.TicketType;
 
 public class TicketForm extends BaseForm {
 
@@ -12,7 +14,8 @@ public class TicketForm extends BaseForm {
 	private String processName;
 	private String stepId;
 	private String stepName;
-	private String status;
+	private TicketStatus status;
+	private TicketType type;
 
 	private Map<String, String> page;
 	private Map<String, String> pagefile;
@@ -61,12 +64,20 @@ public class TicketForm extends BaseForm {
 		this.stepName = stepName;
 	}
 
-	public String getStatus() {
+	public TicketStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(TicketStatus status) {
 		this.status = status;
+	}
+
+	public TicketType getType() {
+		return type;
+	}
+
+	public void setType(TicketType type) {
+		this.type = type;
 	}
 
 	public Map<String, String> getPage() {

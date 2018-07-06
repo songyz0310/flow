@@ -1,5 +1,7 @@
 package org.flow.boot.ticket.service.feignclient;
 
+import java.util.HashMap;
+
 import org.flow.boot.common.ErrorCode;
 import org.flow.boot.common.Response;
 import org.flow.boot.common.enums.EntityType;
@@ -14,7 +16,8 @@ public class FlowControllerServiceImpl implements FlowControllerService {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 
-	public Response<FlowInstanceVO> start(EntityType entityType, String processId, String entityId) {
+	public Response<FlowInstanceVO> start(EntityType entityType, String processId, String entityId,
+			HashMap<String, Object> variables) {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 
@@ -34,7 +37,7 @@ public class FlowControllerServiceImpl implements FlowControllerService {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 
-	public Response<FlowInstanceVO> jumpStep(EntityType entityType, String entityId, String stepId) {
+	public Response<FlowInstanceVO> jumpStepTo(EntityType entityType, String entityId, String stepId) {
 		return Response.errorResponse(ErrorCode.UNKNOWN);
 	}
 

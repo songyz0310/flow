@@ -41,7 +41,7 @@ public interface FlowController {
 	public Response<?> stepCancel(StepDTO step);
 
 	// 流程快速完成
-	@PostMapping(value = "step/jump")
-	public Response<?> stepJump(StepJumpDTO step);
+	@PostMapping(value = "step/jumpTo")
+	public Response<?> stepJumpTo(StepJumpDTO step);
 
 }
