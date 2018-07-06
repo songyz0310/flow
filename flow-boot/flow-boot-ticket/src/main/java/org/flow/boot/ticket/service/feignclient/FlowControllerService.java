@@ -6,7 +6,7 @@ import org.flow.boot.common.Response;
 import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.common.vo.process.FlowProcessVO;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

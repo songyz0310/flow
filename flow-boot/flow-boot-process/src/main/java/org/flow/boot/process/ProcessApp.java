@@ -2,8 +2,7 @@ package org.flow.boot.process;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 程序入口
@@ -11,8 +10,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @author songyz
  *
  */
-@EnableEurekaClient
-@EnableFeignClients
+@EnableDiscoveryClient // 服务发现
 @SpringBootApplication
 public class ProcessApp {
 

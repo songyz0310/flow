@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import org.flow.boot.common.enums.StepType;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 流程步骤
  * 
@@ -50,6 +52,7 @@ public class FlowStep {
 
 	@OneToOne
 	@JoinColumn(name = "step_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private FlowStepExtense flowStepExtense;
 
 	public String getStepId() {

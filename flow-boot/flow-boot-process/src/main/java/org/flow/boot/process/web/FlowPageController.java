@@ -23,7 +23,7 @@ public class FlowPageController {
 		if (Objects.isNull(configId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(flowPageConfigRepository.findOne(configId));
+		return Response.okResponse(flowPageConfigRepository.getOne(configId));
 	}
 
 }

@@ -30,4 +30,4 @@ logging:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://songyz:songyz2018@localhost:6001/eureka/
+      defaultZone: http://localhost:9871/eureka

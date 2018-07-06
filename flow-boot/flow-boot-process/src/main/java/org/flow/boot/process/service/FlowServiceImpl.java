@@ -219,7 +219,7 @@ public class FlowServiceImpl implements FlowService {
 			flowInstance.setEntityStatus(flowStep.getFlowStepExtense().getFromStatus());
 		} else {
 			String stepId = flowInstance.getStepId();
-			FlowStep flowStep = flowStepRepository.findOne(stepId);
+			FlowStep flowStep = flowStepRepository.getOne(stepId);
 			flowInstance.setEntityStatus(flowStep.getFlowStepExtense().getFromStatus());
 			flowInstance.setStepId(null);
 			flowInstance.setStatus(Status.STOPED);
@@ -263,7 +263,7 @@ public class FlowServiceImpl implements FlowService {
 
 		Task task = taskService.createTaskQuery().processInstanceId(flowInstance.getInstanceId()).singleResult();
 
-		FlowStep flowStep = flowStepRepository.findOne(stepId);
+		FlowStep flowStep = flowStepRepository.getOne(stepId);
 		managementService.executeCommand(new JumpToTaskCmd(task.getId(), flowStep.getStepKey()));
 
 		task = taskService.createTaskQuery().processInstanceId(flowInstance.getInstanceId()).singleResult();

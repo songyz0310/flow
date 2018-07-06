@@ -2,8 +2,9 @@ package org.flow.boot.ticket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 程序入口
@@ -11,8 +12,9 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @author songyz
  *
  */
-@EnableEurekaClient
-@EnableFeignClients
+@EnableFeignClients // 远程调用
+@EnableCircuitBreaker // 断路器
+@EnableDiscoveryClient // 服务发现
 @SpringBootApplication
 public class TicketApp {
 

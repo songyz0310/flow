@@ -92,7 +92,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	public String getTicketFlowPage(String ticketId) {
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		SysTicket ticket = sysTicketRepository.getOne(ticketId);
 		String stepId = ticket.getStepId();
 		FlowStepVO step = stepControllerService.queryById(stepId).getData();
 		String pageId = step.getPageId();
@@ -141,7 +141,7 @@ public class TicketServiceImpl implements TicketService {
 		String ticketId = stepActivity.getEntityId();
 		String stepId = stepActivity.getStepId();
 
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		SysTicket ticket = sysTicketRepository.getOne(ticketId);
 
 		FlowStepVO stepVO = stepControllerService.queryById(stepId).getData();
 		ticket.setSoStatus(TicketStatus.valueOf(stepVO.getFlowStepExtense().getToStatus()));// 从当前步骤扩展中取值
@@ -181,7 +181,7 @@ public class TicketServiceImpl implements TicketService {
 		String ticketId = stepPage.getEntityId();
 		String stepId = stepPage.getStepId();
 
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		SysTicket ticket = sysTicketRepository.getOne(ticketId);
 
 		FlowStepVO stepVO = stepControllerService.queryById(stepId).getData();
 		ticket.setSoStatus(TicketStatus.valueOf(stepVO.getFlowStepExtense().getToStatus()));// 从当前步骤扩展中取值
@@ -238,7 +238,7 @@ public class TicketServiceImpl implements TicketService {
 	public void stepCancel(StepDTO dto) {
 		Date now = new Date();
 		String ticketId = dto.getEntityId();
-		SysTicket ticket = sysTicketRepository.findOne(ticketId);
+		SysTicket ticket = sysTicketRepository.getOne(ticketId);
 		FlowInstanceVO flowInstance = flowControllerService.cancelStep(EntityType.TICKET, ticketId).getData();
 		FlowStepVO step = stepControllerService.queryById(flowInstance.getStepId()).getData();
 		ticket.setStepId(step.getStepId());
@@ -253,7 +253,7 @@ public class TicketServiceImpl implements TicketService {
 	@Transactional
 	public void stepJumpTo(StepJumpDTO dto) {
 		Date now = new Date();
-		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
+		SysTicket ticket = sysTicketRepository.getOne(dto.getEntityId());
 		FlowInstanceVO flowInstance = flowControllerService
 				.jumpStepTo(EntityType.TICKET, dto.getEntityId(), dto.getJumpStepId()).getData();
 		FlowStepVO step = stepControllerService.queryById(flowInstance.getStepId()).getData();

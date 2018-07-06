@@ -60,7 +60,7 @@ public class TestFlowPageServiceImpl implements TestFlowPageService {
 				}
 				List<FlowPageConfig> pageConfigs = flowPageConfigRepository.findByPageId(flowPage.getPageId());
 				for (FlowPageConfig fpc : pageConfigs) {
-					FlowPageItem pageItem = flowPageItemRepository.findOne(fpc.getItemId());
+					FlowPageItem pageItem = flowPageItemRepository.getOne(fpc.getItemId());
 
 					map.put("tableKey", "");
 					map.put("tableVal", "");

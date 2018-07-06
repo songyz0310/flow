@@ -47,7 +47,7 @@ public class FlowController {
 		if (Objects.isNull(processId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(flowProcessRepository.findOne(processId));
+		return Response.okResponse(flowProcessRepository.getOne(processId));
 	}
 
 	@PostMapping("start")

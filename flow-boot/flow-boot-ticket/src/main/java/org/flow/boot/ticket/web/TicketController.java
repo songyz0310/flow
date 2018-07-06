@@ -62,7 +62,7 @@ public class TicketController implements FlowController {
 		if (step.paramIsMiss())
 			return ErrorCode.PARAM_MISS.getMessage();
 
-		SysTicket ticket = sysTicketRepository.findOne(step.getEntityId());
+		SysTicket ticket = sysTicketRepository.getOne(step.getEntityId());
 		if (Objects.isNull(ticket)) {
 			return "工单不存在";
 		} else if (Objects.isNull(ticket.getStepId())) {
@@ -83,7 +83,7 @@ public class TicketController implements FlowController {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
 		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
-		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
+		SysTicket ticket = sysTicketRepository.getOne(dto.getEntityId());
 		if (Objects.isNull(ticket)) {
 			error.setMessage("工单不存在");
 			return error;
@@ -105,7 +105,7 @@ public class TicketController implements FlowController {
 			response.setMessage(ErrorCode.PARAM_MISS.getMessage());
 			return response;
 		}
-		SysTicket ticket = sysTicketRepository.findOne(stepPage.getEntityId());
+		SysTicket ticket = sysTicketRepository.getOne(stepPage.getEntityId());
 		if (Objects.isNull(ticket)) {
 			response.setMessage("工单不存在");
 			return response;
@@ -132,7 +132,7 @@ public class TicketController implements FlowController {
 			response.setMessage(ErrorCode.PARAM_MISS.getMessage());
 			return response;
 		}
-		SysTicket ticket = sysTicketRepository.findOne(stepActivity.getEntityId());
+		SysTicket ticket = sysTicketRepository.getOne(stepActivity.getEntityId());
 		if (Objects.isNull(ticket)) {
 			response.setMessage("工单不存在");
 			return response;
@@ -156,7 +156,7 @@ public class TicketController implements FlowController {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
 		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
-		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
+		SysTicket ticket = sysTicketRepository.getOne(dto.getEntityId());
 		if (Objects.isNull(ticket)) {
 			error.setMessage("工单不存在");
 			return error;
@@ -174,7 +174,7 @@ public class TicketController implements FlowController {
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
 		Response<String> error = Response.errorResponse(ErrorCode.UNKNOWN);
-		SysTicket ticket = sysTicketRepository.findOne(dto.getEntityId());
+		SysTicket ticket = sysTicketRepository.getOne(dto.getEntityId());
 		if (Objects.isNull(ticket)) {
 			error.setMessage("工单不存在");
 			return error;

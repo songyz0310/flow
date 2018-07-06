@@ -28,7 +28,7 @@ public class StepController {
 		if (Objects.isNull(stepId))
 			return Response.errorResponse(ErrorCode.PARAM_MISS);
 
-		return Response.okResponse(flowStepRepository.findOne(stepId));
+		return Response.okResponse(flowStepRepository.getOne(stepId));
 	}
 
 	@GetMapping("query/{processId}/{toStatus}")
