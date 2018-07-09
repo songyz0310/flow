@@ -22,21 +22,25 @@ import org.flow.boot.common.enums.EntityType;
 public class FlowProcess {
 
 	@Id
-	@Column(name = "process_id")
+	@Column(name = "process_id", length = 64)
 	private String processId;
 
-	@Column(name = "process_key")
+	@Column(name = "process_key", length = 32)
 	private String processKey;
 
-	@Column(name = "process_name")
+	@Column(name = "process_name", length = 32)
 	private String processName;
 
-	@Column(name = "file_path")
+	@Column(name = "file_path", length = 255)
 	private String filePath;
 
-	@Column(name = "entity_type", updatable = false)
+	@Column(name = "entity_type", length = 32)
 	@Enumerated(EnumType.STRING)
-	protected EntityType entityType;
+	private EntityType entityType;
+
+	@Column(name = "status", length = 32)
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
 	@Column(name = "create_time", updatable = false)
 	private Date createTime;
@@ -46,6 +50,13 @@ public class FlowProcess {
 
 	@Column(name = "version")
 	private int version;
+
+	/**************************************/
+
+	public static enum Status {
+		ENABLED, // 可用
+		DISABLED, // 不可用
+	}
 
 	public String getProcessId() {
 		return processId;

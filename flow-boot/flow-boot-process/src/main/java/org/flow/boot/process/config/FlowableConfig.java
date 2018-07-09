@@ -1,9 +1,7 @@
 package org.flow.boot.process.config;
 
-import org.flowable.engine.DynamicBpmnService;
 import org.flowable.engine.FormService;
 import org.flowable.engine.HistoryService;
-import org.flowable.engine.IdentityService;
 import org.flowable.engine.ManagementService;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.RepositoryService;
@@ -46,18 +44,8 @@ public class FlowableConfig {
 	}
 
 	@Bean
-	public IdentityService getIdentityService() {
-		return processEngine.getIdentityService();
-	}
-
-	@Bean
 	public ManagementService getManagementService() {
 		return processEngine.getManagementService();
-	}
-
-	@Bean
-	public DynamicBpmnService getDynamicBpmnService() {
-		return processEngine.getDynamicBpmnService();
 	}
 
 	// @Bean

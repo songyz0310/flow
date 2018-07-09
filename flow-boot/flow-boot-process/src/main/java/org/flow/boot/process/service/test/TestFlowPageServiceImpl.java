@@ -75,7 +75,7 @@ public class TestFlowPageServiceImpl implements TestFlowPageService {
 					map.put("selectListVal", "");
 					map.put("attachments", "");
 
-					pageItems.append(CommonUtil.formString(pageItem.getHtml(), map));
+					pageItems.append(CommonUtil.formString(pageItem.getAppHtml(), map));
 				}
 
 				map.put("pageName", flowPage.getPageName());
@@ -94,8 +94,8 @@ public class TestFlowPageServiceImpl implements TestFlowPageService {
 	@Transactional
 	public void initData() {
 		FlowPageItem flowPageItem = new FlowPageItem();
-		flowPageItem.setName("单行文本录入");
-		flowPageItem.setHtml("<div class=\"form-group\">\r\n" + //
+		flowPageItem.setItemName("单行文本录入");
+		flowPageItem.setAppHtml("<div class=\"form-group\">\r\n" + //
 				"	<label class=\"col-sm-2 control-label\">#{title}</label>\r\n" + //
 				"	<div class=\"col-sm-10\">\r\n" + //
 				"		<input type=\"text\" class=\"form-control\"\r\n" + //

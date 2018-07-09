@@ -20,21 +20,47 @@ import org.hibernate.annotations.GenericGenerator;
 public class FlowPageConfig {
 
 	@Id
-	@Column(name = "config_id")
+	@Column(name = "config_id", length = 32)
 	@GeneratedValue(generator = "jpa-uuid")
 	private String configId;
 
-	@Column(name = "name")
+	@Column(name = "name", length = 32)
 	private String name;
 
 	@Column(name = "rank")
 	private int rank;
 
-	@Column(name = "page_id", updatable = false)
+	@Column(name = "table_value", length = 64)
+	private String tableValue;
+
+	@Column(name = "default_value", length = 64)
+	private String defaultValue;
+
+	@Column(name = "reg", length = 64)
+	private String reg;
+
+	@Column(name = "reg_tip", length = 64)
+	private String reg_tip;
+
+	@Column(name = "required")
+	private boolean required;
+
+	@Column(name = "list_value", length = 1024)
+	private String listValue;
+
+	@Column(name = "attachments", length = 1024)
+	private String attachments;
+
+	@Column(name = "page_id", updatable = false, length = 32)
 	private String pageId;
 
-	@Column(name = "item_id", updatable = false)
+	@Column(name = "item_id", updatable = false, length = 32)
 	private String itemId;
+
+	@Column(name = "parent_fpc_id", updatable = false, length = 32)
+	private String parentFpcId;
+
+	/*********************************************/
 
 	public String getConfigId() {
 		return configId;

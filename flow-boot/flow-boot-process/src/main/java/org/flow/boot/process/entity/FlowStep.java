@@ -13,8 +13,6 @@ import javax.persistence.Table;
 import org.flow.boot.common.enums.StepType;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
  * 流程步骤
  * 
@@ -27,32 +25,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class FlowStep {
 
 	@Id
-	@Column(name = "step_id")
+	@Column(name = "step_id", length = 32)
 	@GeneratedValue(generator = "jpa-uuid")
 	private String stepId;
 
-	@Column(name = "process_id", updatable = false)
+	@Column(name = "process_id", updatable = false, length = 64)
 	private String processId;
 
-	@Column(name = "step_key")
+	@Column(name = "step_key", length = 32)
 	private String stepKey;
 
-	@Column(name = "step_name")
+	@Column(name = "step_name", length = 32)
 	private String stepName;
 
 	@Column(name = "step_rank")
 	private int stepRank;
 
-	@Column(name = "step_type")
+	@Column(name = "step_type", length = 32)
 	@Enumerated(EnumType.STRING)
 	private StepType stepType;
 
-	@Column(name = "page_id")
+	@Column(name = "page_id", length = 32)
 	private String pageId;
+
+	/**************************************/
 
 	@OneToOne
 	@JoinColumn(name = "step_id")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private FlowStepExtense flowStepExtense;
 
 	public String getStepId() {

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.flow.boot.common.enums.EntityType;
 import org.flow.boot.common.enums.ValueType;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,12 +23,19 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "sys_flow_step_data")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class SysFlowStepData extends BaseEntityType {
+public class SysFlowStepData {
 
 	@Id
 	@Column(name = "data_id")
 	@GeneratedValue(generator = "jpa-uuid")
 	private String dataId;
+
+	@Column(name = "entity_type", updatable = false)
+	@Enumerated(EnumType.STRING)
+	private EntityType entityType;
+
+	@Column(name = "entity_id", updatable = false)
+	private String entityId;
 
 	@Column(name = "step_id", updatable = false)
 	private String stepId;
@@ -113,6 +121,22 @@ public class SysFlowStepData extends BaseEntityType {
 
 	public void setValueType(ValueType valueType) {
 		this.valueType = valueType;
+	}
+
+	public EntityType getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(EntityType entityType) {
+		this.entityType = entityType;
+	}
+
+	public String getEntityId() {
+		return entityId;
+	}
+
+	public void setEntityId(String entityId) {
+		this.entityId = entityId;
 	}
 
 }

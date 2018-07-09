@@ -21,30 +21,24 @@ import org.flow.boot.common.enums.EntityType;
 @Table(name = "flow_instance")
 public class FlowInstance {
 
-	public static enum Status {
-		STARTED, // 启动
-		RUNNING, // 运行
-		STOPED,// 结束
-	}
-
 	@Id
-	@Column(name = "instance_id")
+	@Column(name = "instance_id", length = 64)
 	private String instanceId;
 
-	@Column(name = "process_id", updatable = false)
+	@Column(name = "process_id", updatable = false, length = 64)
 	private String processId;
 
-	@Column(name = "entity_type", updatable = false)
+	@Column(name = "entity_type", updatable = false, length = 32)
 	@Enumerated(EnumType.STRING)
-	protected EntityType entityType;
+	private EntityType entityType;
 
-	@Column(name = "entity_id", updatable = false)
-	protected String entityId;
+	@Column(name = "entity_id", updatable = false, length = 32)
+	private String entityId;
 
-	@Column(name = "entity_status")
+	@Column(name = "entity_status", length = 32)
 	private String entityStatus;
 
-	@Column(name = "status")
+	@Column(name = "status", length = 32)
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
@@ -54,8 +48,16 @@ public class FlowInstance {
 	@Column(name = "update_time")
 	private Date updateTime;
 
-	@Column(name = "step_id")
+	@Column(name = "step_id", length = 32)
 	private String stepId;
+
+	/**********************************************/
+
+	public static enum Status {
+		STARTED, // 启动
+		RUNNING, // 运行
+		STOPED,// 结束
+	}
 
 	public String getInstanceId() {
 		return instanceId;

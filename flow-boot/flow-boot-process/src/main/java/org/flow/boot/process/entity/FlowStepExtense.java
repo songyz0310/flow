@@ -21,20 +21,22 @@ import org.apache.commons.lang3.StringUtils;
 public class FlowStepExtense {
 
 	@Id
-	@Column(name = "step_id")
+	@Column(name = "step_id", length = 32)
 	private String stepId;
 
-	@Column(name = "step_icon")
+	@Column(name = "step_icon", length = 255)
 	private String stepIcon;
 
-	@Column(name = "from_status")
+	@Column(name = "from_status", length = 32)
 	private String fromStatus;
 
-	@Column(name = "to_status")
+	@Column(name = "to_status", length = 32)
 	private String toStatus;
 
-	@Column(name = "candidate_groups")
+	@Column(name = "candidate_groups", length = 32)
 	private String candidateGroups;
+
+	/**************************************/
 
 	public FlowStepExtense(String stepId, String stepIcon, String fromStatus, String toStatus, String candidateGroups) {
 		super();

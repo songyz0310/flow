@@ -4,10 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.flow.boot.common.enums.EntityType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -19,12 +22,19 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "sys_flow_step_activity")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class SysFlowStepActivity extends BaseEntityType {
+public class SysFlowStepActivity {
 
 	@Id
 	@Column(name = "activity_id")
 	@GeneratedValue(generator = "jpa-uuid")
 	private String activityId;
+
+	@Column(name = "entity_type", updatable = false)
+	@Enumerated(EnumType.STRING)
+	private EntityType entityType;
+
+	@Column(name = "entity_id", updatable = false)
+	private String entityId;
 
 	@Column(name = "step_id", updatable = false)
 	private String stepId;
@@ -98,6 +108,22 @@ public class SysFlowStepActivity extends BaseEntityType {
 
 	public void setStepId(String stepId) {
 		this.stepId = stepId;
+	}
+
+	public EntityType getEntityType() {
+		return entityType;
+	}
+
+	public void setEntityType(EntityType entityType) {
+		this.entityType = entityType;
+	}
+
+	public String getEntityId() {
+		return entityId;
+	}
+
+	public void setEntityId(String entityId) {
+		this.entityId = entityId;
 	}
 
 }
