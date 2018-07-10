@@ -1,6 +1,7 @@
 server:
   port: 6002
-  context-path: /
+  servlet:
+    context-path: /
 spring:
   application:
     name: process
@@ -31,4 +32,6 @@ logging:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:9871/eureka
+      defaultZone: http://localhost:6001/eureka
+  instance:
+    prefer-ip-address: true
