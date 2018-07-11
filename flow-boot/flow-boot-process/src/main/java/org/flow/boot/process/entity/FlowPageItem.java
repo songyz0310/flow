@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.flow.boot.common.enums.ItemType;
+import org.flow.boot.common.enums.process.ItemType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -51,6 +51,9 @@ public class FlowPageItem {
 
 	@Column(name = "is_custom")
 	private boolean isCustom;
+
+	@Column(name = "tenant_id", length = 32)
+	private String tenantId;
 
 	/*******************************************/
 
@@ -124,6 +127,14 @@ public class FlowPageItem {
 
 	public void setCustom(boolean isCustom) {
 		this.isCustom = isCustom;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 
 }

@@ -2,7 +2,7 @@ package org.flow.boot.process.service.test;
 
 import java.util.List;
 
-import org.flow.boot.common.vo.process.FormDefinitionVO;
+import org.flow.boot.common.vo.process.test.FormDefinitionVO;
 import org.flow.boot.process.form.MyForm;
 
 public interface TestFormService {

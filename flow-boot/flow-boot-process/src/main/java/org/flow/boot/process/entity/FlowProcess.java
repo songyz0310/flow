@@ -50,6 +50,9 @@ public class FlowProcess {
 
 	@Column(name = "version")
 	private int version;
+	
+	@Column(name = "tenant_id", length = 32)
+	private String tenantId;
 
 	/**************************************/
 
@@ -120,6 +123,22 @@ public class FlowProcess {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 
 }

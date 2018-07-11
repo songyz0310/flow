@@ -2,7 +2,7 @@ package org.flow.boot.common.vo.ticket;
 
 import java.util.Date;
 
-import org.flow.boot.common.enums.ValueType;
+import org.flow.boot.common.enums.process.ValueType;
 
 public class StepDataVO {
 

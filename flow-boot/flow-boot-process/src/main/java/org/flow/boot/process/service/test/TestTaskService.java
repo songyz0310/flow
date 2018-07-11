@@ -2,8 +2,8 @@ package org.flow.boot.process.service.test;
 
 import java.util.List;
 
-import org.flow.boot.common.vo.process.FormInfoVO;
-import org.flow.boot.common.vo.process.TaskVO;
+import org.flow.boot.common.vo.process.test.FormInfoVO;
+import org.flow.boot.common.vo.process.test.TaskVO;
 
 public interface TestTaskService {
 

@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.flow.boot.common.enums.StepType;
+import org.flow.boot.common.enums.process.StepType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**

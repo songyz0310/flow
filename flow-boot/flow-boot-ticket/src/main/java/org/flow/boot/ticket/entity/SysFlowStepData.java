@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.flow.boot.common.enums.EntityType;
-import org.flow.boot.common.enums.ValueType;
+import org.flow.boot.common.enums.process.ValueType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**

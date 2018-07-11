@@ -16,7 +16,6 @@ import org.flow.boot.common.dto.ticket.StepDTO;
 import org.flow.boot.common.dto.ticket.StepJumpDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
 import org.flow.boot.common.enums.EntityType;
-import org.flow.boot.common.enums.TicketStatus;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.common.vo.process.FlowInstanceVO.Status;
 import org.flow.boot.common.vo.process.FlowPageConfigVO;
@@ -84,7 +83,6 @@ public class TicketServiceImpl implements TicketService {
 		FlowProcessVO flowProcessVO = flowControllerService.queryById(form.getProcessId()).getData();
 		FlowStepVO flowStepVO = stepControllerService.queryById(flowInstance.getStepId()).getData();
 		ticket.setProcessName(flowProcessVO.getProcessName());
-		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setStepId(flowStepVO.getStepId());
 		ticket.setStepName(flowStepVO.getStepName());
 		ticket.setStepType(flowStepVO.getStepType());
@@ -144,7 +142,6 @@ public class TicketServiceImpl implements TicketService {
 		SysTicket ticket = sysTicketRepository.getOne(ticketId);
 
 		FlowStepVO stepVO = stepControllerService.queryById(stepId).getData();
-		ticket.setSoStatus(TicketStatus.valueOf(stepVO.getFlowStepExtense().getToStatus()));// 从当前步骤扩展中取值
 
 		SysFlowStepActivity activity = new SysFlowStepActivity();
 		activity.setAddress(stepActivity.getAddress());
@@ -168,7 +165,6 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setStepName(null);
 			ticket.setStepType(null);
 		}
-		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 
@@ -184,7 +180,6 @@ public class TicketServiceImpl implements TicketService {
 		SysTicket ticket = sysTicketRepository.getOne(ticketId);
 
 		FlowStepVO stepVO = stepControllerService.queryById(stepId).getData();
-		ticket.setSoStatus(TicketStatus.valueOf(stepVO.getFlowStepExtense().getToStatus()));// 从当前步骤扩展中取值
 
 		SysFlowStepActivity activity = new SysFlowStepActivity();
 		activity.setAddress(stepPage.getAddress());
@@ -228,7 +223,6 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setStepName(null);
 			ticket.setStepType(null);
 		}
-		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 
@@ -244,7 +238,6 @@ public class TicketServiceImpl implements TicketService {
 		ticket.setStepId(step.getStepId());
 		ticket.setStepName(step.getStepName());
 		ticket.setStepType(step.getStepType());
-		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 		sysFlowStepDataRepository.deleteByStepId(dto.getStepId());
@@ -260,7 +253,6 @@ public class TicketServiceImpl implements TicketService {
 		ticket.setStepId(step.getStepId());
 		ticket.setStepName(step.getStepName());
 		ticket.setStepType(step.getStepType());
-		ticket.setSoStatus(TicketStatus.valueOf(flowInstance.getEntityStatus()));
 		ticket.setUpdateTime(now);
 		sysTicketRepository.save(ticket);
 	}

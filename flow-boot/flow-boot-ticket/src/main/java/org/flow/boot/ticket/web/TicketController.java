@@ -13,7 +13,7 @@ import org.flow.boot.common.dto.ticket.StepActivityDTO;
 import org.flow.boot.common.dto.ticket.StepDTO;
 import org.flow.boot.common.dto.ticket.StepJumpDTO;
 import org.flow.boot.common.dto.ticket.StepPageDTO;
-import org.flow.boot.common.enums.StepType;
+import org.flow.boot.common.enums.process.StepType;
 import org.flow.boot.common.vo.ticket.TicketVO;
 import org.flow.boot.ticket.entity.SysTicket;
 import org.flow.boot.ticket.form.TicketForm;

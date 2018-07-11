@@ -1,4 +1,4 @@
-package org.flow.boot.common.vo.process;
+package org.flow.boot.common.vo.process.test;
 
 public class ExecutionVO {
 

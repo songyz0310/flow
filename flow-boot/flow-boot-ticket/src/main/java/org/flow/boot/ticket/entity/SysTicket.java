@@ -10,9 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.flow.boot.common.enums.StepType;
-import org.flow.boot.common.enums.TicketStatus;
-import org.flow.boot.common.enums.TicketType;
+import org.flow.boot.common.enums.process.StepType;
+import org.flow.boot.common.enums.ticket.TicketStatus;
+import org.flow.boot.common.enums.ticket.TicketType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity

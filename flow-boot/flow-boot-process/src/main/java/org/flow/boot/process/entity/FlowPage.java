@@ -33,7 +33,10 @@ public class FlowPage {
 	@Column(name = "entity_type", updatable = false, length = 32)
 	@Enumerated(EnumType.STRING)
 	protected EntityType entityType;
-	
+
+	@Column(name = "tenant_id", length = 32)
+	private String tenantId;
+
 	/*********************************************/
 
 	public String getPageId() {
@@ -58,6 +61,14 @@ public class FlowPage {
 
 	public void setEntityType(EntityType entityType) {
 		this.entityType = entityType;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 
 }

@@ -8,7 +8,7 @@ import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.enums.EntityType;
-import org.flow.boot.common.enums.TicketStatus;
+import org.flow.boot.common.enums.ticket.TicketStatus;
 import org.flow.boot.common.vo.process.FlowStepExtenseVO;
 import org.flow.boot.common.vo.ticket.TicketVO;
 import org.flow.boot.ticket.service.TicketService;

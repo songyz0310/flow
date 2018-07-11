@@ -1,7 +1,6 @@
-package org.flow.boot.common.enums;
+package org.flow.boot.common.enums.process;
 
 public enum StepType {
 	PAGE, // 页面
-	SIGNIN, // 签到
 	EXECUTE, // 下一步
 }

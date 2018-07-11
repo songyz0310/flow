@@ -1,6 +1,6 @@
 package org.flow.boot.common.vo.process;
 
-import org.flow.boot.common.enums.StepType;
+import org.flow.boot.common.enums.process.StepType;
 
 /**
  * 流程步骤

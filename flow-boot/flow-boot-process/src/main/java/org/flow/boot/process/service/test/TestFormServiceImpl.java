@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import org.flow.boot.common.vo.process.FormDefinitionVO;
+import org.flow.boot.common.vo.process.test.FormDefinitionVO;
 import org.flow.boot.process.form.MyForm;
 import org.flowable.form.api.FormDefinition;
 import org.flowable.form.api.FormRepositoryService;

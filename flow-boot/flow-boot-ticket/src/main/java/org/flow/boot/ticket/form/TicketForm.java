@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.BaseForm;
-import org.flow.boot.common.enums.TicketStatus;
-import org.flow.boot.common.enums.TicketType;
+import org.flow.boot.common.enums.ticket.TicketStatus;
+import org.flow.boot.common.enums.ticket.TicketType;
 
 public class TicketForm extends BaseForm {
 

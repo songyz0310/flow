@@ -20,6 +20,8 @@ public class FlowProcessVO {
 
 	private Date updateTime;
 
+	private String tenantId;
+
 	public String getProcessId() {
 		return processId;
 	}
@@ -74,6 +76,14 @@ public class FlowProcessVO {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 
 }

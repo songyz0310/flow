@@ -3,9 +3,9 @@ package org.flow.boot.process.service.test;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.flow.boot.common.vo.process.FormInfoVO;
-import org.flow.boot.common.vo.process.FormModelVO;
-import org.flow.boot.common.vo.process.TaskVO;
+import org.flow.boot.common.vo.process.test.FormInfoVO;
+import org.flow.boot.common.vo.process.test.FormModelVO;
+import org.flow.boot.common.vo.process.test.TaskVO;
 import org.flowable.engine.FormService;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.TaskService;

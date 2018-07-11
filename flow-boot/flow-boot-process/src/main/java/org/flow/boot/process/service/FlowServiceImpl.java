@@ -10,8 +10,7 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.flow.boot.common.enums.EntityType;
-import org.flow.boot.common.enums.StepType;
-import org.flow.boot.common.enums.TicketStatus;
+import org.flow.boot.common.enums.process.StepType;
 import org.flow.boot.common.util.GsonUtil;
 import org.flow.boot.common.vo.process.FlowInstanceVO;
 import org.flow.boot.process.cmd.JumpToTaskCmd;
@@ -96,7 +95,6 @@ public class FlowServiceImpl implements FlowService {
 			flowProcessRepository.save(flowProcess);
 
 			int stepRank = 0;
-			String fromStatus = null;
 			BpmnModel bpmnModel = repositoryService.getBpmnModel(pd.getId());
 			Process mainProcess = bpmnModel.getMainProcess();
 			Collection<FlowElement> flowElements = mainProcess.getFlowElements();
@@ -110,9 +108,7 @@ public class FlowServiceImpl implements FlowService {
 					flowStep.setStepKey(userTask.getId());
 
 					String formKey = userTask.getFormKey();
-					if (Objects.equals(formKey, StepType.SIGNIN.name())) {
-						flowStep.setStepType(StepType.SIGNIN);
-					} else if (StringUtils.isNotEmpty(formKey)) {
+					if (StringUtils.isNotEmpty(formKey)) {
 						flowStep.setPageId(formKey.replace(".html", ""));
 						flowStep.setStepType(StepType.PAGE);
 					} else {
@@ -131,31 +127,6 @@ public class FlowServiceImpl implements FlowService {
 					FlowStepExtense flowStepExtense = new FlowStepExtense();
 					flowStepExtense.setStepId(flowStep.getStepId());
 					flowStepExtense.setCandidateGroups(userTask.getCandidateGroups());
-					flowStepExtense.setFromStatus(fromStatus);
-					switch (flowStep.getStepName()) {
-					case "接单":
-						flowStepExtense.setToStatus(TicketStatus.RECEIVED.name());
-						break;
-					case "预约":
-						flowStepExtense.setToStatus(TicketStatus.APPOINTED.name());
-						break;
-					case "出发":
-						flowStepExtense.setToStatus(TicketStatus.SETOUT.name());
-						break;
-					case "到场":
-						flowStepExtense.setToStatus(TicketStatus.ARRIVED.name());
-						break;
-					case "完成":
-						flowStepExtense.setToStatus(TicketStatus.FINISHED.name());
-						break;
-					case "关单":
-						flowStepExtense.setToStatus(TicketStatus.CLOSE.name());
-						break;
-					default:
-						flowStepExtense.setToStatus(TicketStatus.BILLED.name());
-						break;
-					}
-					fromStatus = flowStepExtense.getToStatus();
 					flowStepExtenseRepository.save(flowStepExtense);
 
 					stepRank++;
@@ -182,7 +153,6 @@ public class FlowServiceImpl implements FlowService {
 		flowInstance.setInstanceId(instanceId);
 		flowInstance.setEntityType(entityType);
 		flowInstance.setEntityId(entityId);
-		flowInstance.setEntityStatus(flowStep.getFlowStepExtense().getFromStatus());
 		flowInstance.setProcessId(processId);
 		flowInstance.setStatus(Status.STARTED);
 		flowInstance.setCreateTime(now);
@@ -216,11 +186,7 @@ public class FlowServiceImpl implements FlowService {
 			FlowStep flowStep = flowStepRepository.findByProcessIdAndStepKey(flowInstance.getProcessId(), stepKey);
 			flowInstance.setStepId(flowStep.getStepId());
 			flowInstance.setStatus(Status.RUNNING);
-			flowInstance.setEntityStatus(flowStep.getFlowStepExtense().getFromStatus());
 		} else {
-			String stepId = flowInstance.getStepId();
-			FlowStep flowStep = flowStepRepository.getOne(stepId);
-			flowInstance.setEntityStatus(flowStep.getFlowStepExtense().getFromStatus());
 			flowInstance.setStepId(null);
 			flowInstance.setStatus(Status.STOPED);
 		}
@@ -251,7 +217,6 @@ public class FlowServiceImpl implements FlowService {
 		flowInstance.setStepId(flowStep.getStepId());
 		flowInstance.setStatus(Status.RUNNING);
 		flowInstance.setUpdateTime(new Date());
-		flowInstance.setEntityStatus(flowStep.getFlowStepExtense().getFromStatus());
 		flowInstanceRepository.save(flowInstance);
 		return flowInstance;
 	}
@@ -271,7 +236,6 @@ public class FlowServiceImpl implements FlowService {
 		flowStep = flowStepRepository.findByProcessIdAndStepKey(flowInstance.getProcessId(), stepKey);
 		flowInstance.setStepId(flowStep.getStepId());
 		flowInstance.setStatus(Status.RUNNING);
-		flowInstance.setEntityStatus(flowStep.getFlowStepExtense().getFromStatus());
 		flowInstance.setUpdateTime(new Date());
 		flowInstanceRepository.save(flowInstance);
 		return flowInstance;

@@ -3,8 +3,8 @@ package org.flow.boot.process.service.test;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.flow.boot.common.vo.process.HistoricActivityInstanceVO;
-import org.flow.boot.common.vo.process.ProcessInstanceVO;
+import org.flow.boot.common.vo.process.test.HistoricActivityInstanceVO;
+import org.flow.boot.common.vo.process.test.ProcessInstanceVO;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.history.HistoricActivityInstance;

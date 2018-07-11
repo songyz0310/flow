@@ -35,9 +35,6 @@ public class FlowInstance {
 	@Column(name = "entity_id", updatable = false, length = 32)
 	private String entityId;
 
-	@Column(name = "entity_status", length = 32)
-	private String entityStatus;
-
 	@Column(name = "status", length = 32)
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -50,6 +47,9 @@ public class FlowInstance {
 
 	@Column(name = "step_id", length = 32)
 	private String stepId;
+
+	@Column(name = "tenant_id", length = 32)
+	private String tenantId;
 
 	/**********************************************/
 
@@ -91,14 +91,6 @@ public class FlowInstance {
 		this.entityId = entityId;
 	}
 
-	public String getEntityStatus() {
-		return entityStatus;
-	}
-
-	public void setEntityStatus(String entityStatus) {
-		this.entityStatus = entityStatus;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
@@ -129,6 +121,14 @@ public class FlowInstance {
 
 	public void setStepId(String stepId) {
 		this.stepId = stepId;
+	}
+
+	public String getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
 	}
 
 }

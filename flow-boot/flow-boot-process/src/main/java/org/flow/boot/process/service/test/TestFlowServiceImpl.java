@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-import org.flow.boot.common.vo.process.DeploymentView;
-import org.flow.boot.common.vo.process.ProcessDefinitionVO;
+import org.flow.boot.common.vo.process.test.DeploymentView;
+import org.flow.boot.common.vo.process.test.ProcessDefinitionVO;
 import org.flow.boot.process.form.FileForm;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Deployment;

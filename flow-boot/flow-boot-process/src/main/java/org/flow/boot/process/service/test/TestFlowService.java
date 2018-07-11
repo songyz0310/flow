@@ -2,8 +2,8 @@ package org.flow.boot.process.service.test;
 
 import java.util.List;
 
-import org.flow.boot.common.vo.process.DeploymentView;
-import org.flow.boot.common.vo.process.ProcessDefinitionVO;
+import org.flow.boot.common.vo.process.test.DeploymentView;
+import org.flow.boot.common.vo.process.test.ProcessDefinitionVO;
 import org.flow.boot.process.form.FileForm;
 
 public interface TestFlowService {

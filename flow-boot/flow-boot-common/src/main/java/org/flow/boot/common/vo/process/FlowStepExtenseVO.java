@@ -12,10 +12,6 @@ public class FlowStepExtenseVO {
 
 	private String stepIcon;
 
-	private String fromStatus;
-
-	private String toStatus;
-
 	private String candidateGroups;
 
 	public String getStepId() {
@@ -32,22 +28,6 @@ public class FlowStepExtenseVO {
 
 	public void setStepIcon(String stepIcon) {
 		this.stepIcon = stepIcon;
-	}
-
-	public String getFromStatus() {
-		return fromStatus;
-	}
-
-	public void setFromStatus(String fromStatus) {
-		this.fromStatus = fromStatus;
-	}
-
-	public String getToStatus() {
-		return toStatus;
-	}
-
-	public void setToStatus(String toStatus) {
-		this.toStatus = toStatus;
 	}
 
 	public String getCandidateGroups() {

@@ -27,28 +27,20 @@ public class FlowStepExtense {
 	@Column(name = "step_icon", length = 255)
 	private String stepIcon;
 
-	@Column(name = "from_status", length = 32)
-	private String fromStatus;
-
-	@Column(name = "to_status", length = 32)
-	private String toStatus;
-
 	@Column(name = "candidate_groups", length = 32)
 	private String candidateGroups;
 
 	/**************************************/
 
-	public FlowStepExtense(String stepId, String stepIcon, String fromStatus, String toStatus, String candidateGroups) {
+	public FlowStepExtense() {
+		super();
+	}
+
+	public FlowStepExtense(String stepId, String stepIcon, String candidateGroups) {
 		super();
 		this.stepId = stepId;
 		this.stepIcon = stepIcon;
-		this.fromStatus = fromStatus;
-		this.toStatus = toStatus;
 		this.candidateGroups = candidateGroups;
-	}
-
-	public FlowStepExtense() {
-		super();
 	}
 
 	public String getStepId() {
@@ -65,22 +57,6 @@ public class FlowStepExtense {
 
 	public void setStepIcon(String stepIcon) {
 		this.stepIcon = stepIcon;
-	}
-
-	public String getFromStatus() {
-		return fromStatus;
-	}
-
-	public void setFromStatus(String fromStatus) {
-		this.fromStatus = fromStatus;
-	}
-
-	public String getToStatus() {
-		return toStatus;
-	}
-
-	public void setToStatus(String toStatus) {
-		this.toStatus = toStatus;
 	}
 
 	public String getCandidateGroups() {

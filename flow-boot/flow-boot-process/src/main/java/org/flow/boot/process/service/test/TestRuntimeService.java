@@ -2,8 +2,8 @@ package org.flow.boot.process.service.test;
 
 import java.util.List;
 
-import org.flow.boot.common.vo.process.HistoricActivityInstanceVO;
-import org.flow.boot.common.vo.process.ProcessInstanceVO;
+import org.flow.boot.common.vo.process.test.HistoricActivityInstanceVO;
+import org.flow.boot.common.vo.process.test.ProcessInstanceVO;
 
 public interface TestRuntimeService {
 
