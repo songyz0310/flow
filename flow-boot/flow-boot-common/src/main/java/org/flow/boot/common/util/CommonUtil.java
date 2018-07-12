@@ -1,16 +1,30 @@
 package org.flow.boot.common.util;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URLEncoder;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Map;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CommonUtil {
+
+	private static final Logger log = LoggerFactory.getLogger(FTPUtil.class);
 
 	/**
 	 * convert texture ip to byte array
@@ -174,7 +188,7 @@ public class CommonUtil {
 			}
 			hexValue.append(Integer.toHexString(val));
 		}
-		return hexValue.toString().toUpperCase();
+		return hexValue.toString();
 	}
 
 	/**
@@ -246,4 +260,36 @@ public class CommonUtil {
 		return fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
 	}
 
+	/**
+	 * close IO object don't throw exception
+	 * 
+	 * @param obj
+	 */
+	public static void closeIO(Object obj) {
+		if (obj == null)
+			return;
+
+		try {
+			if (obj instanceof InputStream)
+				((InputStream) obj).close();
+			else if (obj instanceof OutputStream)
+				((OutputStream) obj).close();
+			else if (obj instanceof Reader)
+				((Reader) obj).close();
+			else if (obj instanceof Writer)
+				((Writer) obj).close();
+			else if (obj instanceof FileChannel)
+				((FileChannel) obj).close();
+			else if (obj instanceof Connection)
+				((Connection) obj).close();
+			else if (obj instanceof Statement)
+				((Statement) obj).close();
+			else if (obj instanceof PreparedStatement)
+				((PreparedStatement) obj).close();
+			else if (obj instanceof ResultSet)
+				((ResultSet) obj).close();
+		} catch (Exception exp) {
+			log.warn("close io object meet error:" + exp.getMessage());
+		}
+	}
 }
