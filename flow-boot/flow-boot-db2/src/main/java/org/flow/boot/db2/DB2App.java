@@ -1,11 +1,15 @@
 package org.flow.boot.db2;
 
-/**
- * Hello world!
- *
- */
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jms.annotation.EnableJms;
+
+@EnableJms
+@SpringBootApplication
 public class DB2App {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
+
+		SpringApplication.run(DB2App.class, args);
+
 	}
 }

@@ -23,6 +23,7 @@ public class ProducerTest {
 	@Test
 	public void sendMessage() {
 
+		logger.debug("test");
 		Destination message = new ActiveMQQueue("message.queue");
 		Destination log = new ActiveMQQueue("log.queue");
 
