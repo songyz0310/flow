@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>欢迎页</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+.booth {
+	width: 400px;
+	background: #ccc;
+	border: 10px solid #ddd;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body class="container-fluid">
+
+	<div class="booth">
+		<video id="video" width="400" height="300"></video>
+		<button id='tack'>snap shot</button>
+		<canvas id='canvas' width='400' height='300'></canvas>
+		<img id='img' src=''>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+	var video = document.getElementById('video');
+	var canvas = document.getElementById('canvas');
+	var snap = document.getElementById('tack');
+	var img = document.getElementById('img');
+	var vendorUrl = window.URL || window.webkitURL;
+
+	//媒体对象
+	navigator.getMedia = navigator.getUserMedia || navagator.webkitGetUserMedia
+			|| navigator.mozGetUserMedia || navigator.msGetUserMedia;
+	navigator.getMedia({
+		video : true, //使用摄像头对象
+		audio : false
+	//不适用音频
+	}, function(strem) {
+		console.log(strem);
+		video.src = vendorUrl.createObjectURL(strem);
+		video.play();
+	}, function(error) {
+		//error.code
+		console.log(error);
+	});
+	snap.addEventListener('click', function() {
+
+		//绘制canvas图形
+		canvas.getContext('2d').drawImage(video, 0, 0, 400, 300);
+
+		//把canvas图像转为img图片
+		img.src = canvas.toDataURL("image/png");
+
+	})
+</script>
+</html>

@@ -6,3 +6,4 @@ flow-boot/*/.settings/
 flow-boot/flow-boot-db2/target/
 flow-boot/flow-boot-db1/target/
 flow-boot/flow-boot-db/target/
+*.springBeans

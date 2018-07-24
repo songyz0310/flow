@@ -1,0 +1,13 @@
+server:
+  port: 6004
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: db
+  mvc:
+    static-path-pattern: /statics/**
+    throw-exception-if-no-handler-found: true
+logging:
+  level:
+    root: info

@@ -18,127 +18,138 @@ import org.flow.boot.common.enums.EntityType;
  *
  */
 @Entity
-@Table(name = "flow_process")
+@Table(name = "tb_flow_process")
 public class FlowProcess {
 
-	@Id
-	@Column(name = "process_id", length = 64)
-	private String processId;
+    @Id
+    @Column(name = "process_id", columnDefinition = "varchar(64) COMMENT '流程ID'")
+    private String processId;
 
-	@Column(name = "process_key", length = 32)
-	private String processKey;
+    @Column(name = "process_definition_id", columnDefinition = "varchar(64) DEFAULT NULL COMMENT '流程定义主键（流程引擎返回）'")
+    private String processDefinitionId;
 
-	@Column(name = "process_name", length = 32)
-	private String processName;
+    @Column(name = "process_key", columnDefinition = "varchar(32) DEFAULT NULL COMMENT '流程定义KEY'")
+    private String processKey;
 
-	@Column(name = "file_path", length = 255)
-	private String filePath;
+    @Column(name = "process_name", columnDefinition = "varchar(32) DEFAULT NULL COMMENT '流程定义名称'")
+    private String processName;
 
-	@Column(name = "entity_type", length = 32)
-	@Enumerated(EnumType.STRING)
-	private EntityType entityType;
+    @Column(name = "file_path", columnDefinition = "varchar(255) DEFAULT NULL COMMENT '流程zip文件路径'")
+    private String filePath;
 
-	@Column(name = "status", length = 32)
-	@Enumerated(EnumType.STRING)
-	private Status status;
+    @Column(name = "entity_type", columnDefinition = "int(3) DEFAULT NULL COMMENT '实体类型：0（工单）'")
+    @Enumerated(EnumType.ORDINAL)
+    private EntityType entityType;
 
-	@Column(name = "create_time", updatable = false)
-	private Date createTime;
+    @Column(name = "status", columnDefinition = "int(1) DEFAULT NULL COMMENT '流程状态：0（草稿）,1（可用）,2（不可用）'")
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
 
-	@Column(name = "update_time")
-	private Date updateTime;
+    @Column(name = "create_time", updatable = false, columnDefinition = "datetime DEFAULT NULL COMMENT '流程定义版本（流程引擎返回）'")
+    private Date createTime;
 
-	@Column(name = "version")
-	private int version;
-	
-	@Column(name = "tenant_id", length = 32)
-	private String tenantId;
+    @Column(name = "update_time", columnDefinition = "datetime DEFAULT NULL COMMENT '流程定义版本（流程引擎返回）'")
+    private Date updateTime;
 
-	/**************************************/
+    @Column(name = "version", columnDefinition = "int(3) DEFAULT NULL COMMENT '流程定义版本（流程引擎返回）'")
+    private int version;
 
-	public static enum Status {
-		ENABLED, // 可用
-		DISABLED, // 不可用
-	}
+    @Column(name = "tenant_id", columnDefinition = "int(20) DEFAULT NULL COMMENT '租户ID'")
+    private int tenantId;
 
-	public String getProcessId() {
-		return processId;
-	}
+    /**************************************/
 
-	public void setProcessId(String processId) {
-		this.processId = processId;
-	}
+    public static enum Status {
+        ENABLED, // 可用
+        DISABLED, // 不可用
+    }
 
-	public String getProcessKey() {
-		return processKey;
-	}
+    public String getProcessId() {
+        return processId;
+    }
 
-	public void setProcessKey(String processKey) {
-		this.processKey = processKey;
-	}
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
 
-	public String getProcessName() {
-		return processName;
-	}
+    public String getProcessDefinitionId() {
+        return processDefinitionId;
+    }
 
-	public void setProcessName(String processName) {
-		this.processName = processName;
-	}
+    public void setProcessDefinitionId(String processDefinitionId) {
+        this.processDefinitionId = processDefinitionId;
+    }
 
-	public String getFilePath() {
-		return filePath;
-	}
+    public String getProcessKey() {
+        return processKey;
+    }
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
+    public void setProcessKey(String processKey) {
+        this.processKey = processKey;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public String getProcessName() {
+        return processName;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public String getFilePath() {
+        return filePath;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-	public EntityType getEntityType() {
-		return entityType;
-	}
+    public EntityType getEntityType() {
+        return entityType;
+    }
 
-	public void setEntityType(EntityType entityType) {
-		this.entityType = entityType;
-	}
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
+    }
 
-	public int getVersion() {
-		return version;
-	}
+    public Status getStatus() {
+        return status;
+    }
 
-	public void setVersion(int version) {
-		this.version = version;
-	}
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
-	public Status getStatus() {
-		return status;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public String getTenantId() {
-		return tenantId;
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	public void setTenantId(String tenantId) {
-		this.tenantId = tenantId;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public int getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(int tenantId) {
+        this.tenantId = tenantId;
+    }
 
 }

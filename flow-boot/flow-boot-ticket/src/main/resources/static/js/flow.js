@@ -27,6 +27,7 @@ var flow = function() {
 
 		var param = {};
 		param.stepId = app.getUrlParam("stepId");
+		param.tenantId = app.getUrlParam("tenantId");
 		param.entityId = app.getUrlParam("entityId");
 		param.entityType = app.getUrlParam("entityType");
 
@@ -39,6 +40,7 @@ var flow = function() {
 					var data = result.data;
 
 					$("[name=stepId]", $form).val(param.stepId);
+					$("[name=tenantId]", $form).val(param.tenantId);
 					$("[name=entityId]", $form).val(param.entityId);
 					$("[name=entityType]", $form).val(param.entityType);
 
@@ -124,12 +126,12 @@ var flow = function() {
 	}
 	
 	// 流程跳跃
-	var jumpToFn = function(entityType, entityId, stepId, jumpStepId) {
+	var jumpToFn = function(entityType, entityId, stepId, jumpToStepId) {
 		var jumpTo = {};
 		jumpTo.entityType = entityType;
 		jumpTo.entityId = entityId;
 		jumpTo.stepId = stepId;
-		jumpTo.jumpStepId = jumpStepId;
+		jumpTo.jumpToStepId = jumpToStepId;
 		
 		Loading.start();
 		
