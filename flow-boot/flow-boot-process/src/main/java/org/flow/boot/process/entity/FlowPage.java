@@ -22,53 +22,42 @@ import org.hibernate.annotations.GenericGenerator;
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class FlowPage {
 
-	@Id
-	@Column(name = "page_id", length = 32)
-	@GeneratedValue(generator = "jpa-uuid")
-	private String pageId;
+    @Id
+    @Column(name = "page_id", columnDefinition = "varchar(32) COMMENT '页面ID'")
+    @GeneratedValue(generator = "jpa-uuid")
+    private String pageId;
 
-	@Column(name = "page_name", length = 32)
-	private String pageName;
+    @Column(name = "page_name", columnDefinition = "varchar(32) NOT NULL COMMENT '页面名称'")
+    private String pageName;
 
-	@Column(name = "entity_type", updatable = false, length = 32)
-	@Enumerated(EnumType.STRING)
-	protected EntityType entityType;
+    @Column(name = "entity_type", updatable = false, columnDefinition = "int(3) NOT NULL COMMENT '实体类型：0（工单）'")
+    @Enumerated(EnumType.ORDINAL)
+    protected EntityType entityType;
 
-	@Column(name = "tenant_id", length = 32)
-	private String tenantId;
+    /*********************************************/
 
-	/*********************************************/
+    public String getPageId() {
+        return pageId;
+    }
 
-	public String getPageId() {
-		return pageId;
-	}
+    public void setPageId(String pageId) {
+        this.pageId = pageId;
+    }
 
-	public void setPageId(String pageId) {
-		this.pageId = pageId;
-	}
+    public String getPageName() {
+        return pageName;
+    }
 
-	public String getPageName() {
-		return pageName;
-	}
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
 
-	public void setPageName(String pageName) {
-		this.pageName = pageName;
-	}
+    public EntityType getEntityType() {
+        return entityType;
+    }
 
-	public EntityType getEntityType() {
-		return entityType;
-	}
-
-	public void setEntityType(EntityType entityType) {
-		this.entityType = entityType;
-	}
-
-	public String getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(String tenantId) {
-		this.tenantId = tenantId;
-	}
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
+    }
 
 }

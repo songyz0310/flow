@@ -25,31 +25,28 @@ public class FlowInstance {
     @Column(name = "instance_id", columnDefinition = "varchar(64) COMMENT '流程实例主键（引擎返回）'")
     private String instanceId;
 
-    @Column(name = "process_id", updatable = false, length = 64)
+    @Column(name = "process_id", updatable = false, columnDefinition = "varchar(64) NOT NULL COMMENT '流程ID'")
     private String processId;
 
-    @Column(name = "entity_type", updatable = false, length = 32)
-    @Enumerated(EnumType.STRING)
+    @Column(name = "entity_type", updatable = false, columnDefinition = "int(3) NOT NULL COMMENT '实体类型：0（工单）'")
+    @Enumerated(EnumType.ORDINAL)
     private EntityType entityType;
 
-    @Column(name = "entity_id", updatable = false, length = 32)
+    @Column(name = "entity_id", updatable = false, columnDefinition = "varchar(64) NOT NULL COMMENT '实体ID'")
     private String entityId;
 
-    @Column(name = "status", length = 32)
-    @Enumerated(EnumType.STRING)
+    @Column(name = "status", columnDefinition = "int(1) NOT NULL COMMENT '实例状态： 0（启动）,1（运行）,2（结束）'")
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    @Column(name = "create_time", updatable = false)
+    @Column(name = "create_time", updatable = false, columnDefinition = "datetime NOT NULL COMMENT '创建时间'")
     private Date createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", columnDefinition = "datetime NOT NULL COMMENT '更新时间'")
     private Date updateTime;
 
-    @Column(name = "step_id", length = 32)
+    @Column(name = "step_id", columnDefinition = "varchar(32) DEFAULT NULL COMMENT '步骤ID'")
     private String stepId;
-
-    @Column(name = "tenant_id", length = 32)
-    private String tenantId;
 
     /**********************************************/
 
@@ -121,14 +118,6 @@ public class FlowInstance {
 
     public void setStepId(String stepId) {
         this.stepId = stepId;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
 }

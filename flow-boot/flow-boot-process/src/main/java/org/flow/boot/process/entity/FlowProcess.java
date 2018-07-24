@@ -6,10 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.flow.boot.common.enums.EntityType;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 流程
@@ -19,43 +21,42 @@ import org.flow.boot.common.enums.EntityType;
  */
 @Entity
 @Table(name = "tb_flow_process")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class FlowProcess {
 
     @Id
+    @GeneratedValue(generator = "jpa-uuid")
     @Column(name = "process_id", columnDefinition = "varchar(64) COMMENT '流程ID'")
     private String processId;
 
     @Column(name = "process_definition_id", columnDefinition = "varchar(64) DEFAULT NULL COMMENT '流程定义主键（流程引擎返回）'")
     private String processDefinitionId;
 
-    @Column(name = "process_key", columnDefinition = "varchar(32) DEFAULT NULL COMMENT '流程定义KEY'")
+    @Column(name = "process_key", columnDefinition = "varchar(32) NOT NULL COMMENT '流程定义KEY'")
     private String processKey;
 
-    @Column(name = "process_name", columnDefinition = "varchar(32) DEFAULT NULL COMMENT '流程定义名称'")
+    @Column(name = "process_name", columnDefinition = "varchar(32) NOT NULL COMMENT '流程定义名称'")
     private String processName;
 
     @Column(name = "file_path", columnDefinition = "varchar(255) DEFAULT NULL COMMENT '流程zip文件路径'")
     private String filePath;
 
-    @Column(name = "entity_type", columnDefinition = "int(3) DEFAULT NULL COMMENT '实体类型：0（工单）'")
+    @Column(name = "entity_type", columnDefinition = "int(3) NOT NULL COMMENT '实体类型：0（工单）'")
     @Enumerated(EnumType.ORDINAL)
     private EntityType entityType;
 
-    @Column(name = "status", columnDefinition = "int(1) DEFAULT NULL COMMENT '流程状态：0（草稿）,1（可用）,2（不可用）'")
+    @Column(name = "status", columnDefinition = "int(1) NOT NULL COMMENT '流程状态：0（草稿）,1（可用）,2（不可用）'")
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    @Column(name = "create_time", updatable = false, columnDefinition = "datetime DEFAULT NULL COMMENT '流程定义版本（流程引擎返回）'")
+    @Column(name = "create_time", updatable = false, columnDefinition = "datetime NOT NULL COMMENT '创建时间'")
     private Date createTime;
 
-    @Column(name = "update_time", columnDefinition = "datetime DEFAULT NULL COMMENT '流程定义版本（流程引擎返回）'")
+    @Column(name = "update_time", columnDefinition = "datetime NOT NULL COMMENT '更新时间'")
     private Date updateTime;
 
     @Column(name = "version", columnDefinition = "int(3) DEFAULT NULL COMMENT '流程定义版本（流程引擎返回）'")
     private int version;
-
-    @Column(name = "tenant_id", columnDefinition = "int(20) DEFAULT NULL COMMENT '租户ID'")
-    private int tenantId;
 
     /**************************************/
 
@@ -142,14 +143,6 @@ public class FlowProcess {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public int getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(int tenantId) {
-        this.tenantId = tenantId;
     }
 
 }
