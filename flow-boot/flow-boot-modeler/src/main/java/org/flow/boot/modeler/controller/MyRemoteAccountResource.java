@@ -23,6 +23,7 @@ public class MyRemoteAccountResource {
         user.setLastName("宋印赠");
         user.setPrivileges(new ArrayList<>());
         user.getPrivileges().add("ROLE_ADMIN");
+        user.getPrivileges().add("ROLE_USER");
         return user;
 
     }
