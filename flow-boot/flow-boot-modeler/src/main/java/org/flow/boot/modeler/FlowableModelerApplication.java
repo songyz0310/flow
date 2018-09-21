@@ -14,6 +14,6 @@ public class FlowableModelerApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
 
         SpringApplication.run(FlowableModelerApplication.class, args);
-        
+
     }
 }

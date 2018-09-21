@@ -13,15 +13,16 @@
 package org.flow.boot.modeler.config;
 
 import org.flowable.ui.common.rest.idm.remote.RemoteAccountResource;
+import org.flowable.ui.modeler.rest.app.StencilSetResource;
 import org.flowable.ui.modeler.servlet.AppDispatcherServletConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -34,6 +35,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
                 "org.flowable.ui.common.rest" }, //
         excludeFilters = { //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = RemoteAccountResource.class), //
+                @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = StencilSetResource.class), //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = AppDispatcherServletConfiguration.class) //
         })
 @EnableAsync
