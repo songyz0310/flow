@@ -7,3 +7,4 @@ flow-boot/flow-boot-db2/target/
 flow-boot/flow-boot-db1/target/
 flow-boot/flow-boot-db/target/
 *.springBeans
+flow-boot/flow-boot-modeler/target/
