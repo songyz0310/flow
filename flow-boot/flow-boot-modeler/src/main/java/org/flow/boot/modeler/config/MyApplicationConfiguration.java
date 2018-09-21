@@ -1,8 +1,6 @@
 /* Licensed under the Apache License, Version 2.0 (the "License");*/
 package org.flow.boot.modeler.config;
 
-import java.io.IOException;
-
 import org.flowable.ui.modeler.conf.ApplicationConfiguration;
 import org.flowable.ui.modeler.conf.SecurityConfiguration;
 import org.flowable.ui.modeler.properties.FlowableModelerAppProperties;
@@ -15,9 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.core.type.classreading.MetadataReader;
-import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -56,41 +51,6 @@ public class MyApplicationConfiguration {
         registrationBean.setLoadOnStartup(1);
         registrationBean.setAsyncSupported(true);
         return registrationBean;
-    }
-
-}
-
-class TypeExcludeFilter implements TypeFilter {
-
-    @Override
-    public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory)
-            throws IOException {
-        System.err.println(metadataReader);
-        System.err.println(metadataReader.getClass());
-        System.err.println(metadataReader.getClassMetadata());
-        System.err.println(metadataReader.getResource());
-        System.err.println();
-
-        // if (this.beanFactory instanceof ListableBeanFactory && getClass() == TypeExcludeFilter.class) {
-        // Collection<TypeExcludeFilter> delegates = ((ListableBeanFactory) this.beanFactory)
-        // .getBeansOfType(TypeExcludeFilter.class).values();
-        // for (TypeExcludeFilter delegate : delegates) {
-        // if (delegate.match(metadataReader, metadataReaderFactory)) {
-        // return true;
-        // }
-        // }
-        // }
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        throw new IllegalStateException("TypeExcludeFilter " + getClass() + " has not implemented equals");
-    }
-
-    @Override
-    public int hashCode() {
-        throw new IllegalStateException("TypeExcludeFilter " + getClass() + " has not implemented hashCode");
     }
 
 }

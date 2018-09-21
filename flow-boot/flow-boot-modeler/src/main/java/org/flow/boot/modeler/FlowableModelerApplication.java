@@ -12,11 +12,8 @@ import org.springframework.context.annotation.Import;
 public class FlowableModelerApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
+
         SpringApplication.run(FlowableModelerApplication.class, args);
-        
-//        ModelsResource
-        
-//        http://localhost:8888/flowable-modeler/app/rest/models/bd66eac8-b669-11e8-a139-68ecc557e441/editor/json
         
     }
 }
