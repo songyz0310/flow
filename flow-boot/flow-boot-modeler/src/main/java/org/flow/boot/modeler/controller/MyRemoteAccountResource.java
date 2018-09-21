@@ -39,7 +39,7 @@ public class MyRemoteAccountResource {
     public UserRepresentation getAccount(HttpServletRequest request, HttpSession session) {
         Object obj = session.getAttribute(SESSION_USER);
         if (Objects.nonNull(obj)) {
-            logger.info("从缓存中获取用户");
+            logger.info("从会话中获取用户");
             return (UserRepresentation) obj;
         }
         logger.info("从获取用户");
