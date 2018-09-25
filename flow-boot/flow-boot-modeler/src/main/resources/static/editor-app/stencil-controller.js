@@ -68,9 +68,11 @@ angular.module('flowableModeler')
                 ignoreForPaletteDefinition = ['CasePlanModel'];
                 
             } else {
+//                quickMenuDefinition = ['UserTask', 'EndNoneEvent', 'ExclusiveGateway', 
+//                                         'CatchTimerEvent', 'ThrowNoneEvent', 'TextAnnotation',
+//                                         'SequenceFlow', 'Association'];
                 quickMenuDefinition = ['UserTask', 'EndNoneEvent', 'ExclusiveGateway', 
-                                         'CatchTimerEvent', 'ThrowNoneEvent', 'TextAnnotation',
-                                         'SequenceFlow', 'Association'];
+                                          'TextAnnotation'];
                                          
                 ignoreForPaletteDefinition = ['SequenceFlow', 'MessageFlow', 'Association', 'DataAssociation', 'DataStore', 'SendTask'];
             }
