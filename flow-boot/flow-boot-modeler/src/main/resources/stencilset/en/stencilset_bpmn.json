@@ -57,6 +57,19 @@
 			]
 		},
 		{
+			"name": "categorypackage",
+			"properties": [
+				{
+					"id": "categorydefinition",
+					"type": "String",
+					"title": "Category",
+					"value": "",
+					"description": "Category of the BPMN element.",
+					"popular": true
+				}
+			]
+		},
+		{
 			"name": "process_authorpackage",
 			"properties": [
 				{
@@ -304,19 +317,6 @@
 			]
 		},
 		{
-			"name": "duedatedefinitionpackage",
-			"properties": [
-				{
-					"id": "duedatedefinition",
-					"type": "String",
-					"title": "Due date",
-					"value": "",
-					"description": "Due date of the user task.",
-					"popular": true
-				}
-			]
-		},
-		{
 			"name": "servicetaskclasspackage",
 			"properties": [
 				{
@@ -429,6 +429,19 @@
 					"title": "Script",
 					"value": "",
 					"description": "Script text of the script task.",
+					"popular": true
+				}
+			]
+		},
+		{
+			"name": "scriptautostorevariablespackage",
+			"properties": [
+				{
+					"id": "scriptautostorevariables",
+					"type": "Boolean",
+					"title": "Auto Store Variables",
+					"value": "false",
+					"description": "Automatically store all script variables to the process.",
 					"popular": true
 				}
 			]
@@ -642,6 +655,19 @@
 			]
 		},
 		{
+			"name": "mailtaskheaderspackage",
+			"properties": [
+				{
+					"id": "mailtaskheaders",
+					"type": "Text",
+					"title": "Headers",
+					"value": "",
+					"description": "Line separated Mail headers (For example - X-Attribute: value).",
+					"popular": true
+				}
+			]
+		},
+		{
 			"name": "mailtasktopackage",
 			"properties": [
 				{
@@ -798,6 +824,19 @@
 			]
 		},
 		{
+			"name": "httptaskrequestbodyencodingpackage",
+			"properties": [
+				{
+					"id": "httptaskrequestbodyencoding",
+					"type": "Text",
+					"title": "Request body encoding",
+					"value": "",
+					"description": "Request body encoding (For example- UTF-8).",
+					"popular": true
+				}
+			]
+		},
+		{
 			"name": "httptaskrequesttimeoutpackage",
 			"properties": [
 				{
@@ -902,32 +941,6 @@
 			]
 		},
 		{
-			"name": "stepiconpackage",
-			"properties": [
-				{
-					"id": "stepicon",
-					"type": "String",
-					"title": "步骤图标",
-					"value": "",
-					"description": "自定义步骤图标",
-					"popular": true
-				}
-			]
-		},
-		{
-			"name": "stepiconpathpackage",
-			"properties": [
-				{
-					"id": "stepiconpath",
-					"type": "String",
-					"title": "步骤图标路径",
-					"value": "",
-					"description": "自定义步骤图标",
-					"popular": true
-				}
-			]
-		},
-		{
 			"name": "httptaskresponsevariablenamepackage",
 			"properties": [
 				{
@@ -993,6 +1006,19 @@
 			]
 		},
 		{
+			"name": "callactivitycalledelementtypepackage",
+			"properties": [
+				{
+					"id": "callactivitycalledelementtype",
+					"type": "flowable-calledelementtype",
+					"title": "Called element type",
+					"value": "key",
+					"description": "Type of the used process reference.",
+					"popular": true
+				}
+			]
+		},
+		{
 			"name": "callactivityinparameterspackage",
 			"properties": [
 				{
@@ -1045,6 +1071,19 @@
 			]
 		},
 		{
+			"name": "callactivityprocessinstancenamepackage",
+			"properties": [
+				{
+					"id": "callactivityprocessinstancename",
+					"type": "String",
+					"title": "Process instance name",
+					"value": "",
+					"description": "An expression that resolves to the name of the child process instance",
+					"popular": true
+				}
+			]
+		},
+		{
 			"name": "callactivityinheritbusinesskeypackage",
 			"properties": [
 				{
@@ -1066,6 +1105,32 @@
 					"title": "Use local scope for out parameters",
 					"value": "false",
 					"description": "Use local variable scope for out parameters.",
+					"popular": true
+				}
+			]
+		},
+		{
+			"name": "callactivitybusinesskeypackage",
+			"properties": [
+				{
+					"id": "callactivitybusinesskey",
+					"type": "String",
+					"title": "Business key expression",
+					"value": "",
+					"description": "An expression that resolves to a business key for the child process instance",
+					"popular": true
+				}
+			]
+		},
+		{
+			"name": "callactivitycompleteasyncpackage",
+			"properties": [
+				{
+					"id": "callactivitycompleteasync",
+					"type": "Boolean",
+					"title": "Complete asynchronously",
+					"value": "",
+					"description": "If set, the child process ending and completing the call activity is done asynchronously. Useful when using parallel multi instance with a called process definition that has async tasks.",
 					"popular": true
 				}
 			]
@@ -1749,8 +1814,7 @@
 				"formpropertiespackage",
 				"tasklistenerspackage",
 				"skipexpressionpackage",
-				"stepiconpackage",
-				"stepiconpathpackage"
+				"categorypackage"
 			],
 			"hiddenPropertyPackages": [],
 			"roles": [
@@ -1825,7 +1889,8 @@
 				"multiinstance_collectionpackage",
 				"multiinstance_variablepackage",
 				"multiinstance_conditionpackage",
-				"isforcompensationpackage"
+				"isforcompensationpackage",
+				"scriptautostorevariablespackage"
 			],
 			"hiddenPropertyPackages": [],
 			"roles": [
@@ -1962,6 +2027,7 @@
 				"multiinstance_variablepackage",
 				"multiinstance_conditionpackage",
 				"isforcompensationpackage",
+				"mailtaskheaderspackage",
 				"mailtasktopackage",
 				"mailtaskfrompackage",
 				"mailtasksubjectpackage",
@@ -2041,6 +2107,7 @@
 				"httptaskrequesturlpackage",
 				"httptaskrequestheaderspackage",
 				"httptaskrequestbodypackage",
+				"httptaskrequestbodyencodingpackage",
 				"httptaskrequesttimeoutpackage",
 				"httptaskdisallowredirectspackage",
 				"httptaskfailstatuscodespackage",
@@ -2319,13 +2386,17 @@
 				"documentationpackage",
 				"asynchronousdefinitionpackage",
 				"exclusivedefinitionpackage",
+				"callactivitycompleteasyncpackage",
 				"executionlistenerspackage",
 				"callactivitycalledelementpackage",
+				"callactivitycalledelementtypepackage",
 				"callactivityinparameterspackage",
 				"callactivityoutparameterspackage",
 				"callactivityinheritvariablespackage",
 				"callactivitysamedeploymentpackage",
+				"callactivityprocessinstancenamepackage",
 				"callactivityinheritbusinesskeypackage",
+				"callactivitybusinesskeypackage",
 				"callactivityuselocalscopeforoutparameterspackage",
 				"multiinstance_typepackage",
 				"multiinstance_cardinalitypackage",
