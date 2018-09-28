@@ -99,7 +99,7 @@ angular.module('flowableModeler')
                 // TODO 配置自己需要显示的组件
                 var _is_sys = false;//是否忽略
                 var _node_id = data.stencils[stencilIndex].id;
-                if (_node_id == "StartNoneEvent" || _node_id == "UserTask" || _node_id == "ExclusiveGateway" || _node_id == "") {
+                if (_node_id == "StartNoneEvent" || _node_id == "UserTask" || _node_id == "ExclusiveGateway" || _node_id == "EndNoneEvent") {
                 	_is_sys = true;
 				}
                 
