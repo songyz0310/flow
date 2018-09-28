@@ -96,6 +96,18 @@ angular.module('flowableModeler')
                     continue;  // go to next item
                 }
                 
+                // TODO 配置自己需要显示的组件
+                var _is_sys = false;//是否忽略
+                var _node_id = data.stencils[stencilIndex].id;
+                if (_node_id == "StartNoneEvent" || _node_id == "UserTask" || _node_id == "ExclusiveGateway" || _node_id == "") {
+                	_is_sys = true;
+				}
+                
+                if (_is_sys == false) {
+					continue;//不是系统的，不进行显示
+				}
+                
+                
                 var removed = false;
                 if (data.stencils[stencilIndex].removed) {
                     removed = true;
@@ -430,7 +442,9 @@ angular.module('flowableModeler')
                 	// to prevent overflow in the right-menu
                 
                 	var morphButton = document.getElementById('morph-button');
-                	morphButton.style.display = "block";
+                	// TODO 屏蔽修改组件类型
+//                	morphButton.style.display = "block";
+                	morphButton.style.display = "none";
                 	morphButton.style.left = x + 24 +'px';
                 	morphButton.style.top = (shapeXY.y+bounds.height() + 2) + 'px';
               	  }

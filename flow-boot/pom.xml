@@ -12,7 +12,7 @@
 		<module>flow-boot-common</module>
 		<module>flow-boot-eureka</module>
 		<module>flow-boot-modeler</module>
-		<module>flow-boot-db1</module>
+		<module>flow-boot-test</module>
 		<module>flow-boot-db2</module>
 		<module>flow-boot-api</module>
 	</modules>
