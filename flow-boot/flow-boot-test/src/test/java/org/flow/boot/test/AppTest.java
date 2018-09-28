@@ -52,7 +52,7 @@ public class AppTest {
                 .singleResult();
 
         System.out.println(GsonUtil.toJson((ProcessDefinitionEntityImpl) pd));
-
+        System.out.println(historyService);
     }
 
     @Test
