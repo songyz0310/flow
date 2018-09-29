@@ -9,7 +9,7 @@
 				{
 					"id": "process_id",
 					"type": "String",
-					"title": "流程名称",
+					"title": "流程ID",
 					"value": "process",
 					"description": "流程的特殊唯一的名称标识",
 					"popular": true
@@ -24,7 +24,7 @@
 					"type": "String",
 					"title": "主键(ID)",
 					"value": "",
-					"description": "流程唯一标识.",
+					"description": "元素的唯一标识.",
 					"popular": true
 				}
 			]
@@ -1566,17 +1566,18 @@
 			"hide": true,
 			"propertyPackages": [
 				"process_idpackage",
-				"namepackage",
-				"documentationpackage",
-				"process_authorpackage",
-				"process_versionpackage",
+				"namepackage"
+			],
+			"hiddenPropertyPackages": [
 				"process_namespacepackage",
 				"executionlistenerspackage",
 				"eventlistenerspackage",
+				"process_authorpackage",
+				"process_versionpackage",
 				"signaldefinitionspackage",
+				"documentationpackage",
 				"messagedefinitionspackage"
 			],
-			"hiddenPropertyPackages": [],
 			"roles": []
 		},
 		{
@@ -1590,15 +1591,16 @@
 				"启动事件"
 			],
 			"propertyPackages": [
+				"namepackage"
+			],
+			"hiddenPropertyPackages": [
 				"overrideidpackage",
-				"namepackage",
 				"documentationpackage",
 				"executionlistenerspackage",
 				"initiatorpackage",
 				"formkeydefinitionpackage",
 				"formpropertiespackage"
 			],
-			"hiddenPropertyPackages": [],
 			"roles": [
 				"sequence_start",
 				"Startevents_all",
@@ -1719,29 +1721,30 @@
 				"活动列表"
 			],
 			"propertyPackages": [
-				"overrideidpackage",
 				"namepackage",
-				"documentationpackage",
-				"asynchronousdefinitionpackage",
-				"exclusivedefinitionpackage",
-				"executionlistenerspackage",
-				"multiinstance_typepackage",
+				"usertaskassignmentpackage",
+				"formreferencepackage",
+				"formpropertiespackage"
+			],
+			"hiddenPropertyPackages": [
+				"tasklistenerspackage",
+				"skipexpressionpackage",
+				"duedatedefinitionpackage",
+				"prioritydefinitionpackage",
+				"formkeydefinitionpackage",
+				"isforcompensationpackage",
 				"multiinstance_cardinalitypackage",
 				"multiinstance_collectionpackage",
 				"multiinstance_variablepackage",
 				"multiinstance_conditionpackage",
-				"isforcompensationpackage",
-				"usertaskassignmentpackage",
-				"formkeydefinitionpackage",
-				"formreferencepackage",
-				"duedatedefinitionpackage",
-				"prioritydefinitionpackage",
-				"formpropertiespackage",
-				"tasklistenerspackage",
-				"skipexpressionpackage",
+				"multiinstance_typepackage",
+				"asynchronousdefinitionpackage",
+				"exclusivedefinitionpackage",
+				"executionlistenerspackage",
+				"overrideidpackage",
+				"documentationpackage",
 				"categorypackage"
 			],
-			"hiddenPropertyPackages": [],
 			"roles": [
 				"Activity",
 				"sequence_start",
@@ -2333,7 +2336,8 @@
 			"groups": [
 				"网关列表"
 			],
-			"propertyPackages": [
+			"propertyPackages": [],
+			"hiddenPropertyPackages": [
 				"overrideidpackage",
 				"namepackage",
 				"documentationpackage",
@@ -2341,7 +2345,6 @@
 				"exclusivedefinitionpackage",
 				"sequencefloworderpackage"
 			],
-			"hiddenPropertyPackages": [],
 			"roles": [
 				"sequence_start",
 				"GatewaysMorph",
@@ -2705,13 +2708,13 @@
 			"groups": [
 				"结束事件"
 			],
-			"propertyPackages": [
+			"propertyPackages": [],
+			"hiddenPropertyPackages": [
 				"overrideidpackage",
 				"namepackage",
 				"documentationpackage",
 				"executionlistenerspackage"
 			],
-			"hiddenPropertyPackages": [],
 			"roles": [
 				"EndEventsMorph",
 				"sequence_end",
