@@ -1,4 +1,4 @@
-package org.flow.boot.modeler.controller;
+package org.flow.boot.modeler.controller.flowable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +24,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 人员信息
+ * 
+ * @author songyz<br>
+ *         CreateTime: 2018-09-30 14:24
+ */
 @RestController
 @RequestMapping("/app")
 public class MyRemoteAccountResource {

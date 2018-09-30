@@ -1457,6 +1457,45 @@
 			]
 		},
 		{
+			"name": "steptippackage",
+			"properties": [
+				{
+					"id": "steptip",
+					"type": "String",
+					"title": "步骤提示",
+					"value": "",
+					"description": "指向一个提示步骤页面",
+					"popular": true
+				}
+			]
+		},
+		{
+			"name": "stepiconpackage",
+			"properties": [
+				{
+					"id": "stepicon",
+					"type": "String",
+					"title": "步骤图标",
+					"value": "",
+					"description": "步骤的一个图标",
+					"popular": true
+				}
+			]
+		},
+		{
+			"name": "stepiconpathpackage",
+			"properties": [
+				{
+					"id": "stepiconpath",
+					"type": "String",
+					"title": "步骤图标路径",
+					"value": "",
+					"description": "步骤图标的路径",
+					"popular": true
+				}
+			]
+		},
+		{
 			"name": "terminateAllpackage",
 			"properties": [
 				{
@@ -1724,7 +1763,9 @@
 				"namepackage",
 				"usertaskassignmentpackage",
 				"formreferencepackage",
-				"formpropertiespackage"
+				"steptippackage",
+				"stepiconpackage",
+				"stepiconpathpackage"
 			],
 			"hiddenPropertyPackages": [
 				"tasklistenerspackage",
@@ -1732,6 +1773,7 @@
 				"duedatedefinitionpackage",
 				"prioritydefinitionpackage",
 				"formkeydefinitionpackage",
+				"formpropertiespackage",
 				"isforcompensationpackage",
 				"multiinstance_cardinalitypackage",
 				"multiinstance_collectionpackage",

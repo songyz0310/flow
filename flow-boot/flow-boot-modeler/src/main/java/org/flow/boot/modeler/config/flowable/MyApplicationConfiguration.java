@@ -1,5 +1,5 @@
 /* Licensed under the Apache License, Version 2.0 (the "License");*/
-package org.flow.boot.modeler.config;
+package org.flow.boot.modeler.config.flowable;
 
 import org.flowable.ui.modeler.conf.ApplicationConfiguration;
 import org.flowable.ui.modeler.conf.SecurityConfiguration;

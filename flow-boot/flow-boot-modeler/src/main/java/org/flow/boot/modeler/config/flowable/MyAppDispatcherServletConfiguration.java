@@ -10,9 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.flow.boot.modeler.config;
+package org.flow.boot.modeler.config.flowable;
 
 import org.flowable.ui.common.rest.idm.remote.RemoteAccountResource;
+import org.flowable.ui.modeler.rest.app.ModelBpmnResource;
 import org.flowable.ui.modeler.rest.app.StencilSetResource;
 import org.flowable.ui.modeler.servlet.AppDispatcherServletConfiguration;
 import org.slf4j.Logger;
@@ -36,6 +37,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
         excludeFilters = { //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = RemoteAccountResource.class), //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = StencilSetResource.class), //
+                @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = ModelBpmnResource.class), //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = AppDispatcherServletConfiguration.class) //
         })
 @EnableAsync
