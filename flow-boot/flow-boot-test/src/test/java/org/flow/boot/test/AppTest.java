@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.flow.boot.common.util.GsonUtil;
+import org.flowable.bpmn.model.BpmnModel;
+import org.flowable.bpmn.model.Process;
+import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
@@ -104,6 +107,20 @@ public class AppTest {
         }
 
     }
+    
+    @Test
+    public void getUserTask() {
+//        
+        BpmnModel bpmnModel = repositoryService.getBpmnModel("test-process01:2:9aacf220-c460-11e8-b4a1-68ecc557e441");
+        Process mainProcess = bpmnModel.getMainProcess();
+        List<UserTask> userTasks = mainProcess.findFlowElementsOfType(UserTask.class);
+        for (UserTask userTask : userTasks) {
+            System.out.println("---------------------------");
+            String nameValue = userTask.getAttributeValue("http://www.1stcs.cn", "name");
+            System.out.println(nameValue);
+        }
+    }
+    
 
     // String processDefinitionId = "process:1:288e38a8-c233-11e8-8845-68ecc557e441";
     // String processInstanceId = "70099da7-c23a-11e8-911f-68ecc557e441";

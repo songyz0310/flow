@@ -1,33 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
-  <process id="test-process01" name="测试条件流程" isExecutable="true">
-    <startEvent id="startEvent1"></startEvent>
-    <userTask id="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F" name="第一步"></userTask>
-    <endEvent id="sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8"></endEvent>
-    <sequenceFlow id="sid-129F1A71-DC0E-4F3F-B29C-E510BAFC96AD" sourceRef="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F" targetRef="sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8"></sequenceFlow>
-    <sequenceFlow id="sid-4B7B4C58-536F-4EC7-A587-5ED5D87B4F61" sourceRef="startEvent1" targetRef="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${con == 'A'}]]></conditionExpression>
-    </sequenceFlow>
-  </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_test-process01">
-    <bpmndi:BPMNPlane bpmnElement="test-process01" id="BPMNPlane_test-process01">
-      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
-        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="150.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F" id="BPMNShape_sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F">
-        <omgdc:Bounds height="80.0" width="100.0" x="165.0" y="125.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8" id="BPMNShape_sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8">
-        <omgdc:Bounds height="28.0" width="28.0" x="310.0" y="151.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="sid-129F1A71-DC0E-4F3F-B29C-E510BAFC96AD" id="BPMNEdge_sid-129F1A71-DC0E-4F3F-B29C-E510BAFC96AD">
-        <omgdi:waypoint x="264.95000000000005" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="310.0" y="165.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-4B7B4C58-536F-4EC7-A587-5ED5D87B4F61" id="BPMNEdge_sid-4B7B4C58-536F-4EC7-A587-5ED5D87B4F61">
-        <omgdi:waypoint x="119.94999848995758" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="165.0" y="165.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-    </bpmndi:BPMNPlane>
-  </bpmndi:BPMNDiagram>
+<definitions
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:flowable="http://flowable.org/bpmn"
+	xmlns:i1stcs="http://www.1stcs.cn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+	typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath"
+	targetNamespace="http://www.flowable.org/processdef">
+	<process id="test-process01" name="测试条件流程" isExecutable="true">
+		<startEvent id="startEvent1"></startEvent>
+		<userTask id="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F" name="第一步" i1stcs:name="自定义步骤名称"></userTask>
+		<endEvent id="sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8"></endEvent>
+		<sequenceFlow
+			id="sid-129F1A71-DC0E-4F3F-B29C-E510BAFC96AD"
+			sourceRef="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F"
+			targetRef="sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8"></sequenceFlow>
+		<sequenceFlow
+			id="sid-4B7B4C58-536F-4EC7-A587-5ED5D87B4F61" sourceRef="startEvent1"
+			targetRef="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F">
+			<conditionExpression xsi:type="tFormalExpression"><![CDATA[${con == 'A'}]]></conditionExpression>
+		</sequenceFlow>
+	</process>
+	<bpmndi:BPMNDiagram id="BPMNDiagram_test-process01">
+		<bpmndi:BPMNPlane bpmnElement="test-process01"
+			id="BPMNPlane_test-process01">
+			<bpmndi:BPMNShape bpmnElement="startEvent1"
+				id="BPMNShape_startEvent1">
+				<omgdc:Bounds height="30.0" width="30.0" x="90.0"
+					y="150.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				bpmnElement="sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F"
+				id="BPMNShape_sid-F039C5EC-3E6A-492E-AB49-75D4EF65887F">
+				<omgdc:Bounds height="80.0" width="100.0" x="165.0"
+					y="125.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				bpmnElement="sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8"
+				id="BPMNShape_sid-1B616B30-B570-49B7-9A7A-1C754C31DCA8">
+				<omgdc:Bounds height="28.0" width="28.0" x="310.0"
+					y="151.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge
+				bpmnElement="sid-129F1A71-DC0E-4F3F-B29C-E510BAFC96AD"
+				id="BPMNEdge_sid-129F1A71-DC0E-4F3F-B29C-E510BAFC96AD">
+				<omgdi:waypoint x="264.95000000000005" y="165.0"></omgdi:waypoint>
+				<omgdi:waypoint x="310.0" y="165.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge
+				bpmnElement="sid-4B7B4C58-536F-4EC7-A587-5ED5D87B4F61"
+				id="BPMNEdge_sid-4B7B4C58-536F-4EC7-A587-5ED5D87B4F61">
+				<omgdi:waypoint x="119.94999848995758" y="165.0"></omgdi:waypoint>
+				<omgdi:waypoint x="165.0" y="165.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
 </definitions>
