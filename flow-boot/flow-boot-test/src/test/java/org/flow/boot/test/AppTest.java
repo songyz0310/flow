@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.flow.boot.common.util.GsonUtil;
-import org.flow.boot.test.cmd.CancelTaskCmd;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
-import org.flowable.engine.HistoryService;
-import org.flowable.engine.ManagementService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -25,8 +22,6 @@ import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
-import org.flowable.task.api.history.HistoricTaskInstance;
-import org.flowable.task.service.impl.HistoricTaskInstanceQueryProperty;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +38,6 @@ public class AppTest {
     private RuntimeService runtimeService;
     @Autowired
     private RepositoryService repositoryService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private ManagementService managementService;
 
     private Map<String, Object> variables = new HashMap<>();
     {
@@ -114,7 +105,6 @@ public class AppTest {
 
     @Test
     public void getUserTask() {
-//        BpmnModel bpmnModel = repositoryService.getBpmnModel("test02:2:5865dd30-c492-11e8-b29a-68ecc557e441");
         BpmnModel bpmnModel = repositoryService.getBpmnModel("test02:3:2a133afa-c493-11e8-95fb-68ecc557e441");
         Process process = bpmnModel.getMainProcess();
         List<UserTask> userTasks = process.findFlowElementsOfType(UserTask.class);
@@ -125,28 +115,6 @@ public class AppTest {
         }
     }
 
-    @Test
-    public void testCancel() {
-
-        String instanceId = processInstanceId;
-        List<HistoricTaskInstance> list = historyService.createHistoricTaskInstanceQuery()//
-                .processInstanceId(instanceId)//
-                .orderBy(HistoricTaskInstanceQueryProperty.START)// 开始时间
-                .asc()// 正序
-                .list();
-        int size = list.size();
-        if (size >= 2) {
-            String currentTaskId = list.get(size - 1).getId();
-            String targetTaskId = list.get(size - 2).getId();
-            managementService.executeCommand(new CancelTaskCmd(currentTaskId, targetTaskId));
-
-        }
-    }
-
-    // String processDefinitionId = "process:1:288e38a8-c233-11e8-8845-68ecc557e441";
-    // String processInstanceId = "70099da7-c23a-11e8-911f-68ecc557e441";
-    // String processDefinitionId = "test02:1:14430f21-c23e-11e8-951b-68ecc557e441";
-    // String processInstanceId = "48a21511-c23f-11e8-a727-68ecc557e441";
     String processDefinitionId = "test02:2:5865dd30-c492-11e8-b29a-68ecc557e441";
     String processInstanceId = "d1ba5612-c48e-11e8-98fd-68ecc557e441";
 
