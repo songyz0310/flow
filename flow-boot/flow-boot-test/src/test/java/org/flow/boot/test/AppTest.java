@@ -13,6 +13,7 @@ import org.flow.boot.common.util.GsonUtil;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
+import org.flowable.engine.FormService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -35,6 +36,8 @@ public class AppTest {
     @Autowired
     private TaskService taskService;
     @Autowired
+    private FormService formService;
+    @Autowired
     private RuntimeService runtimeService;
     @Autowired
     private RepositoryService repositoryService;
@@ -49,7 +52,8 @@ public class AppTest {
         Deployment deployment = repositoryService.createDeployment()//
                 // .addClasspathResource("process.bpmn20.xml")//
                 // .addClasspathResource("test02.bpmn20.xml")//
-                .addClasspathResource("1_test02.bpmn20.xml")//
+//                .addClasspathResource("flow2.bpmn20.xml")//
+                .addClasspathResource("测试测试.bpmn20.xml")//
                 .deploy();
 
         ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()//
@@ -82,7 +86,10 @@ public class AppTest {
             System.out.println("-------------");
             System.out.println(task.getId());
             System.out.println(task.getName());
+            System.out.println(task.getAssignee());
+            System.out.println(formService.getRenderedTaskForm(task.getId()));
         }
+        
     }
 
     @Test
@@ -115,7 +122,7 @@ public class AppTest {
         }
     }
 
-    String processDefinitionId = "test02:2:5865dd30-c492-11e8-b29a-68ecc557e441";
-    String processInstanceId = "d1ba5612-c48e-11e8-98fd-68ecc557e441";
+    String processDefinitionId = "testtest:2:6b054293-cc40-11e8-8188-68ecc557e441";
+    String processInstanceId = "823bf278-cc40-11e8-be11-68ecc557e441";
 
 }
