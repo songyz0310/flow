@@ -12,8 +12,8 @@
 		<module>flow-boot-common</module>
 		<module>flow-boot-eureka</module>
 		<module>flow-boot-modeler</module>
-		<module>flow-boot-db1</module>
-		<module>flow-boot-db2</module>
+		<module>flow-boot-test</module>
+		<module>flow-boot-elasticsearch</module>
 		<module>flow-boot-api</module>
 	</modules>
 	<properties>
@@ -21,7 +21,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		
-		<flowable.version>6.3.1</flowable.version>
+		<flowable.version>6.4.0</flowable.version>
 		<springboot.version>2.0.2.RELEASE</springboot.version>
 	</properties>
 	<parent>

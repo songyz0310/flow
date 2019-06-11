@@ -43,5 +43,8 @@ public interface FlowController {
 	// 流程快速完成
 	@PostMapping(value = "step/jumpTo")
 	public Response<?> stepJumpTo(StepJumpDTO step);
+	
+	@GetMapping(value="step/test")
+	public Response<?> stepTest();
 
 }

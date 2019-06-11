@@ -189,4 +189,9 @@ public class TicketController implements FlowController {
 		ticketService.stepJumpTo(dto);
 		return Response.okResponse("成功");
 	}
+
+    @Override
+    public Response<?> stepTest() {
+        return Response.okResponse("异常");
+    }
 }

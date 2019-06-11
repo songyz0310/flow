@@ -8,3 +8,4 @@ flow-boot/flow-boot-db1/target/
 flow-boot/flow-boot-db/target/
 *.springBeans
 flow-boot/flow-boot-modeler/target/
+flow-boot/flow-boot-test/target/

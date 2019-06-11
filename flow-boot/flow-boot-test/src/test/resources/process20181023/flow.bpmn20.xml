@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+	xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="sample-diagram"
+	targetNamespace="http://bpmn.io/schema/bpmn"
+	xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+	<bpmn2:process id="process1" name="项目"
+		isExecutable="true" camunda:versionTag="0008">
+		<bpmn2:startEvent id="StartEvent_1">
+			<bpmn2:outgoing>SequenceFlow_020nei0</bpmn2:outgoing>
+		</bpmn2:startEvent>
+		<bpmn2:userTask id="UserTask_1exv5t1" name="步骤一">
+			<bpmn2:incoming>SequenceFlow_020nei0</bpmn2:incoming>
+			<bpmn2:outgoing>SequenceFlow_0mzo1j5</bpmn2:outgoing>
+		</bpmn2:userTask>
+		<bpmn2:sequenceFlow id="SequenceFlow_020nei0"
+			sourceRef="StartEvent_1" targetRef="UserTask_1exv5t1" />
+		<bpmn2:userTask id="UserTask_19kyqdg" name="步骤二"
+			camunda:assignee="assi-songyz" camunda:candidateUsers="user-songyz"
+			camunda:candidateGroups="group-songyz">
+			<bpmn2:incoming>SequenceFlow_0mzo1j5</bpmn2:incoming>
+			<bpmn2:outgoing>SequenceFlow_02t1dc3</bpmn2:outgoing>
+		</bpmn2:userTask>
+		<bpmn2:sequenceFlow id="SequenceFlow_0mzo1j5"
+			sourceRef="UserTask_1exv5t1" targetRef="UserTask_19kyqdg" />
+		<bpmn2:endEvent id="EndEvent_0j9nlgf">
+			<bpmn2:incoming>SequenceFlow_02t1dc3</bpmn2:incoming>
+		</bpmn2:endEvent>
+		<bpmn2:sequenceFlow id="SequenceFlow_02t1dc3"
+			sourceRef="UserTask_19kyqdg" targetRef="EndEvent_0j9nlgf" />
+	</bpmn2:process>
+	<bpmndi:BPMNDiagram id="BPMNDiagram_1">
+		<bpmndi:BPMNPlane id="BPMNPlane_1"
+			bpmnElement="process1">
+			<bpmndi:BPMNShape id="_BPMNShape_StartEvent_2"
+				bpmnElement="StartEvent_1">
+				<dc:Bounds x="412" y="240" width="36" height="36" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape id="UserTask_1exv5t1_di"
+				bpmnElement="UserTask_1exv5t1">
+				<dc:Bounds x="498" y="218" width="100" height="80" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="SequenceFlow_020nei0_di"
+				bpmnElement="SequenceFlow_020nei0">
+				<di:waypoint x="448" y="258" />
+				<di:waypoint x="498" y="258" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="UserTask_19kyqdg_di"
+				bpmnElement="UserTask_19kyqdg">
+				<dc:Bounds x="648" y="218" width="100" height="80" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="SequenceFlow_0mzo1j5_di"
+				bpmnElement="SequenceFlow_0mzo1j5">
+				<di:waypoint x="598" y="258" />
+				<di:waypoint x="648" y="258" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="EndEvent_0j9nlgf_di"
+				bpmnElement="EndEvent_0j9nlgf">
+				<dc:Bounds x="798" y="240" width="36" height="36" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="SequenceFlow_02t1dc3_di"
+				bpmnElement="SequenceFlow_02t1dc3">
+				<di:waypoint x="748" y="258" />
+				<di:waypoint x="798" y="258" />
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+</bpmn2:definitions>

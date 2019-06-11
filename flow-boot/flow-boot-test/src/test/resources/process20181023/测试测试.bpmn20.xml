@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:flowable="http://flowable.org/bpmn" xmlns:i1stcs="http://www.1stcs.cn" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="dzxjhDr7hN" name="11111117" isExecutable="true" flowable:versionTag="11111117">
+    <bpmn2:startEvent id="StartEvent_1">
+      <bpmn2:outgoing>SequenceFlow_0rx2dwj</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="UserTask_1w3o0nd" name="11111117" flowable:candidateUsers="工程师  " flowable:candidateGroups="经理  " i1stcs:steptip="11111117">
+      <bpmn2:incoming>SequenceFlow_0rx2dwj</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_11cijx2</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0rx2dwj" sourceRef="StartEvent_1" targetRef="UserTask_1w3o0nd" />
+    <bpmn2:endEvent id="EndEvent_1vzhifb">
+      <bpmn2:incoming>SequenceFlow_11cijx2</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_11cijx2" sourceRef="UserTask_1w3o0nd" targetRef="EndEvent_1vzhifb" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="dzxjhDr7hN">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="412" y="240" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1w3o0nd_di" bpmnElement="UserTask_1w3o0nd">
+        <dc:Bounds x="498" y="218" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0rx2dwj_di" bpmnElement="SequenceFlow_0rx2dwj">
+        <di:waypoint x="448" y="258" />
+        <di:waypoint x="498" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1vzhifb_di" bpmnElement="EndEvent_1vzhifb">
+        <dc:Bounds x="648" y="240" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_11cijx2_di" bpmnElement="SequenceFlow_11cijx2">
+        <di:waypoint x="598" y="258" />
+        <di:waypoint x="648" y="258" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
