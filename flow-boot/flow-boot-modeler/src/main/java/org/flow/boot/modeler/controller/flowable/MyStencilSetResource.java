@@ -28,8 +28,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author songyz<br>
  *         CreateTime: 2018-09-21 18:14
  */
-@RestController
-@RequestMapping("/app")
+//@RestController
+//@RequestMapping("/app")
 public class MyStencilSetResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MyStencilSetResource.class);
@@ -64,7 +64,7 @@ public class MyStencilSetResource {
         JsonNode jsonNode = cache.get(key);
         if (Objects.isNull(jsonNode)) {
             InputStream inputStream = classLoader.getResourceAsStream(key);
-            if (Objects.isNull(inputStream))
+//            if (Objects.isNull(inputStream))
                 inputStream = classLoader.getResourceAsStream("stencilset" + P + DEFAULT_LANGUAGE + P + jsonName);
 
             try {

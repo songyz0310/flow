@@ -125,6 +125,14 @@ public class SysTicket {
         this.concatPerson = concatPerson;
     }
 
+    public TicketType getType() {
+        return type;
+    }
+
+    public void setType(TicketType type) {
+        this.type = type;
+    }
+
     public String getConcatPhone() {
         return concatPhone;
     }
@@ -147,14 +155,6 @@ public class SysTicket {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public TicketType getType() {
-        return type;
-    }
-
-    public void setType(TicketType type) {
-        this.type = type;
     }
 
 }

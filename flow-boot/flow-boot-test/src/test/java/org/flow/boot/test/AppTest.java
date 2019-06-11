@@ -1,26 +1,14 @@
 package org.flow.boot.test;
 
-import static org.flow.boot.test.common.MyStencilConstants.NAMESPACE;
-import static org.flow.boot.test.common.MyStencilConstants.STEP_ICON;
-import static org.flow.boot.test.common.MyStencilConstants.STEP_ICON_PATH;
-import static org.flow.boot.test.common.MyStencilConstants.STEP_TIP;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.flow.boot.common.util.GsonUtil;
-import org.flowable.bpmn.model.BpmnModel;
-import org.flowable.bpmn.model.Process;
-import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.FormService;
-import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.flowable.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
-import org.flowable.engine.repository.Deployment;
-import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
 import org.junit.Test;
@@ -39,35 +27,24 @@ public class AppTest {
     private FormService formService;
     @Autowired
     private RuntimeService runtimeService;
-    @Autowired
-    private RepositoryService repositoryService;
 
+    private String processDefinitionId = "test-process01:3:dd8d9e4c-3fef-11e9-92be-68ecc557e441";
+    private String processInstanceId = "416a7f9e-3ff0-11e9-af58-68ecc557e441";
+    
     private Map<String, Object> variables = new HashMap<>();
     {
-        variables.put("con", "AA");
+        variables.put("con", "C");
     }
 
     @Test
-    public void deploy() {
-        Deployment deployment = repositoryService.createDeployment()//
-                // .addClasspathResource("process.bpmn20.xml")//
-                // .addClasspathResource("test02.bpmn20.xml")//
-//                .addClasspathResource("flow2.bpmn20.xml")//
-                .addClasspathResource("测试测试.bpmn20.xml")//
-                .deploy();
-
-        ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()//
-                .deploymentId(deployment.getId())//
-                .singleResult();
-
-        System.out.println(GsonUtil.toJson((ProcessDefinitionEntityImpl) pd));
-    }
-
-    @Test
-    public void queryProcess() {
-        List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
-        for (ProcessDefinition processDefinition : list) {
-            System.out.println(GsonUtil.toJson((ProcessDefinitionEntityImpl) processDefinition));
+    public void startInstance() {
+        try {
+            ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinitionId, variables);
+            System.out.println(processInstance.getId());
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
@@ -89,13 +66,7 @@ public class AppTest {
             System.out.println(task.getAssignee());
             System.out.println(formService.getRenderedTaskForm(task.getId()));
         }
-        
-    }
 
-    @Test
-    public void startInstance() {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinitionId, variables);
-        System.out.println(processInstance.getId());
     }
 
     @Test
@@ -110,19 +81,6 @@ public class AppTest {
 
     }
 
-    @Test
-    public void getUserTask() {
-        BpmnModel bpmnModel = repositoryService.getBpmnModel("test02:3:2a133afa-c493-11e8-95fb-68ecc557e441");
-        Process process = bpmnModel.getMainProcess();
-        List<UserTask> userTasks = process.findFlowElementsOfType(UserTask.class);
-        for (UserTask userTask : userTasks) {
-            System.out.println(userTask.getAttributeValue(NAMESPACE, STEP_TIP));
-            System.out.println(userTask.getAttributeValue(NAMESPACE, STEP_ICON));
-            System.out.println(userTask.getAttributeValue(NAMESPACE, STEP_ICON_PATH));
-        }
-    }
-
-    String processDefinitionId = "testtest:2:6b054293-cc40-11e8-8188-68ecc557e441";
-    String processInstanceId = "823bf278-cc40-11e8-be11-68ecc557e441";
+   
 
 }

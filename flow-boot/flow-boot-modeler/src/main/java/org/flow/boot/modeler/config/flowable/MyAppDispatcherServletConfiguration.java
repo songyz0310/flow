@@ -36,7 +36,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
                 "org.flowable.ui.common.rest" }, //
         excludeFilters = { //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = RemoteAccountResource.class), //
-                @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = StencilSetResource.class), //
+//                @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = StencilSetResource.class), //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = ModelBpmnResource.class), //
                 @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = AppDispatcherServletConfiguration.class) //
         })

@@ -68,11 +68,9 @@ angular.module('flowableModeler')
                 ignoreForPaletteDefinition = ['CasePlanModel'];
                 
             } else {
-//                quickMenuDefinition = ['UserTask', 'EndNoneEvent', 'ExclusiveGateway', 
-//                                         'CatchTimerEvent', 'ThrowNoneEvent', 'TextAnnotation',
-//                                         'SequenceFlow', 'Association'];
                 quickMenuDefinition = ['UserTask', 'EndNoneEvent', 'ExclusiveGateway', 
-                                          'TextAnnotation'];
+                                         'CatchTimerEvent', 'ThrowNoneEvent', 'TextAnnotation',
+                                         'SequenceFlow', 'Association'];
                                          
                 ignoreForPaletteDefinition = ['SequenceFlow', 'MessageFlow', 'Association', 'DataAssociation', 'DataStore', 'SendTask'];
             }
@@ -95,18 +93,6 @@ angular.module('flowableModeler')
                 if (currentGroupName === 'Diagram' || currentGroupName === 'Form') {
                     continue;  // go to next item
                 }
-                
-                // TODO 配置自己需要显示的组件
-                var _is_sys = false;//是否忽略
-                var _node_id = data.stencils[stencilIndex].id;
-                if (_node_id == "StartNoneEvent" || _node_id == "UserTask" || _node_id == "ExclusiveGateway" || _node_id == "EndNoneEvent") {
-                	_is_sys = true;
-				}
-                
-                if (_is_sys == false) {
-					continue;//不是系统的，不进行显示
-				}
-                
                 
                 var removed = false;
                 if (data.stencils[stencilIndex].removed) {
@@ -442,9 +428,7 @@ angular.module('flowableModeler')
                 	// to prevent overflow in the right-menu
                 
                 	var morphButton = document.getElementById('morph-button');
-                	// TODO 屏蔽修改组件类型
-//                	morphButton.style.display = "block";
-                	morphButton.style.display = "none";
+                	morphButton.style.display = "block";
                 	morphButton.style.left = x + 24 +'px';
                 	morphButton.style.top = (shapeXY.y+bounds.height() + 2) + 'px';
               	  }

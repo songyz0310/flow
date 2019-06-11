@@ -12,20 +12,20 @@ import org.flow.boot.ticket.form.TicketForm;
 
 public interface TicketService {
 
-	List<TicketVO> ticketList();
+    List<TicketVO> ticketList();
 
-	void openTicket(TicketForm ticket);
+    void openTicket(TicketForm ticket);
 
-	String getTicketFlowPage(String ticketId);
+    String getTicketFlowPage(String ticketId);
 
-	List<StepDataVO> getTicketStepData(StepDTO dto);
+    List<StepDataVO> getTicketStepData(StepDTO dto);
 
-	void stepExecute(StepActivityDTO stepActivity);
+    void stepExecute(StepActivityDTO stepActivity);
 
-	void stepConfirm(StepPageDTO stepPage);
+    void stepConfirm(StepPageDTO stepPage);
 
-	void stepCancel(StepDTO dto);
+    void stepCancel(StepDTO dto);
 
-	void stepJumpTo(StepJumpDTO dto);
+    void stepJumpTo(StepJumpDTO dto);
 
 }

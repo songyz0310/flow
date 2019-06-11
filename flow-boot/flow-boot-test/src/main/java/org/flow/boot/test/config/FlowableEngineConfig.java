@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @author songyz
  *
  */
-@Configuration
+//@Configuration
 public class FlowableEngineConfig implements EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
 
 	@Override

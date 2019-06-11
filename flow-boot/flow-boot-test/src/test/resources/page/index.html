@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>ElementUI</title>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+
+	<div id="app">
+		<el-container>
+			<el-main>
+				<el-form label-width="100px">
+
+					<el-form-item label="客户名称">
+						<el-input v-model="form.name" suffix-icon="el-icon-edit-outline" placeholder="请输入客户名称"></el-input>
+					</el-form-item>
+					<el-form-item label="客户电话">
+						<el-input v-model="form.phone" suffix-icon="el-icon-phone-outline" placeholder="请输入客户电话"></el-input>
+					</el-form-item>
+					<el-form-item label="客户地址">
+						<el-input v-model="form.address" suffix-icon="el-icon-location-outline" placeholder="请输入客户地址"></el-input>
+					</el-form-item>
+
+
+					<el-form-item label="是否需要约件">
+						<el-switch v-model="form.part"></el-switch>
+					</el-form-item>
+
+				</el-form>
+
+			</el-main>
+			<el-footer>
+				<el-row>
+					<div class="grid-content bg-purple" style="text-align: center">
+						<el-button type="primary" style="width: 100%" @click="submitForm">立即创建</el-button>
+					</div>
+				</el-row>
+			</el-footer>
+		</el-container>
+
+	</div>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+
+	let vue = new Vue({
+		el: '#app',
+		data: function () {
+			return {
+				form: {
+
+				}
+			}
+		},
+		methods: {
+			submitForm(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						alert('submit!');
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
+			resetForm(formName) {
+				this.$refs[formName].resetFields();
+			}
+		}
+	});
+</script>
+
+</html>
