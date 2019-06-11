@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
+@SuppressWarnings("restriction")
 public class WaterSet {
     /**
      * 给图片+图片水印
@@ -171,10 +172,10 @@ public class WaterSet {
     public static File toFile(String link, File file) {
         try {
 
-            if (file.exists()==false) {
+            if (file.exists() == false) {
                 file.createNewFile();
             }
-            
+
             URL url = new URL(link);
             URLConnection uri = url.openConnection();
             // 获取数据流
@@ -221,7 +222,8 @@ public class WaterSet {
 
         String file = "D:\\" + System.currentTimeMillis() + ".jpg";
 
-        pressText("file:D:\\test.jpg", "宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠", file, "黑体", Font.BOLD + Font.ITALIC, 30, "right-bottom", Color.GRAY);
+        pressText("file:D:\\test.jpg", "宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠宋印赠", file, "黑体",
+                Font.BOLD + Font.ITALIC, 30, "right-bottom", Color.GRAY);
         // getFontWidth("黑体", Font.BOLD + Font.ITALIC, 30, "miraclesgrocery");
         // System.out.println(Color.RED);
         // System.out.println(Color.WHITE);

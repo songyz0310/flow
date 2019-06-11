@@ -1,4 +1,4 @@
-package org.flow.boot.test.common;
+package org.flow.boot.common;
 
 public interface MyStencilConstants {
 

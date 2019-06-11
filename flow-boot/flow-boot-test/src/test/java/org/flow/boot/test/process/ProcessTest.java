@@ -3,10 +3,10 @@
  */
 package org.flow.boot.test.process;
 
-import static org.flow.boot.test.common.MyStencilConstants.NAMESPACE;
-import static org.flow.boot.test.common.MyStencilConstants.STEP_ICON;
-import static org.flow.boot.test.common.MyStencilConstants.STEP_ICON_PATH;
-import static org.flow.boot.test.common.MyStencilConstants.STEP_TIP;
+import static org.flow.boot.common.MyStencilConstants.NAMESPACE;
+import static org.flow.boot.common.MyStencilConstants.STEP_ICON;
+import static org.flow.boot.common.MyStencilConstants.STEP_ICON_PATH;
+import static org.flow.boot.common.MyStencilConstants.STEP_TIP;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,6 @@ import org.flowable.bpmn.model.ExtensionAttribute;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.RepositoryService;
-import org.flowable.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.junit.Test;
@@ -37,43 +36,39 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ProcessTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProcessTest.class);
+
     @Autowired
     private RepositoryService repositoryService;
 
-    private String processDefinitionId = "test-process01:3:dd8d9e4c-3fef-11e9-92be-68ecc557e441";
-
-    private Logger logger = LoggerFactory.getLogger(ProcessTest.class);
+    private String processDefinitionId = "simpleProcess:2:70695706-8c1e-11e9-b95a-68ecc557e441";
 
     @Test
     public void deploy() {
-        logger.trace("trace:输出");
-        logger.debug("debug:输出");
-        logger.info("info:输出");
-        logger.warn("warn:输出");
-        logger.error("error:输出");
-        // try {
-        // Deployment deployment = repositoryService.createDeployment()//
-        // .addClasspathResource("process201906/并行流程.bpmn20.xml")//
-        // .name("测试").enableDuplicateFiltering()//
-        // .deploy();
-        //
-        // ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()//
-        // .deploymentId(deployment.getId())//
-        // .singleResult();
-        //
-        // System.out.println(pd.getId());
-        // System.out.println(GsonUtil.toJson((ProcessDefinitionEntityImpl) pd));
-        // }
-        // catch (Exception e) {
-        // e.printStackTrace();
-        // }
+
+        try {
+            Deployment deployment = repositoryService.createDeployment()//
+                    .addClasspathResource("process201906/并行流程3.bpmn20.xml")//
+                    .name("测试").enableDuplicateFiltering()//
+                    .deploy();
+
+            ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()//
+                    .deploymentId(deployment.getId())//
+                    .singleResult();
+
+            logger.warn("流程ID：{}", pd.getId());
+            logger.warn("流程信息：{}", GsonUtil.toJson(pd));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void queryProcess() {
         List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
         for (ProcessDefinition processDefinition : list) {
-            System.out.println(GsonUtil.toJson((ProcessDefinitionEntityImpl) processDefinition));
+            logger.info("流程信息：{}", GsonUtil.toJson(processDefinition));
         }
     }
 
@@ -85,16 +80,17 @@ public class ProcessTest {
         for (UserTask userTask : userTasks) {
 
             Map<String, List<ExtensionAttribute>> attributes = userTask.getAttributes();
-            System.out.println(userTask.getFormKey());
-            System.out.println(userTask.getCandidateUsers());
-            System.out.println(userTask.getCandidateGroups());
-            System.out.println(attributes);
-            System.out.println(userTask.getAttributeValue(NAMESPACE, STEP_TIP));
-            System.out.println(userTask.getAttributeValue(NAMESPACE, STEP_ICON));
-            System.out.println(userTask.getAttributeValue(NAMESPACE, STEP_ICON_PATH));
+            logger.info("------------------------------------------------------------");
+            logger.info("步骤任务信息：{}", userTask.getName());
+            logger.info("步骤任务信息：{}", userTask.getFormKey());
+            logger.info("步骤任务信息：{}", userTask.getCandidateUsers());
+            logger.info("步骤任务信息：{}", userTask.getCandidateGroups());
+            logger.info("步骤任务信息：{}", attributes);
+            logger.info("步骤任务信息：{}", userTask.getAttributeValue(NAMESPACE, STEP_TIP));
+            logger.info("步骤任务信息：{}", userTask.getAttributeValue(NAMESPACE, STEP_ICON));
+            logger.info("步骤任务信息：{}", userTask.getAttributeValue(NAMESPACE, STEP_ICON_PATH));
         }
 
-        // org.flowable.engine.impl.persistence.entity.DeploymentEntityImpl.selectDeploymentsByQueryCriteria
     }
 
 }
